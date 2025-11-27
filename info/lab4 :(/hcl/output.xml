@@ -1,0 +1,32 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<schedule>
+  <owner>Балакшин Павел Валерьевич</owner>
+  <date>Четверг, 22 октября 2025 года</date>
+  <week_type>Even</week_type>
+  <pair>
+    <time>
+      <start_time>17:10</start_time>
+      <end_time>18:40</end_time>
+    </time>
+    <info>
+      <group>ИНФОРМ (P3116) 1.11</group>
+      <place>ул. Ломоносова д.9, лит.Е</place>
+      <class>1260/0 (Актовый зал)</class>
+      <type>Лабораторная</type>
+      <format>Очно-дистанционный</format>
+    </info>
+  </pair>
+  <pair>
+    <time>
+      <start_time>18:50</start_time>
+      <end_time>20:20</end_time>
+    </time>
+    <info>
+      <group>ИНФОРМ (P3116) 1.11</group>
+      <place>ул. Ломоносова д.9, лит.Е</place>
+      <class>1260/0 (Актовый зал)</class>
+      <type>Лабораторная</type>
+      <format>Очно-дистанционный</format>
+    </info>
+  </pair>
+</schedule>
