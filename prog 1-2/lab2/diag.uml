@@ -1,0 +1,192 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Diagram>
+  <ID>JAVA</ID>
+  <OriginalElement>/Users/dmitrij/IdeaProjects/lab2/src</OriginalElement>
+  <nodes>
+    <node x="1026.5" y="-281.0">pokemons.leavanny</node>
+    <node x="413.5" y="-501.0">moves.AuroraBeam</node>
+    <node x="9.5" y="-501.0">moves.FlameCharge</node>
+    <node x="224.0" y="-221.0">pokemons.camerupt</node>
+    <node x="228.0" y="-501.0">moves.Amnesia</node>
+    <node x="430.5" y="-221.0">pokemons.xerneas</node>
+    <node x="122.5" y="-101.0">Main</node>
+    <node x="120.0" y="-561.0">moves.Magnitude</node>
+    <node x="37.5" y="-221.0">pokemons.numel</node>
+    <node x="624.0" y="-281.0">pokemons.sewaddle</node>
+    <node x="712.0" y="-561.0">moves.DoubleTeam</node>
+    <node x="910.5" y="-561.0">moves.GrassWhistle</node>
+    <node x="1022.0" y="-501.0">moves.RazorLeaf</node>
+    <node x="820.0" y="-501.0">moves.EnergyBall</node>
+    <node x="622.0" y="-501.0">moves.Megahorn</node>
+    <node x="824.0" y="-221.0">pokemons.swadloon</node>
+    <node x="319.0" y="-561.0">moves.RockPolish</node>
+    <node x="518.5" y="-561.0">moves.FocusBlast</node>
+  </nodes>
+  <notes />
+  <edges>
+    <edge source="Main" target="pokemons.swadloon" relationship="CREATE">
+      <point x="0.0" y="-14.0" />
+      <point x="166.0" y="-127.0" />
+      <point x="806.0" y="-127.0" />
+      <point x="806.0" y="-247.0" />
+      <point x="886.0" y="-247.0" />
+      <point x="0.0" y="-14.0" />
+    </edge>
+    <edge source="Main" target="pokemons.numel" relationship="CREATE">
+      <point x="0.0" y="-14.0" />
+      <point x="166.0" y="-247.0" />
+      <point x="86.0" y="-247.0" />
+      <point x="0.0" y="-14.0" />
+    </edge>
+    <edge source="Main" target="pokemons.sewaddle" relationship="CREATE">
+      <point x="0.0" y="-14.0" />
+      <point x="166.0" y="-127.0" />
+      <point x="766.0" y="-127.0" />
+      <point x="766.0" y="-307.0" />
+      <point x="686.0" y="-307.0" />
+      <point x="0.0" y="-14.0" />
+    </edge>
+    <edge source="pokemons.camerupt" target="moves.RockPolish" relationship="CREATE">
+      <point x="0.0" y="-14.0" />
+      <point x="286.0" y="-287.0" />
+      <point x="386.0" y="-287.0" />
+      <point x="0.0" y="14.0" />
+    </edge>
+    <edge source="pokemons.leavanny" target="moves.EnergyBall" relationship="CREATE">
+      <point x="0.0" y="-14.0" />
+      <point x="1086.0" y="-427.0" />
+      <point x="886.0" y="-427.0" />
+      <point x="0.0" y="14.0" />
+    </edge>
+    <edge source="pokemons.numel" target="moves.Magnitude" relationship="CREATE">
+      <point x="0.0" y="-14.0" />
+      <point x="86.0" y="-327.0" />
+      <point x="186.0" y="-327.0" />
+      <point x="0.0" y="14.0" />
+    </edge>
+    <edge source="pokemons.swadloon" target="moves.GrassWhistle" relationship="CREATE">
+      <point x="0.0" y="-14.0" />
+      <point x="886.0" y="-267.0" />
+      <point x="986.0" y="-267.0" />
+      <point x="0.0" y="14.0" />
+    </edge>
+    <edge source="Main" target="pokemons.camerupt" relationship="CREATE">
+      <point x="0.0" y="-14.0" />
+      <point x="166.0" y="-127.0" />
+      <point x="206.0" y="-127.0" />
+      <point x="206.0" y="-247.0" />
+      <point x="286.0" y="-247.0" />
+      <point x="0.0" y="-14.0" />
+    </edge>
+    <edge source="pokemons.leavanny" target="moves.DoubleTeam" relationship="CREATE">
+      <point x="0.0" y="-14.0" />
+      <point x="1086.0" y="-407.0" />
+      <point x="786.0" y="-407.0" />
+      <point x="0.0" y="14.0" />
+    </edge>
+    <edge source="pokemons.xerneas" target="moves.DoubleTeam" relationship="CREATE">
+      <point x="0.0" y="-14.0" />
+      <point x="486.0" y="-387.0" />
+      <point x="786.0" y="-387.0" />
+      <point x="0.0" y="14.0" />
+    </edge>
+    <edge source="pokemons.camerupt" target="moves.Magnitude" relationship="CREATE">
+      <point x="0.0" y="-14.0" />
+      <point x="286.0" y="-267.0" />
+      <point x="186.0" y="-267.0" />
+      <point x="0.0" y="14.0" />
+    </edge>
+    <edge source="Main" target="pokemons.leavanny" relationship="CREATE">
+      <point x="0.0" y="-14.0" />
+      <point x="166.0" y="-127.0" />
+      <point x="1166.0" y="-127.0" />
+      <point x="1166.0" y="-307.0" />
+      <point x="1086.0" y="-307.0" />
+      <point x="0.0" y="-14.0" />
+    </edge>
+    <edge source="pokemons.xerneas" target="moves.AuroraBeam" relationship="CREATE">
+      <point x="0.0" y="-14.0" />
+      <point x="0.0" y="14.0" />
+    </edge>
+    <edge source="pokemons.numel" target="moves.FlameCharge" relationship="CREATE">
+      <point x="0.0" y="-14.0" />
+      <point x="0.0" y="14.0" />
+    </edge>
+    <edge source="pokemons.sewaddle" target="moves.DoubleTeam" relationship="CREATE">
+      <point x="0.0" y="-14.0" />
+      <point x="686.0" y="-327.0" />
+      <point x="786.0" y="-327.0" />
+      <point x="0.0" y="14.0" />
+    </edge>
+    <edge source="pokemons.camerupt" target="moves.Amnesia" relationship="CREATE">
+      <point x="0.0" y="-14.0" />
+      <point x="0.0" y="14.0" />
+    </edge>
+    <edge source="pokemons.sewaddle" target="moves.EnergyBall" relationship="CREATE">
+      <point x="0.0" y="-14.0" />
+      <point x="686.0" y="-327.0" />
+      <point x="786.0" y="-327.0" />
+      <point x="786.0" y="-347.0" />
+      <point x="886.0" y="-347.0" />
+      <point x="0.0" y="14.0" />
+    </edge>
+    <edge source="Main" target="pokemons.xerneas" relationship="CREATE">
+      <point x="0.0" y="-14.0" />
+      <point x="166.0" y="-127.0" />
+      <point x="366.0" y="-127.0" />
+      <point x="366.0" y="-247.0" />
+      <point x="486.0" y="-247.0" />
+      <point x="0.0" y="-14.0" />
+    </edge>
+    <edge source="pokemons.leavanny" target="moves.GrassWhistle" relationship="CREATE">
+      <point x="0.0" y="-14.0" />
+      <point x="1086.0" y="-447.0" />
+      <point x="986.0" y="-447.0" />
+      <point x="0.0" y="14.0" />
+    </edge>
+    <edge source="pokemons.camerupt" target="moves.FlameCharge" relationship="CREATE">
+      <point x="0.0" y="-14.0" />
+      <point x="286.0" y="-347.0" />
+      <point x="86.0" y="-347.0" />
+      <point x="0.0" y="14.0" />
+    </edge>
+    <edge source="pokemons.swadloon" target="moves.EnergyBall" relationship="CREATE">
+      <point x="0.0" y="-14.0" />
+      <point x="0.0" y="14.0" />
+    </edge>
+    <edge source="pokemons.xerneas" target="moves.FocusBlast" relationship="CREATE">
+      <point x="0.0" y="-14.0" />
+      <point x="486.0" y="-407.0" />
+      <point x="586.0" y="-407.0" />
+      <point x="0.0" y="14.0" />
+    </edge>
+    <edge source="pokemons.swadloon" target="moves.DoubleTeam" relationship="CREATE">
+      <point x="0.0" y="-14.0" />
+      <point x="886.0" y="-367.0" />
+      <point x="786.0" y="-367.0" />
+      <point x="0.0" y="14.0" />
+    </edge>
+    <edge source="pokemons.xerneas" target="moves.Megahorn" relationship="CREATE">
+      <point x="0.0" y="-14.0" />
+      <point x="486.0" y="-407.0" />
+      <point x="686.0" y="-407.0" />
+      <point x="0.0" y="14.0" />
+    </edge>
+    <edge source="pokemons.numel" target="moves.Amnesia" relationship="CREATE">
+      <point x="0.0" y="-14.0" />
+      <point x="86.0" y="-307.0" />
+      <point x="286.0" y="-307.0" />
+      <point x="0.0" y="14.0" />
+    </edge>
+    <edge source="pokemons.leavanny" target="moves.RazorLeaf" relationship="CREATE">
+      <point x="0.0" y="-14.0" />
+      <point x="0.0" y="14.0" />
+    </edge>
+  </edges>
+  <settings layout="Hierarchic Compact" zoom="0.9405267629566695" showDependencies="true" x="597.5" y="-307.0" />
+  <SelectedNodes />
+  <Categories />
+  <SCOPE>All</SCOPE>
+  <VISIBILITY>public</VISIBILITY>
+</Diagram>
+
