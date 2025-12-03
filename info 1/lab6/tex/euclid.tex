@@ -1,0 +1,235 @@
+\documentclass[14pt]{extarticle}
+\usepackage{tikz}
+\usepackage[top=1cm,bottom=2cm,left=1.5cm,right=1.5cm]{geometry}
+\usepackage[russian]{babel}
+\usepackage{amsmath}
+\usepackage{amssymb}
+
+\begin{document}
+
+\begin{minipage}[t][][]{0.47\linewidth}
+\textit{По одну сторону одной и той же прямой}
+\begin{tikzpicture}
+  \coordinate (A) at (0,0);
+  \coordinate (B) at (1,0);
+  \draw[color=blue20!][line width=4pt] (A) -- (B) ;
+  \node[above left] at (A) {\small A};
+  \node[above right] at (B) {\small B};
+\end{tikzpicture}
+\textit{нельзя построить два разных треугольника с равными друг другу смежными сторонами}
+\begin{tikzpicture}
+  \coordinate (C) at (0,0);
+  \coordinate (A) at (1,0);
+  \draw[color=red][line width=4pt] (C) -- (A) ;
+  \node[above left] at (C) {\small C};
+  \node[above right] at (A) {\small A};
+\end{tikzpicture}
+=
+\begin{tikzpicture}
+  \coordinate (D) at (0,0);
+  \coordinate (A) at (1,0);
+  \draw[color=red][line width=4pt] (D) -- (A) ;
+  \node[above left] at (D) {\small D};
+  \node[above right] at (A) {\small A};
+\end{tikzpicture}
+\textit{и}
+\begin{tikzpicture}
+  \coordinate (B) at (0,0);
+  \coordinate (C) at (1,0);
+  \draw[color=blue!20][line width=4pt] (B) -- (C) ;
+  \node[above left] at (B) {\small B};
+  \node[above right] at (C) {\small C};
+\end{tikzpicture}
+=
+\begin{tikzpicture}
+  \coordinate (B) at (0,0);
+  \coordinate (D) at (1,0);
+  \draw[color=blue!20][line width=4pt] (B) -- (D) ;
+  \node[above left] at (B) {\small B};
+  \node[above right] at (D) {\small D};
+\end{tikzpicture}
+\vspace{0.5em}.
+
+\hspace{2em}Если два треугольника построены на одном основании и по одну сторону от него, то вершина одного может находиться вовне другого, внутри или на одной из его сторон.\vspace{0.5em}
+
+\hspace{2em}Если такое возможно, то постоим два треугольника таких, что \
+\usetikzlibrary{decorations.pathreplacing}
+\begin{tikzpicture}
+  \draw[decorate, decoration={brace, amplitude=10pt}] (-0.5,-0.5) -- (-0.5,1.85);
+  \coordinate (B) at (0,0);
+  \coordinate (C) at (1,0);
+  \draw[color=blue!20][line width=4pt] (B) -- (C) ;
+  \node[above left] at (B) {\small B};
+  \node[above right] at (C) {\small C};
+
+  \coordinate (C) at (0,1);
+  \coordinate (A) at (1,1);
+  \draw[color=red][line width=4pt] (C) -- (A) ;
+  \node[above left] at (C) {\small C};
+  \node[above right] at (A) {\small A};
+
+   \draw (1.7,1) -- (2.3,1)
+    \draw (1.7,1.1) -- (2.3,1.1)
+
+  \draw (1.7,0) -- (2.3,0)
+    \draw (1.7,-0.1) -- (2.3,-0.1)
+  
+  \draw[decorate, decoration={brace, amplitude=10pt}] (4.5,1.85)--(4.5,-0.5) ;
+  \coordinate (B) at (3,0);
+  \coordinate (D) at (4,0);
+  \draw[color=blue!20][line width=4pt] (B) -- (D) ;
+  \node[above left] at (B) {\small B};
+  \node[above right] at (D) {\small D};
+
+  \coordinate (D) at (3,1);
+  \coordinate (A) at (4,1);
+  \draw[color=red][line width=4pt] (D) -- (A) ;
+  \node[above left] at (D) {\small D};
+  \node[above right] at (A) {\small A};
+\end{tikzpicture}
+, затем проведем
+\begin{tikzpicture}
+  \coordinate (C) at (0,0);
+  \coordinate (D) at (1,0);
+  \draw[color=blue20!][line width=4pt][dotted] (C) -- (D) ;
+  \node[above left] at (C) {\small C};
+  \node[above right] at (D) {\small D};
+\end{tikzpicture}
+, тогда \\
+
+\begin{tikzpicture}
+  \coordinate (O) at (3,0);
+  \fill[black] (O) -- (4,0) arc (0:-90:1);
+  \fill[red] (O) -- (4,0) arc (0:-45:1);
+\node[left] at (3,-1) {\small A}
+\node[above] at (O) {\small C}
+\node[right] at (4,0) {\small D}
+
+\draw (4.7,-0.4) -- (5.3,-0.4)
+\draw (4.7,-0.5) -- (5.3,-0.5)
+
+\coordinate (O) at (7,0);
+  \fill[blue] (O) -- (6,0) arc (180:225:1);
+\node[left] at (6,0) {\small C}
+\node[above] at (O) {\small D}
+\node[below] at (6.5,-0.5) {\small A}
+\end{tikzpicture}
+(пр. I._5)\\
+$\therefore$ 
+\begin{tikzpicture}
+  \coordinate (O) at (3,0);
+  \fill[red] (O) -- (4,0) arc (0:-45:1);
+\node[below] at (3.5,-0.5) {\small B}
+\node[above] at (O) {\small C}
+\node[right] at (4,0) {\small D}
+
+\draw[ultra thick] (4.7,-0.5) -- (5.3,-0.4)
+\draw[ultra thick] (4.7,-0.5) -- (5.3,-0.6)
+\coordinate (O) at (7,0);
+  \fill[blue] (O) -- (6,0) arc (180:225:1);
+\node[left] at (6,0) {\small C}
+\node[right] at (O) {\small D}
+\node[below] at (6.5,-0.5) {\small A}
+\end{tikzpicture}
+и \\
+\begin{tikzpicture}
+  \coordinate (O) at (3,0);
+  \fill[red] (O) -- (4,0) arc (0:-45:1);
+\node[below] at (3.5,-0.5) {\small B}
+\node[above] at (O) {\small C}
+\node[right] at (4,0) {\small D}
+
+\draw[ultra thick] (4.7,-0.5) -- (5.3,-0.4)
+\draw[ultra thick] (4.7,-0.5) -- (5.3,-0.6)
+\coordinate (O) at (7,0);
+  \fill[yellow] (O) -- (6,0) arc (180:270:1);
+  \fill[blue] (O) -- (6,0) arc (180:225:1);
+\node[left] at (6,0) {\small C}
+\node[right] at (O) {\small D}
+\node[right] at (7,-1) {\small B}
+\node[] at (2,-0.67) {$\therefore$}
+\coordinate (O) at (3,-2);
+  \fill[red] (O) -- (4,-2) arc (0:-45:1);
+\node[below] at (3.5,-2.5) {\small B}
+\node[above] at (O) {\small C}
+\node[right] at (4,-2) {\small D}
+
+\draw[ultra thick] (4.7,-2.3) -- (5.3,-2.3)
+\draw[ultra thick] (4.7,-2.5) -- (5.3,-2.5)
+\coordinate (O) at (7,-2);
+  \fill[yellow] (O) -- (6,-2) arc (180:270:1);
+  \fill[blue] (O) -- (6,-2) arc (180:225:1);
+\node[] at (2,-2.5) {но (пр.I.$_5$)}
+\node[left] at (6,-2) {\small C}
+\node[right] at (O) {\small D}
+\node[right] at (7,-3) {\small B}
+
+  \draw[decorate, decoration={brace, amplitude=10pt}] (8,0.5)--(8,-3.5) ;
+\node[] at (10.2,-1.5) {что невозможно,}
+\end{tikzpicture}
+\\ следовательно, смежные стороны таких двух треугольников не могут быть равны.
+
+\begin{flushright}
+ч.т.д.
+\end{flushright}
+
+\end{minipage}
+\begin{minipage}[t][][]{0.5\linewidth}
+\vspace{2em}
+\hspace{4em}
+\begin{tikzpicture}
+  
+    \coordinate (O) at (0,0);
+    \coordinate (C) at (1,-1);
+    \coordinate (D) at (3,-1);
+    \coordinate (A) at (-1,-6);
+    \coordinate (B) at (5,-6);
+    \coordinate (D1) at (2,-11);
+    \coordinate (C1) at (2,-13);
+
+    \fill[black] (C) -- (2,-1) arc (-2:-110:1);
+    \fill[red] (C) -- (2,-1) arc (-2:-50:1);
+
+    \fill[yellow] (D) -- (2,-1) arc (180:300:1);
+  \fill[blue] (D) -- (2,-1) arc (180:230:1);
+
+    \fill[yellow] (D1) -- (3,-11) arc (0:-90:1); \fill[yellow] (D1) -- (3,-11) arc (0:60:1);
+    \fill[blue] (D1) -- (2,-12) arc (270:315:1);
+
+    \fill[red] (C1) -- (3,-13) arc (0:90:1);
+    \fill[black] (C1) -- (3,-13) arc (0:-60:1);
+    \fill[black] (C1) -- (3,-13) arc (0:70:1);
+    
+    
+    \fill (C) circle (2pt);
+    \fill (D) circle (2pt);
+    \fill (A) circle (2pt);
+    \fill (B) circle (2pt);
+    \fill (C1) circle (2pt);
+    \fill (D1) circle (2pt);
+
+    \draw[color=red][line width=3pt] (A) -- (C) ;
+    \draw[color=red][line width=3pt] (A) -- (D) ;
+    \draw[color=red][line width=3pt] (A) -- (D1) ;
+    \draw[color=red][line width=3pt] (A) -- (C1) ;
+
+    \draw[color=blue][line width=3pt] (B) -- (C) ;
+    \draw[color=blue][line width=3pt] (B) -- (D) ;
+    \draw[color=blue][line width=3pt] (B) -- (D1) ;
+    \draw[color=blue][line width=3pt] (B) -- (C1) ;
+
+    \draw[][line width=3pt] (A) -- (B);
+    \draw[][line width=3pt][dotted] (C) -- (D);  
+    \draw[][line width=3pt][dotted] (D1) -- (C1);  
+    \draw[color=red][line width=3pt][dotted] (D1) -- (2.5,-11.5)
+    \draw[color=red][line width=3pt][dotted] (C1) -- (2.5,-14)
+
+    \node[above] at (C) {\small C}
+    \node[above] at (D) {\small D}
+    \node[left] at (A) {\small A}
+    \node[right] at (B) {\small B}
+    \node[left] at (C1) {\small C1}
+    \node[left] at (D1) {\small D1}
+\end{tikzpicture}
+\end{minipage}
+\end{document}

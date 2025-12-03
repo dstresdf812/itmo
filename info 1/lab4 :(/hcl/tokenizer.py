@@ -1,4 +1,3 @@
-# SERIALIZE
 def get_tokens(text):
     tokens = []
     i = 0

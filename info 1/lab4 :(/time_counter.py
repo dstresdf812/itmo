@@ -23,7 +23,7 @@ import tomlkit
 start = perf_counter()
 for i in range(100):
     data = hisscl.load_file(file)
-    with open("output.toml", "w", encoding="utf-8") as f:
+    with open("output1.toml", "w", encoding="utf-8") as f:
         f.write(tomlkit.dumps(data))
 end = perf_counter()
 print(f"{end - start:.5f} LIBRARY HCL -> XML")
@@ -31,7 +31,7 @@ print(f"{end - start:.5f} LIBRARY HCL -> XML")
 start = perf_counter()
 for i in range(100):
     data = hisscl.load_file(file)
-    with open("output.xml", "w", encoding="utf-8") as f:
+    with open("output1.xml", "w", encoding="utf-8") as f:
         f.write(dicttoxml.dicttoxml(data).decode())
 end = perf_counter()
 print(f"{end - start:.5f} LIBRARY HCL -> XML")
