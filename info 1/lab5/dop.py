@@ -1,5 +1,3 @@
-from functools import lru_cache
-
 import pandas
 data = open("final_Version.csv").readlines()
 i = 1
@@ -15,11 +13,6 @@ for line in data:
 df = pandas.DataFrame(new_data)
 print(df)
 print(df.columns.tolist())
-
-# st = ""
-# for r in range(5,24):
-#     newstring = f"th.col{r},td.col{r}, "
-#     st+=newstring
 
 styled = df.style \
     .set_table_styles([
@@ -40,9 +33,7 @@ styled.to_html('table_with_borders.html')
 styled.to_html('final_Version.html')
 
 import pandas as pd
-import numpy as np
 
-# твой df уже создан выше
 s = ""
 for i in range(5,24):
     s += f"td.col{i},"
@@ -64,7 +55,4 @@ styled = df.style \
 
 
 
-# Сохраняем в HTML
 styled.to_html('lab5_result.html', doctype_html=True)
-
-print("ГОТОВО! Открой файл lab5_result.html в браузере — будет КРАСИВО как на скриншоте!")
