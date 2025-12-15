@@ -8,7 +8,6 @@ public class Flat {
     private final Hallway hallway;
     private final LivingRoom livingRoom;
 
-
     public Flat(boolean doorToKitchenOpened) {
         this.doorToKitchenOpened = doorToKitchenOpened;
         this.kitchen = new Kitchen(this);
@@ -65,22 +64,19 @@ public class Flat {
     }
 
     public ArrayList<FlatRoom> getNearbyRooms(FlatRoom room) {
-        ArrayList<FlatRoom> adjacent = new ArrayList<>();
-
-        if (room == null) return adjacent;
-
+        ArrayList<FlatRoom> bordering = new ArrayList<>();
         if (room == kitchen && doorToKitchenOpened) {
-            adjacent.add(hallway);
+            bordering.add(hallway);
         } else if (room == hallway) {
             if (doorToKitchenOpened) {
-                adjacent.add(kitchen);
+                bordering.add(kitchen);
             }
-            adjacent.add(livingRoom);
+            bordering.add(livingRoom);
         } else if (room == livingRoom) {
-            adjacent.add(hallway);
+            bordering.add(hallway);
         }
 
-        return adjacent;
+        return bordering;
     }
 
     public ArrayList<FlatRoom> getAllRooms() {

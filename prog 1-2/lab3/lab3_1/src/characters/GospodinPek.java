@@ -8,7 +8,6 @@ import java.util.Random;
 public class GospodinPek extends Character {
     private boolean isBusy;
     private String currentActivity;
-    private Random random;
 
     public GospodinPek(String name, FlatRoom room, Costume costume, int attentionLevel) {
         super(name, room, costume, attentionLevel);
@@ -25,18 +24,15 @@ public class GospodinPek extends Character {
                     "размышляет о жизни",
                     "смотрит в окно"
             };
-
             if (random.nextDouble() > 0.9) {
                 currentActivity = activities[random.nextInt(activities.length)];
             }
-
             System.out.println(name + " занят своими делами: " + currentActivity);
-
-            if (random.nextDouble() > 0.65) {
+            if (random.nextDouble() > 0.15) {
                 String[] comments = {
                         "\'Интересная статья...\'",
-                        "\'Кофе сегодня особенно хорош\'",
-                        "\'Погода что-то меняется\'"
+                        "\'Что же делает этот Гаврилов..\'",
+                        "\'Грустно все как-то.\'"
                 };
                 String comment = comments[random.nextInt(comments.length)];
                 makeSound(comment, 30, SoundType.WHISPER);
@@ -50,7 +46,6 @@ public class GospodinPek extends Character {
     public String getCurrentActivity() {
         return currentActivity;
     }
-
 
     @Override
     public String toString() {

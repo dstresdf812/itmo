@@ -59,6 +59,6 @@ public class Sound {
 
     @Override
     public String toString() {
-        return "Звук{" + "тип=" + type + ", громкость=" + volume + ", источник=" + getSourceName() + ", описание='" + description + '\'' + '}';
+        return "Звук {" + "тип: " + type + ", громкость: " + volume + ", источник; " + getSourceName() + ", описание:'" + description + '\'' + '}';
     }
 }

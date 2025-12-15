@@ -85,7 +85,7 @@ public class Main {
         Malish malish = new Malish("Малыш", livingRoom, malishsCostume, 95);
         GospodinPek pek = new GospodinPek("Господин Пек", kitchen, peksCostume, 20);
         FrekenBok freken = new FrekenBok("Фрекен Бок", kitchen, frekenBoksCostume, 25);
-        freken.startCooking("пельмени");
+        freken.startCooking();
 
         malish.listen();
 
@@ -143,8 +143,5 @@ public class Main {
             System.out.println("Костюм путается в ногах, мешая ходить!");
             System.out.println("Но эта маленькая бойкая девочка неумолимо приближается к кухне!");
         }
-        System.out.println(malish.toString());
-        System.out.println(freken.toString());
-        System.out.println(pek.toString());
     }
 }

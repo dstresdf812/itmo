@@ -75,6 +75,6 @@ public class Costume {
 
     @Override
     public String toString() {
-        return description + " [ограничение движения: " + restrictsMovement() + "]" + (restrictsMovement() ? " (мешает движению)" : "");
+        return description + (restrictsMovement() ? " (мешает движению)" : "");
     }
 }

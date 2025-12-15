@@ -9,11 +9,10 @@ public class FrekenBok extends Character {
     private boolean isCooking;
     private String currentDish;
 
-
     public FrekenBok(String name, FlatRoom room, Costume costume, int attentionLevel) {
         super(name, room, costume, attentionLevel);
         this.isCooking = true;
-        this.currentDish = "пельмени";
+        this.currentDish = "макароны";
         this.random = new Random();
     }
 
@@ -21,17 +20,14 @@ public class FrekenBok extends Character {
         if (isCooking) {
             this.isCooking = true;
             this.attentionLevel = Math.max(10, attentionLevel-20);
-
             String[] cookingActions = {
                     "мешает пельмени",
                     "пробует на соль",
                     "добавляет специи",
                     "проверяет духовку"
             };
-
             String action = cookingActions[random.nextInt(cookingActions.length)];
             System.out.println(name + " занята готовкой: " + action);
-
             if (random.nextDouble() > 0.5) {
                 makeSound("звон посуды", 40, SoundType.CREAK);
             }
@@ -39,14 +35,13 @@ public class FrekenBok extends Character {
     }
 
     public void clean() {
-        System.out.println(name + " прибирается в" + this.getRoom().getName() + "...");
+        System.out.println(name + " прибирается в" + this.getRoom().getName());
     }
 
-    public void startCooking(String dish) {
+    public void startCooking() {
         if (!isCooking) {
             isCooking = true;
-            currentDish = dish;
-            System.out.println(name + " начинает готовить " + dish);
+            System.out.println(name + " начинает готовить " + currentDish);
             attentionLevel = 20;
         }
     }
@@ -62,7 +57,6 @@ public class FrekenBok extends Character {
     public boolean isCooking() {
         return isCooking;
     }
-
 
     @Override
     public String toString() {

@@ -10,7 +10,7 @@ public class Malish extends Character {
     private Random random;
 
     public Malish(String name, FlatRoom room, Costume costume, int attentionLevel) {
-        super(name, room, costume, Math.max(80, attentionLevel)); // Малыш всегда внимательный
+        super(name, room, costume, Math.max(80, attentionLevel));
         this.isListeningIntently = true;
         this.random = new Random();
     }
@@ -39,7 +39,7 @@ public class Malish extends Character {
             System.out.println("На нём: " + karlson.getCostume().toString());
 
             System.out.println("Он кажется маленькой кругленькой бойкой девочкой!");
-            becomeAttented();
+            becomeScared();
         } else {
             System.out.println(name + " видит Карлсона в " + room.getName());
         }

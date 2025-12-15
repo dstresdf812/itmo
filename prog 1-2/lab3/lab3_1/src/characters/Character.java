@@ -34,9 +34,7 @@ public abstract class Character implements Moveable {
                 throw new MovementException(name + " не может нормально двигаться из-за костюма!");
             }
         }
-
         System.out.println(name + " идет из " + room.getName() + " в " + newRoom.getName());
-
         room.removeCharacter(this);
         room = newRoom;
         room.addCharacter(this);
@@ -46,19 +44,18 @@ public abstract class Character implements Moveable {
     public void moveinRoom() throws MovementException {
         if (this.costume.restrictsMovement()) {
             System.out.println(this.name + " пытается идти, но костюм мешает.");
-            makeSound("шуршание ткани и скрип", 50, SoundType.RUSTLE);
+            makeSound("шуршание и скрипы", 50, SoundType.RUSTLE);
         } else {
-            makeSound("лёгкие шаги", 40, SoundType.FOOTSTEP);
+            makeSound("шаги", 40, SoundType.FOOTSTEP);
         }
     }
 
     public void hear(Sound s) {
-        int adjustedVolume = s.getVolume();
-
+        int newVolume = s.getVolume();
         if (isAttented) {
-            adjustedVolume += 20;
+            newVolume += 20;
         }
-        if (attentionLevel >= adjustedVolume) {
+        if (attentionLevel >= newVolume) {
             System.out.println(name + " услышал: " + s.getDescription());
             notice(s.getSource());
             attentionLevel = Math.min(100, attentionLevel + 10);
@@ -70,12 +67,12 @@ public abstract class Character implements Moveable {
 
     public void notice(Character c) {
         if (c instanceof Karlson && ((Karlson) c).isHidden()) {
-            System.out.println(name + " замечает что-то подозрительное в " + room.getName() + "...");
+            System.out.println(name + "замечает что-то подозрительное в " + room.getName() + "...");
         } else if (c instanceof Karlson && ((Karlson) c).isInCostume()) {
-            System.out.println(name + " видит странную фигуру! Это " + c.getName() + "?");
-            becomeAttented();
+            System.out.println(name + "видит странную фигуру! Это " + c.getName() + "?");
+            becomeScared();
         } else {
-            System.out.println(name + " замечает " + c.getName() + " в " + room.getName());
+            System.out.println(name + "замечает " + c.getName() + " в " + room.getName());
         }
     }
 
@@ -85,12 +82,12 @@ public abstract class Character implements Moveable {
         return sound;
     }
 
-    public void becomeAttented() {
+    public void becomeScared() {
         if (!this.isAttented) {
             this.isAttented = true;
             this.attentionLevel = 100;
             System.out.println(name + " испугался");
-            makeSound("вопль ", 70, SoundType.SHOUT);
+            makeSound("визг ", 70, SoundType.SHOUT);
         }
     }
 

@@ -14,7 +14,7 @@ public class Karlson extends Character implements Hideable {
     private Random random;
 
     public Karlson(String name, FlatRoom room, Costume costume, int attentionLevel, boolean hidden) {
-        super(name, room, costume, Math.min(60, attentionLevel)); // Карлсон не очень внимательный
+        super(name, room, costume, Math.min(60, attentionLevel));
         this.hidden = hidden;
         this.inCostume = false;
         this.hidingPlace = "ящик";
@@ -101,7 +101,6 @@ public class Karlson extends Character implements Hideable {
             }
             System.out.println(name + " неумолимо приближается к кухне!");
         }
-
 
     public void gotoKitchen() {
         System.out.println(name + " приближается к кухне...");

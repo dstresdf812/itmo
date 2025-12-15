@@ -48,7 +48,6 @@ public class FlatRoom {
         return characters.isEmpty();
     }
 
-
     @Override
     public String toString() {
         return name + " [персонажей: " + characters.size();

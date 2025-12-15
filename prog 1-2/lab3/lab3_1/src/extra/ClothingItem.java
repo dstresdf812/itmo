@@ -6,7 +6,6 @@ public class ClothingItem {
     private final String name;
     private final boolean restrictsMovement;
 
-
     public ClothingItem(String name, boolean restrictsMovement) {
         this.name = name;
         this.restrictsMovement = restrictsMovement;
@@ -28,7 +27,6 @@ public class ClothingItem {
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
         ClothingItem that = (ClothingItem) o;
         return restrictsMovement == ((ClothingItem) o).restrictsMovement && name.equals(((ClothingItem) o).name);
     }
