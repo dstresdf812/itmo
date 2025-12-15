@@ -7,7 +7,6 @@ import java.util.Random;
 
 public class Malish extends Character {
     private boolean isListeningIntently;
-    private Random random;
 
     public Malish(String name, FlatRoom room, Costume costume, int attentionLevel) {
         super(name, room, costume, Math.max(80, attentionLevel));
@@ -39,7 +38,7 @@ public class Malish extends Character {
             System.out.println("На нём: " + karlson.getCostume().toString());
 
             System.out.println("Он кажется маленькой кругленькой бойкой девочкой!");
-            becomeScared();
+            becomeAttented();
         } else {
             System.out.println(name + " видит Карлсона в " + room.getName());
         }

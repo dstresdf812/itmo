@@ -70,7 +70,7 @@ public abstract class Character implements Moveable {
             System.out.println(name + "замечает что-то подозрительное в " + room.getName() + "...");
         } else if (c instanceof Karlson && ((Karlson) c).isInCostume()) {
             System.out.println(name + "видит странную фигуру! Это " + c.getName() + "?");
-            becomeScared();
+            becomeAttented();
         } else {
             System.out.println(name + "замечает " + c.getName() + " в " + room.getName());
         }
@@ -82,7 +82,7 @@ public abstract class Character implements Moveable {
         return sound;
     }
 
-    public void becomeScared() {
+    public void becomeAttented() {
         if (!this.isAttented) {
             this.isAttented = true;
             this.attentionLevel = 100;

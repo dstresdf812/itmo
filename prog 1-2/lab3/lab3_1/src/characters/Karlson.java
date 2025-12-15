@@ -11,7 +11,6 @@ public class Karlson extends Character implements Hideable {
     private boolean hidden;
     private boolean inCostume;
     private String hidingPlace;
-    private Random random;
 
     public Karlson(String name, FlatRoom room, Costume costume, int attentionLevel, boolean hidden) {
         super(name, room, costume, Math.min(60, attentionLevel));
@@ -89,7 +88,7 @@ public class Karlson extends Character implements Hideable {
 
     public void walkAround() {
         if (!hidden && inCostume) {
-            System.out.println("\n" + name + " разгуливает по " + room.getName() + " в костюме:");
+            System.out.println(name + " разгуливает по " + room.getName() + " в костюме:");
             for (int i = 0; i < 3; i++) {
                     System.out.println("Шаг " + (i + 1) + "...");
                     if (i == 0) {

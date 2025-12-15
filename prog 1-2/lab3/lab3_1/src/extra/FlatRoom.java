@@ -11,8 +11,8 @@ public class FlatRoom {
     private final ArrayList<Character> characters;
 
     public FlatRoom(String name, Flat flat) {
-        this.name = Objects.requireNonNull(name, "Название комнаты не может быть null");
-        this.flat = Objects.requireNonNull(flat, "Квартира не может быть null");
+        this.name = name;
+        this.flat = flat;
         this.characters = new ArrayList<>();
     }
 
@@ -40,10 +40,6 @@ public class FlatRoom {
         return characters.contains(c);
     }
 
-    public int getCharacterCount() {
-        return characters.size();
-    }
-
     public boolean isEmpty() {
         return characters.isEmpty();
     }
@@ -56,7 +52,6 @@ public class FlatRoom {
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
         FlatRoom flatRoom = (FlatRoom) o;
         return name.equals(flatRoom.name) && flat.equals(flatRoom.flat);
     }

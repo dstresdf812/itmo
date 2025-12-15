@@ -48,11 +48,7 @@ public class Costume {
     public ArrayList<ClothingItem> getItems() {
         return new ArrayList<>(items);
     }
-
-    public int getItemCount() {
-        return items.size();
-    }
-
+    
     public void addItem(ClothingItem item) {
         items.add(item);
     }
