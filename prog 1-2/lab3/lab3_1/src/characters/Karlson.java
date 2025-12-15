@@ -89,8 +89,8 @@ public class Karlson extends Character implements Hideable {
     public void walkAround() {
         if (!hidden && inCostume) {
             System.out.println(name + " разгуливает по " + room.getName() + " в костюме:");
-            for (int i = 0; i < 3; i++) {
-                    System.out.println("Шаг " + (i + 1) + "...");
+            for (int i = 1; i < 4; i++) {
+                    System.out.println("Шаг " + i);
                     if (i == 0) {
                         makeSound("скрип половиц", 40, SoundType.CREAK);
                     } else {
