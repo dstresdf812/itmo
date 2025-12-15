@@ -96,7 +96,7 @@ public class Main {
         System.out.println(karlson.getName() + " выбирается из укрытия...");
         karlson.reveal();
 
-        karlson.putOnCostume();
+        karlson.putOnCostume(karlsonsCostume);
 
         System.out.println(karlson.getName() + " пытается пройти в прихожую...");
         try {
@@ -114,7 +114,16 @@ public class Main {
 
         karlson.clown();
         karlson.walkAround();
-        karlson.gotoKitchen();
+        System.out.println("ASDASDASDASDASDSA");
+        try {
+            karlson.moveTo(kitchen);
+        } catch (MovementException e) {
+            System.out.println(e.getMessage());
+            System.out.println("Но Карлсон всё равно оказывается на кухне!");
+            karlson.getRoom().removeCharacter(karlson);
+            kitchen.addCharacter(karlson);
+            karlson.makeSound("громкий скрип в прихожей", 85, SoundType.CREAK);
+        }
         List<Character> kitchenCharacters = kitchen.getCharacters();
         boolean anyoneNoticed = false;
 

@@ -46,7 +46,7 @@ public class FlatRoom {
 
     @Override
     public String toString() {
-        return name + " [персонажей: " + characters.size();
+        return name + " [персонажей: " + characters.size()+"]";
     }
 
     @Override

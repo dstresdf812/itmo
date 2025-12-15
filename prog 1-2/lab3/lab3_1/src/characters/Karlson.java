@@ -1,6 +1,7 @@
 package characters;
 
 import extra.Costume;
+import extra.Flat;
 import extra.FlatRoom;
 import extra.SoundType;
 import interfaces.Hideable;
@@ -19,6 +20,34 @@ public class Karlson extends Character implements Hideable {
         this.hidingPlace = "ящик";
         this.random = new Random();
     }
+
+    @Override
+    public void moveTo(FlatRoom newRoom) throws MovementException {
+        if (newRoom instanceof Flat.Kitchen) {
+            System.out.println(name + " приближается к кухне...");
+
+            if (inCostume) {
+                System.out.println("В маскарадном костюме он кажется маленькой бойкой девочкой!");
+                System.out.println("Он неумолимо приближается к кухне!");
+            }
+
+            makeSound("громкий шорох", 50, SoundType.RUSTLE);
+        }
+        if (costume.restrictsMovement()) {
+            System.out.println(name + " пытается двигаться, но костюм мешает!");
+            makeSound("шорохи и скрипы", 40, SoundType.RUSTLE);
+            if (Math.random() > 0.5) {
+                System.out.println("Но " + name + " двигается дальше!");
+            } else {
+                throw new MovementException(name + " не может нормально двигаться из-за костюма!");
+            }
+        }
+        System.out.println(name + " идет из " + room.getName() + " в " + newRoom.getName());
+        room.removeCharacter(this);
+        room = newRoom;
+        room.addCharacter(this);
+        makeSound("шаги", 60, SoundType.FOOTSTEP);
+        }
 
     @Override
     public void hide() {
@@ -43,19 +72,18 @@ public class Karlson extends Character implements Hideable {
         return hidden;
     }
 
-    public void putOnCostume() {
+    public void putOnCostume(Costume costume) {
         if (!inCostume) {
+            this.costume = costume;
             this.inCostume = true;
-            System.out.println(name + " надевает маскарадный костюм Бетан!");
-            System.out.println("На нём длинная бархатная юбка, которая путается в ногах!");
-            System.out.println("И две тюлевые накидки: одна украшает его спереди, другая — сзади!");
-            System.out.println("Он похож на маленькую кругленькую бойкую девочку!");
+            System.out.println(costume.getDescription());
         }
     }
 
     public void takeOffCostume() {
         if (inCostume) {
             this.inCostume = false;
+            this.costume = null;
             System.out.println(name + " снимает маскарадный костюм");
             }
     }
@@ -80,9 +108,6 @@ public class Karlson extends Character implements Hideable {
 
         } else {
             System.out.println(name + " что-то замышляет с хитрой улыбкой...");
-            if (random.nextDouble() > 0.6) {
-                putOnCostume();
-            }
         }
     }
 
@@ -100,17 +125,6 @@ public class Karlson extends Character implements Hideable {
             }
             System.out.println(name + " неумолимо приближается к кухне!");
         }
-
-    public void gotoKitchen() {
-        System.out.println(name + " приближается к кухне...");
-
-        if (inCostume) {
-            System.out.println("В маскарадном костюме он кажется маленькой бойкой девочкой!");
-            System.out.println("Он неумолимо приближается к кухне!");
-        }
-
-        makeSound("громкий шорох", 50, SoundType.RUSTLE);
-    }
 
     public void setHidingPlace(String place) {
         this.hidingPlace = place;
