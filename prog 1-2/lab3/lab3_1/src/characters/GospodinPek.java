@@ -17,8 +17,7 @@ public class GospodinPek extends Character {
         this.random = new Random();
     }
 
-    @Override
-    public void doSomething() {
+    public void comment() {
         if (isBusy) {
             String[] activities = {
                     "читает газету",

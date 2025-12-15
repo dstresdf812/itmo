@@ -15,9 +15,7 @@ public class Malish extends Character {
         this.random = new Random();
     }
 
-
-    @Override
-    public void doSomething() {
+    public void listen() {
         if (isListeningIntently) {
             System.out.println(name + " слушает затаив дыхание");
             this.attentionLevel = Math.min(100, this.attentionLevel + 30);
@@ -25,16 +23,15 @@ public class Malish extends Character {
                 if (random.nextDouble() > 0.7) {
                     System.out.println(name + " на мгновение забыл про Карлсона, спрятанного в ящике");
                 } else {
-                    System.out.println(name + " едва не забыл про Карлсоае");
+                    System.out.println(name + " едва не забыл про Карлсонп");
                 }
         } else {
-            System.out.println(name + " чем-то занят");
+            System.out.println(name + " ничего необычного не слышит :(");
         }
     }
 
     public void seeKarlson(Karlson karlson) {
         if (karlson.isInCostume()) {
-            System.out.println("\n=== " + name + " видит Карлсона! ===");
             System.out.println(name + " видит Карлсона в " + room.getName() + "!");
             System.out.println("Но в то же время это не Карлсон!");
             System.out.println("Боже праведный, на кого он похож!");
@@ -44,7 +41,7 @@ public class Malish extends Character {
             System.out.println("Он кажется маленькой кругленькой бойкой девочкой!");
             becomeAttented();
         } else {
-            System.out.println(name + " видит обычного Карлсона в " + room.getName());
+            System.out.println(name + " видит Карлсона в " + room.getName());
         }
     }
 

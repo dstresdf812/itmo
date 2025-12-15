@@ -4,6 +4,7 @@ import extra.*;
 import interfaces.Moveable;
 import exceptions.MovementException;
 import java.util.Objects;
+import java.util.Random;
 
 public abstract class Character implements Moveable {
     protected final String name;
@@ -11,6 +12,7 @@ public abstract class Character implements Moveable {
     protected Costume costume;
     protected int attentionLevel;
     protected boolean isAttented;
+    protected Random random;
 
     public Character(String name, FlatRoom room, Costume costume, int attentionLevel) {
         this.name = name;
@@ -25,7 +27,7 @@ public abstract class Character implements Moveable {
     public void moveTo(FlatRoom newRoom) throws MovementException {
         if (costume.restrictsMovement()) {
             System.out.println(name + " пытается двигаться, но костюм мешает!");
-            makeSound("шорох и скрип от костюма", 40, SoundType.RUSTLE);
+            makeSound("шорохи и скрипы", 40, SoundType.RUSTLE);
             if (Math.random() > 0.5) {
                 System.out.println("Но " + name + " двигается дальше!");
             } else {
@@ -87,7 +89,7 @@ public abstract class Character implements Moveable {
         if (!this.isAttented) {
             this.isAttented = true;
             this.attentionLevel = 100;
-            System.out.println(name + " в ужасе!");
+            System.out.println(name + " испугался");
             makeSound("вопль ", 70, SoundType.SHOUT);
         }
     }
@@ -99,8 +101,6 @@ public abstract class Character implements Moveable {
             System.out.println(name + " успокаивается");
         }
     }
-
-    public abstract void doSomething();
 
     public String getName() {
         return name;

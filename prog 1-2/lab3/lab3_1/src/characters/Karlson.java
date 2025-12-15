@@ -47,7 +47,7 @@ public class Karlson extends Character implements Hideable {
     public void putOnCostume() {
         if (!inCostume) {
             this.inCostume = true;
-            System.out.println("\n" + name + " надевает маскарадный костюм Бетан!");
+            System.out.println(name + " надевает маскарадный костюм Бетан!");
             System.out.println("На нём длинная бархатная юбка, которая путается в ногах!");
             System.out.println("И две тюлевые накидки: одна украшает его спереди, другая — сзади!");
             System.out.println("Он похож на маленькую кругленькую бойкую девочку!");
@@ -65,8 +65,7 @@ public class Karlson extends Character implements Hideable {
         return inCostume;
     }
 
-    @Override
-    public void doSomething() {
+    public void clown() {
         if (hidden) {
             System.out.println(name + " тихо сидит в укрытии (" + hidingPlace + ")...");
             if (random.nextDouble() > 0.7) {
@@ -94,9 +93,9 @@ public class Karlson extends Character implements Hideable {
             for (int i = 0; i < 3; i++) {
                     System.out.println("Шаг " + (i + 1) + "...");
                     if (i == 0) {
-                        makeSound("скрип половиц", 60, SoundType.CREAK);
+                        makeSound("скрип половиц", 40, SoundType.CREAK);
                     } else {
-                        makeSound("шорох костюма", 40, SoundType.RUSTLE);
+                        makeSound("шорох костюма", 30, SoundType.RUSTLE);
                     }
                 }
             }
@@ -112,7 +111,7 @@ public class Karlson extends Character implements Hideable {
             System.out.println("Он неумолимо приближается к кухне!");
         }
 
-        makeSound("всё более громкий шорох", 50, SoundType.RUSTLE);
+        makeSound("громкий шорох", 50, SoundType.RUSTLE);
     }
 
     public void setHidingPlace(String place) {

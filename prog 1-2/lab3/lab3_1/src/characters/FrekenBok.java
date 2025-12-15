@@ -8,7 +8,7 @@ import java.util.Random;
 public class FrekenBok extends Character {
     private boolean isCooking;
     private String currentDish;
-    private Random random;
+
 
     public FrekenBok(String name, FlatRoom room, Costume costume, int attentionLevel) {
         super(name, room, costume, attentionLevel);
@@ -38,34 +38,8 @@ public class FrekenBok extends Character {
         }
     }
 
-    @Override
-    public void doSomething() {
-        if (isCooking) {
-            cook();
-
-            if (random.nextDouble() > 0.8) {
-                noticeSomething();
-            }
-        } else {
-            System.out.println(name + " прибирается на кухне");
-        }
-    }
-
-    private void noticeSomething() {
-        System.out.println(name + " на мгновение отвлекается от готовки");
-        attentionLevel = Math.min(50, attentionLevel + 20);
-        if (random.nextDouble() > 0.7) {
-            System.out.println(name + " что-то показалось...");
-            makeSound("удивленный вдох ", 50, SoundType.SHOUT);
-        }
-    }
-
-    public void stopCooking() {
-        if (isCooking) {
-            isCooking = false;
-            System.out.println(name + " прекращает готовить");
-            attentionLevel = Math.min(80, attentionLevel + 40);
-        }
+    public void clean() {
+        System.out.println(name + " прибирается в" + this.getRoom().getName() + "...");
     }
 
     public void startCooking(String dish) {
@@ -74,6 +48,14 @@ public class FrekenBok extends Character {
             currentDish = dish;
             System.out.println(name + " начинает готовить " + dish);
             attentionLevel = 20;
+        }
+    }
+
+    public void stopCooking() {
+        if (isCooking) {
+            isCooking = false;
+            System.out.println(name + " прекращает готовить");
+            attentionLevel = Math.min(80, attentionLevel + 40);
         }
     }
 

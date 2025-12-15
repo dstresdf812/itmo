@@ -9,11 +9,11 @@ import java.util.Random;
 
 public class Main {
     public static void main(String[] args) {
-        runFullScenario();
+        run();
         System.out.println(":(");
     }
 
-    private static void runFullScenario() {
+    private static void run() {
         Random random = new Random();
 
         ClothingItem longSkirt = new ClothingItem("Длинная бархатная юбка",true);
@@ -58,7 +58,7 @@ public class Main {
         malishClothingItems.add(sweater);
         ClothingState malishClothingState = new ClothingState(false);
         Costume malishsCostume = new Costume(
-                "Повседневная одежда",
+                "Домашняя одежда",
                 malishClothingItems,
                 malishClothingState
         );
@@ -85,20 +85,20 @@ public class Main {
         Malish malish = new Malish("Малыш", livingRoom, malishsCostume, 95);
         GospodinPek pek = new GospodinPek("Господин Пек", kitchen, peksCostume, 20);
         FrekenBok freken = new FrekenBok("Фрекен Бок", kitchen, frekenBoksCostume, 25);
-        freken.startCooking("жареные пельмени");
+        freken.startCooking("пельмени");
 
-        malish.doSomething();
+        malish.listen();
 
-        freken.doSomething();
-        pek.doSomething();
+        freken.clean();
+        pek.comment();
 
         flat.openDoorToKitchen();
-        System.out.println("\n" + karlson.getName() + " выбирается из укрытия...");
+        System.out.println(karlson.getName() + " выбирается из укрытия...");
         karlson.reveal();
 
         karlson.putOnCostume();
 
-        System.out.println("\n" + karlson.getName() + " пытается пройти в прихожую...");
+        System.out.println(karlson.getName() + " пытается пройти в прихожую...");
         try {
             karlson.moveTo(hallway);
         } catch (MovementException e) {
@@ -109,10 +109,10 @@ public class Main {
             karlson.makeSound("громкий скрип в прихожей", 85, SoundType.CREAK);
         }
 
-        System.out.println("\n" + malish.getName() + " смотрит в прихожую...");
+        System.out.println(malish.getName() + " смотрит в прихожую...");
         malish.seeKarlson(karlson);
 
-        karlson.doSomething();
+        karlson.clown();
         karlson.walkAround();
         karlson.gotoKitchen();
         List<Character> kitchenCharacters = kitchen.getCharacters();
@@ -130,12 +130,12 @@ public class Main {
         }
 
         if (!anyoneNoticed) {
-            System.out.println("\nНи фрекен Бок, ни господин Пек еще ничего не заметили!");
+            System.out.println("Ни фрекен Бок, ни господин Пек еще ничего не заметили!");
         }
 
         try {
             if (karlson.getRoom() == hallway && flat.isDoorToKitchenOpened()) {
-                System.out.println("\nКарлсон пытается войти на кухню...");
+                System.out.println("Карлсон пытается войти на кухню...");
                 karlson.moveTo(kitchen);
             }
         } catch (MovementException e) {
@@ -143,6 +143,8 @@ public class Main {
             System.out.println("Костюм путается в ногах, мешая ходить!");
             System.out.println("Но эта маленькая бойкая девочка неумолимо приближается к кухне!");
         }
-
+        System.out.println(malish.toString());
+        System.out.println(freken.toString());
+        System.out.println(pek.toString());
     }
 }
