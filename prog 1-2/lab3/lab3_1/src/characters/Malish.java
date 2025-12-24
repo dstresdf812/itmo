@@ -13,7 +13,10 @@ public class Malish extends Character {
         this.isListeningIntently = true;
         this.random = new Random();
     }
-
+    @Override
+    public void shout() {
+        System.out.println("Малыш: *детский крик*");
+    }
     public void listen() {
         if (isListeningIntently) {
             System.out.println(name + " слушает затаив дыхание");
@@ -34,9 +37,7 @@ public class Malish extends Character {
             System.out.println(name + " видит Карлсона в " + room.getName() + "!");
             System.out.println("Но в то же время это не Карлсон!");
             System.out.println("Боже праведный, на кого он похож!");
-
-            System.out.println("На нём: " + karlson.getCostume().toString());
-
+            System.out.println("На нём костюм который" + karlson.getCostume().getDescription());
             System.out.println("Он кажется маленькой кругленькой бойкой девочкой!");
             becomeAttented();
         } else {

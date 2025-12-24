@@ -15,7 +15,10 @@ public class GospodinPek extends Character {
         this.currentActivity = "читает газету";
         this.random = new Random();
     }
-
+    @Override
+    public void shout() {
+        System.out.println("Господин Пек: *мужской крик*");
+    }
     public void comment() {
         if (isBusy) {
             String[] activities = {

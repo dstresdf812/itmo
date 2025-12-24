@@ -114,7 +114,6 @@ public class Main {
 
         karlson.clown();
         karlson.walkAround();
-        System.out.println("ASDASDASDASDASDSA");
         try {
             karlson.moveTo(kitchen);
         } catch (MovementException e) {

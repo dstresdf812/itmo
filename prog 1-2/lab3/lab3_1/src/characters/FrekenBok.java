@@ -15,7 +15,10 @@ public class FrekenBok extends Character {
         this.currentDish = "макароны";
         this.random = new Random();
     }
-
+    @Override
+    public void shout() {
+        System.out.println("Фрекен Бок: *женский крик*");
+    }
     public void cook() {
         if (isCooking) {
             this.isCooking = true;

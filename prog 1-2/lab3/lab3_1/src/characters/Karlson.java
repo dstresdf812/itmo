@@ -20,7 +20,10 @@ public class Karlson extends Character implements Hideable {
         this.hidingPlace = "ящик";
         this.random = new Random();
     }
-
+    @Override
+    public void shout() {
+        System.out.println("Карлсон: *обычный крик*");
+    }
     @Override
     public void moveTo(FlatRoom newRoom) throws MovementException {
         if (newRoom instanceof Flat.Kitchen) {
@@ -76,7 +79,7 @@ public class Karlson extends Character implements Hideable {
         if (!inCostume) {
             this.costume = costume;
             this.inCostume = true;
-            System.out.println(costume.getDescription());
+            System.out.println(name + " надевает костюм который" + costume.getDescription());
         }
     }
 

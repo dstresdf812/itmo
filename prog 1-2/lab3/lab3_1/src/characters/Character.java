@@ -23,6 +23,8 @@ public abstract class Character implements Moveable {
         room.addCharacter(this);
     }
 
+    public abstract void shout();
+
     @Override
     public void moveTo(FlatRoom newRoom) throws MovementException {
         if (costume.restrictsMovement()) {
@@ -67,12 +69,12 @@ public abstract class Character implements Moveable {
 
     public void notice(Character c) {
         if (c instanceof Karlson && ((Karlson) c).isHidden()) {
-            System.out.println(name + "замечает что-то подозрительное в " + room.getName() + "...");
+            System.out.println(name + " замечает что-то подозрительное в " + room.getName() + "...");
         } else if (c instanceof Karlson && ((Karlson) c).isInCostume()) {
-            System.out.println(name + "видит странную фигуру! Это " + c.getName() + "?");
+            System.out.println(name + " видит странную фигуру! Это " + c.getName() + "?");
             becomeAttented();
         } else {
-            System.out.println(name + "замечает " + c.getName() + " в " + room.getName());
+            System.out.println(name + " замечает " + c.getName() + " в " + room.getName());
         }
     }
 
