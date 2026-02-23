@@ -30,10 +30,7 @@ public class FileManager {
 
     public void saveToFile(LinkedHashMap<Integer, StudyGroup> collection) {
         try {
-            System.out.println(collection.toString());
             parser.writeValue(new File("output.json"), collection);
-            File a = new File("output.json");
-            System.out.println(a.exists());
         } catch (Exception e) {
             System.out.println(e);
         }

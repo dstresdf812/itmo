@@ -8,6 +8,7 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 
 public class CollectionManager {
+    public static int id = 0;
     public LinkedHashMap<Integer, StudyGroup> collection = new LinkedHashMap<>();
     public ArrayList<Integer> used_keys = new ArrayList<>();
     public Date initDate = new Date();
@@ -21,11 +22,18 @@ public class CollectionManager {
 
     public void SetStudyGroup(ArrayList<StudyGroup> studyGroups) {
         for (StudyGroup studyGroup : studyGroups) {
-            Integer key = studyGroup.getId();
-            used_keys.add(key);
-            collection.put(key, studyGroup);
-            // System.out.println("ZZZ " + id);
+            int key = studyGroup.getId();
+            if (used_keys.contains(key)) {
+                System.out.println("ID already exists :(((");
+            } else {
+                used_keys.add(key);
+                collection.put(key, studyGroup);
+            }
         }
+    }
+
+    public int getIncId() {
+        return id++;
     }
     // COMMAND INFO
     public int getLength() {

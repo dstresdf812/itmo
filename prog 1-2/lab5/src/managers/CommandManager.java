@@ -23,4 +23,6 @@ public class CommandManager {
     public List<Command> getCommandHistory() {
         return commandHistory.subList(commandHistory.toArray().length - 8, commandHistory.toArray().length);
     }
+
+
 }

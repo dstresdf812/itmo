@@ -5,8 +5,8 @@ import managers.Checkable;
 public class Person implements Checkable {
     private String name; //Поле не может быть null, Строка не может быть пустой
     private double weight; //Значение поля должно быть больше 0
-    private Color eyeColor; //Поле может быть null
-    private Color hairColor; //Поле может быть null
+    private EyeColor eyeColor; //Поле может быть null
+    private HairColor hairColor; //Поле может быть null
 
     public boolean check() {
         if (this.name == null || this.name == "") { return false; }
@@ -29,17 +29,17 @@ public class Person implements Checkable {
         this.weight = weight;
     }
 
-    public Color getEyeColor() {
+    public EyeColor getEyeColor() {
         return eyeColor;
     }
-    public void setEyeColor(Color eyeColor) {
+    public void setEyeColor(EyeColor eyeColor) {
         this.eyeColor = eyeColor;
     }
 
-    public Color getHairColor() {
-        return hairColor;
+    public HairColor getHairColor() {
+        return this.hairColor;
     }
-    public void setHairColor(Color hairColor) {
+    public void setHairColor(HairColor hairColor) {
         this.hairColor = hairColor;
     }
 

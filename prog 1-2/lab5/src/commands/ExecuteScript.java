@@ -8,6 +8,7 @@ public class ExecuteScript extends Command{
     private final Console console;
     private final CollectionManager collectionManager;
     private final CommandManager commandManager;
+    static final int argsLen = 1;
     public ExecuteScript(Console console, CollectionManager collectionManager,  CommandManager commandManager) {
         super("execute_script", "считать и исполнить скрипт из указанного файла. В скрипте содержатся команды в таком же виде, в котором их вводит пользователь в интерактивном режиме.");
         this.console = console;

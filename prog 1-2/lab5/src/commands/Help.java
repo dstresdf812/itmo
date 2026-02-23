@@ -5,7 +5,7 @@ import managers.Console;
 public class Help extends Command {
     private final CommandManager commandManager;
     private final Console console;
-
+    static final int argsLen = 0;
     public Help(CommandManager commandManager, Console console) {
         super("help", "вывести справку по доступным командам");
         this.commandManager = commandManager;

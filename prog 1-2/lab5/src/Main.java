@@ -18,8 +18,7 @@ public class Main {
         commandManager.add("show", new Show(console, collectionManager));
         commandManager.add("exit", new Exit());
         commandManager.add("save", new Save(collectionManager,fileManager));
-
-
+        commandManager.add("replace_if_greater", new ReplaceIfGreater(collectionManager, console));
 
         collectionManager.SetStudyGroup(fileManager.ReadFile());
 
@@ -32,10 +31,13 @@ public class Main {
 
             if (commandManager.getCommands().containsKey(currentCommand)) {
                 Command command = commandManager.getCommands().get(currentCommand);
+                while (command.argsLen != inputArgs.length & command.argsLen != 0) {
+                    console.println("Wrong amount of arguments. Command needs " + command.argsLen + " arguments.");
+                    inputArgs = console.readArgs();
+                }
                 command.execute(inputArgs);
-                fileManager.saveToFile(collectionManager.collection);
             } else {
-                console.println(")ВЫФ)ВЫФ)ВЫ()Ф");
+                console.println("Command " + currentCommand + " not found. Use help for list of commands.");
             }
         }
     }

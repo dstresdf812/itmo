@@ -5,7 +5,7 @@ import managers.CommandManager;
 public abstract class Command {
     String name;
     String description;
-
+    public static int argsLen;
     public Command(String name, String description) {
         this.name = name;
         this.description = description;

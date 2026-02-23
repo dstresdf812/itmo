@@ -6,6 +6,7 @@ import java.util.Arrays;
 
 public class RemoveKey extends Command {
     private final CommandManager commandManager;
+    static final int argsLen = 1;
     public RemoveKey(CommandManager commandManager) {
         super("remove_key", "удалить элемент из коллекции по его ключу");
         this.commandManager = commandManager;
