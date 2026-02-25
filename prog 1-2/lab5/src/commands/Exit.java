@@ -6,7 +6,12 @@ public class Exit extends Command{
         super("exit","завершить программу (без сохранения в файл)");
     }
 
-    public  void execute(String[] args) {
+    public boolean execute(String[] args) {
         System.exit(1);
+        return true;
+    }
+
+    public int getArgsLen() {
+        return argsLen;
     }
 }

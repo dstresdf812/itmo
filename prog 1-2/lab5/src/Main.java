@@ -19,23 +19,25 @@ public class Main {
         commandManager.add("exit", new Exit());
         commandManager.add("save", new Save(collectionManager,fileManager));
         commandManager.add("replace_if_greater", new ReplaceIfGreater(collectionManager, console));
-
+        commandManager.add("insert", new Insert(collectionManager, console));
         collectionManager.SetStudyGroup(fileManager.ReadFile());
 
         // System.out.println(collectionManager.collection.get(2));
 
         while (true) {
-        String[] input = console.read();
-        String currentCommand = input[0];
-        String[] inputArgs = Arrays.copyOfRange(input,1,input.length);
-
+            String[] input = console.read();
+            String currentCommand = input[0];
+            String[] inputArgs = Arrays.copyOfRange(input,1,input.length);
             if (commandManager.getCommands().containsKey(currentCommand)) {
                 Command command = commandManager.getCommands().get(currentCommand);
-                while (command.argsLen != inputArgs.length & command.argsLen != 0) {
-                    console.println("Wrong amount of arguments. Command needs " + command.argsLen + " arguments.");
+                while (command.getArgsLen() != inputArgs.length & command.getArgsLen() != 0) {
+                    console.println("Wrong amount of arguments. Command needs " + command.getArgsLen() + " arguments.");
                     inputArgs = console.readArgs();
                 }
-                command.execute(inputArgs);
+                while (command.execute(inputArgs) != true) {
+                    inputArgs = console.readArgs();
+                }
+
             } else {
                 console.println("Command " + currentCommand + " not found. Use help for list of commands.");
             }

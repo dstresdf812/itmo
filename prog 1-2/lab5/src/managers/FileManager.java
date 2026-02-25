@@ -11,9 +11,14 @@ import java.nio.file.Path;
 import java.util.*;
 
 import com.fasterxml.jackson.databind.*;
+//import com.fasterxml.jackson.datatype.*;
 public class FileManager {
     final private ObjectMapper parser = new ObjectMapper();
     private StudyGroup[] collection = new StudyGroup[0];
+    public FileManager() {
+        parser.disable(SerializationFeature.WRITE_DATE_KEYS_AS_TIMESTAMPS);
+//        parser.registerModule(new JavaTimeModule());
+    }
     public ArrayList<StudyGroup> ReadFile() {
         try {
             FileInputStream fis = new FileInputStream("input_Test.json");

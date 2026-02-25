@@ -13,8 +13,13 @@ public class History extends Command {
         this.console = console;
     }
 
-    public void execute(String[] args) {
+    public boolean execute(String[] args) {
         System.out.println(commandManager.getCommandHistory());
         commandManager.addToHistory(this);
+        return true;
+    }
+
+    public int getArgsLen() {
+        return argsLen;
     }
 }

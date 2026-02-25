@@ -48,11 +48,7 @@ public class CollectionManager {
 
     // COMMAND INSERT
     public void insertByKey(Integer key, StudyGroup studyGroup) {
-        if (collection.get(key) == null) {
-            collection.put(key, studyGroup);
-        } else {
-            System.out.println("ALREADY EXISTS");
-        }
+        collection.put(key, studyGroup);
     }
 
     // COMMAND UPDATE

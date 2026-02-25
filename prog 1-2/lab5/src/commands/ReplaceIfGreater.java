@@ -14,7 +14,7 @@ public class ReplaceIfGreater extends Command {
         this.console = console;
     }
 
-    public void execute(String[] args) {
+    public boolean execute(String[] args) {
         StudyGroup elem = new StudyGroup();
         if (args.length != 1) {
             System.out.println("wrong number of arguments");
@@ -22,5 +22,10 @@ public class ReplaceIfGreater extends Command {
             elem = console.readElement();
             elem.toString();
         }
+        return true;
+    }
+
+    public int getArgsLen() {
+        return argsLen;
     }
 }

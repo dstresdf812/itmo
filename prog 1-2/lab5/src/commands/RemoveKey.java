@@ -12,8 +12,13 @@ public class RemoveKey extends Command {
         this.commandManager = commandManager;
     }
 
-    public void execute(String[] args) {
+    public boolean execute(String[] args) {
         System.out.println("asdasdasdasd");
         System.out.println(Arrays.stream(args).toList());
+        return true;
+    }
+
+    public int getArgsLen() {
+        return argsLen;
     }
 }

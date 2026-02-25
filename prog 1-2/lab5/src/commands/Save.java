@@ -14,7 +14,12 @@ public class Save extends Command {
         this.fileManager = fileManager;
     }
 
-    public void execute(String[] args) {
+    public boolean execute(String[] args) {
         fileManager.saveToFile(collectionManager.collection);
+        return true;
+    }
+
+    public int getArgsLen() {
+        return argsLen;
     }
 }

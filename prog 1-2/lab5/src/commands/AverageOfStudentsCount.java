@@ -16,7 +16,12 @@ public class AverageOfStudentsCount extends Command {
         this.commandManager = commandManager;
     }
 
-    public void execute(String[] args) {
+    public boolean execute(String[] args) {
         commandManager.addToHistory(this);
+        return true;
+    }
+
+    public int getArgsLen() {
+        return argsLen;
     }
 }

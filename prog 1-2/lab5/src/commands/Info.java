@@ -15,11 +15,16 @@ public class Info extends Command {
         this.collectionManager = collectionManager;
     }
 
-    public  void execute(String[] args) {
+    public  boolean execute(String[] args) {
         int size = collectionManager.getLength();
         Date initDate = collectionManager.getInitDate();
         String type = collectionManager.getType();
         console.println("Тип: " + type + "\nДата" +
                 " инициализации: " + initDate + "\nРазмер: " + size);
+        return true;
+    }
+
+    public int getArgsLen() {
+        return argsLen;
     }
 }

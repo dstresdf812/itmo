@@ -19,5 +19,7 @@ public abstract class Command {
         return description;
     }
 
-    public abstract void execute(String[] args);
+    public abstract boolean execute(String[] args);
+
+    public abstract int getArgsLen();
 }

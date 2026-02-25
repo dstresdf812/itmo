@@ -10,7 +10,11 @@ public class RemoveGreaterKey extends Command {
         this.collectionManager = collectionManager;
     }
 
-    public void execute(String[] args) {
+    public boolean execute(String[] args) {
+        return true;
+    }
 
+    public int getArgsLen() {
+        return argsLen;
     }
 }

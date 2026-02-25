@@ -13,11 +13,16 @@ public class Help extends Command {
     }
 
     @Override
-    public void execute(String[] args) {
+    public boolean execute(String[] args) {
         commandManager.addToHistory(this);
         System.out.println("Доступные команды:");
         for (Command command : commandManager.getCommands().values()) {
             console.println(command.getName() + ": " + command.getDescription());
         }
+        return true;
+    }
+
+    public int getArgsLen() {
+        return argsLen;
     }
 }

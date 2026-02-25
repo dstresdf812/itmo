@@ -97,26 +97,26 @@ public class Console {
         println("1 - ЗАОЧНОЕ");
         println("2 - ОЧНОЕ");
         println("3 - ВЕЧЕРНЕЕ");
-        FormOfEducation formOfEducation;
+        FormOfEducation formOfEducation = null;
         while (scanner.hasNextInt() == false) {println("Неверный тип данных)"); scanner.next();print("Новая попытка: ");}
         int choice = scanner.nextInt();
         while (choice < 0 || choice > 3) {
             println("0-3 :)");
             choice = scanner.nextInt();
-            switch (choice) {
-                case 0:
-                    formOfEducation = null;
-                    break;
-                case 1:
-                    formOfEducation = FormOfEducation.DISTANCE_EDUCATION;
-                    break;
-                case 2:
-                    formOfEducation = FormOfEducation.FULL_TIME_EDUCATION;
-                    break;
-                case 3:
-                    formOfEducation = FormOfEducation.EVENING_CLASSES;
-                    break;
-            }
+        }
+        switch (choice) {
+            case 0:
+                formOfEducation = null;
+                break;
+            case 1:
+                formOfEducation = FormOfEducation.DISTANCE_EDUCATION;
+                break;
+            case 2:
+                formOfEducation = FormOfEducation.FULL_TIME_EDUCATION;
+                break;
+            case 3:
+                formOfEducation = FormOfEducation.EVENING_CLASSES;
+                break;
         }
         print("Будете ли вводить старосту группы (Y/N): ");
         scanner.nextLine();
@@ -158,22 +158,23 @@ public class Console {
             while (choice < 0 || choice >3) {
                 println("0-3 :)");
                 choice = scanner.nextInt();
-                switch (choice) {
-                    case 0:
-                        eyeColor = null;
-                        break;
-                    case 1:
-                        eyeColor = EyeColor.GREEN;
-                        break;
-                    case 2:
-                        eyeColor = EyeColor.YELLOW;
-                        break;
-                    case 3:
-                        eyeColor = EyeColor.BROWN;
-                        break;
-                }
             }
-            println("Выберите цвет глаз старосты (0-4): ");
+            switch (choice) {
+                case 0:
+                    eyeColor = null;
+                    break;
+                case 1:
+                    eyeColor = EyeColor.GREEN;
+                    break;
+                case 2:
+                    eyeColor = EyeColor.YELLOW;
+                    break;
+                case 3:
+                    eyeColor = EyeColor.BROWN;
+                    break;
+            }
+
+            println("Выберите цвет волос старосты (0-4): ");
             println("0 - ПРОПУСТИТЬ ВВОД ЦВЕТА ВОЛОС");
             println("1 - ЧЕРНЫЕ");
             println("2 - СИНИЕ");
@@ -186,23 +187,23 @@ public class Console {
             while (choice < 0 || choice > 4) {
                 println("0-4 :)");
                 choice = scanner.nextInt();
-                switch (choice) {
-                    case 0:
-                        hairColor = null;
-                        break;
-                    case 1:
-                        hairColor = HairColor.BLACK;
-                        break;
-                    case 2:
-                        hairColor = HairColor.BLUE;
-                        break;
-                    case 3:
-                        hairColor = HairColor.WHITE;
-                        break;
-                    case 4:
-                        hairColor = HairColor.BROWN;
-                        break;
-                }
+            }
+            switch (choice) {
+                case 0:
+                    hairColor = null;
+                    break;
+                case 1:
+                    hairColor = HairColor.BLACK;
+                    break;
+                case 2:
+                    hairColor = HairColor.BLUE;
+                    break;
+                case 3:
+                    hairColor = HairColor.WHITE;
+                    break;
+                case 4:
+                    hairColor = HairColor.BROWN;
+                    break;
             }
             groupAdmin.setName(nameOfGroupAdmin);
             groupAdmin.setWeight(weightOfGroupAdmin);
@@ -223,6 +224,7 @@ public class Console {
         elem.setStudentsCount(studentsCount);
         elem.setExpelledStudents(expelledStudents);
         elem.setShouldBeExpelled(shouldBeExpelled);
+        elem.setFormOfEducation(formOfEducation);
         elem.setGroupAdmin(groupAdmin);
         elem.check();
         return elem;

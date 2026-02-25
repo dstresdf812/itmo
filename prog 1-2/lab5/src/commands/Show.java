@@ -14,9 +14,14 @@ public class Show extends Command {
         this.collectionManager = collectionManager;
     }
 
-    public void execute(String[] args) {
+    public boolean execute(String[] args) {
         for (StudyGroup element : collectionManager.collection.values()) {
             System.out.println(element.toString());
         }
+        return true;
+    }
+
+    public int getArgsLen() {
+        return argsLen;
     }
 }
