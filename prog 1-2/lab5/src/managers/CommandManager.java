@@ -8,7 +8,7 @@ import java.util.List;
 import java.util.Map;
 public class CommandManager {
     private final Map<String,Command> commands = new HashMap<>();
-    private ArrayList<Command> commandHistory = new ArrayList<>();
+    private ArrayList<String> commandHistory = new ArrayList<>();
     public void add(String CommandName, Command command) {
         commands.put(CommandName, command);
     }
@@ -18,10 +18,10 @@ public class CommandManager {
     }
 
     public void addToHistory(Command command) {
-        commandHistory.add(command);
+        commandHistory.add(command.getName());
     }
-    public List<Command> getCommandHistory() {
-        return commandHistory.subList(commandHistory.toArray().length - 8, commandHistory.toArray().length);
+    public List<String> getCommandHistory() {
+        return commandHistory.subList((commandHistory.toArray().length - 8) < 0 ? 0 : commandHistory.toArray().length - 8, commandHistory.toArray().length);
     }
 
 

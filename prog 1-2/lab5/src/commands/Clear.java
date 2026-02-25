@@ -15,6 +15,7 @@ public class Clear extends Command {
 
     public boolean execute(String[] args) {
         commandManager.addToHistory(this);
+        collectionManager.collection.clear();
         return true;
     }
 

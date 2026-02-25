@@ -7,17 +7,15 @@ import java.io.File;
 
 import java.io.FileInputStream;
 import java.io.InputStreamReader;
-import java.nio.file.Path;
 import java.util.*;
 
 import com.fasterxml.jackson.databind.*;
-//import com.fasterxml.jackson.datatype.*;
+import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 public class FileManager {
     final private ObjectMapper parser = new ObjectMapper();
     private StudyGroup[] collection = new StudyGroup[0];
     public FileManager() {
-        parser.disable(SerializationFeature.WRITE_DATE_KEYS_AS_TIMESTAMPS);
-//        parser.registerModule(new JavaTimeModule());
+        parser.registerModule(new JavaTimeModule());
     }
     public ArrayList<StudyGroup> ReadFile() {
         try {

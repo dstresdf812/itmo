@@ -1,6 +1,7 @@
 package other;
 
 import managers.Checkable;
+import utils.StudyGroupComparator;
 
 import java.util.Comparator;
 

@@ -3,6 +3,7 @@ package commands;
 import managers.CollectionManager;
 import managers.CommandManager;
 import managers.Console;
+import other.StudyGroup;
 
 public class AverageOfStudentsCount extends Command {
     private final Console console;
@@ -18,6 +19,12 @@ public class AverageOfStudentsCount extends Command {
 
     public boolean execute(String[] args) {
         commandManager.addToHistory(this);
+        float totalStudentsCount = 0;
+        for (StudyGroup studyGroup : collectionManager.collection.values()) {
+            int curStudentsCount = studyGroup.getStudentsCount();
+            totalStudentsCount += curStudentsCount;
+        }
+        System.out.println(totalStudentsCount/collectionManager.collection.size());
         return true;
     }
 

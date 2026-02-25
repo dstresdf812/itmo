@@ -48,6 +48,7 @@ public class CollectionManager {
 
     // COMMAND INSERT
     public void insertByKey(Integer key, StudyGroup studyGroup) {
+        used_keys.add(key);
         collection.put(key, studyGroup);
     }
 
