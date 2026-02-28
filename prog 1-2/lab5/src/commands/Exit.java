@@ -1,11 +1,13 @@
 package commands;
 
+import utils.CommandType;
+
 /**
  * Команда 'exit'. Завершает программу без сохранения в файл.
  * @author dmitrij
  */
 public class Exit extends Command{
-    static final int argsLen = 0;
+    private static final CommandType commandType = CommandType.NO_ARGS;
     public Exit() {
         super("exit","завершить программу (без сохранения в файл)");
     }
@@ -24,7 +26,7 @@ public class Exit extends Command{
      * Получить кол-во аргументов комманды
      * @return Кол-во аргументов комманды
      */
-    public int getArgsLen() {
-        return argsLen;
+    public CommandType getCommandType() {
+        return commandType;
     }
 }

@@ -4,6 +4,8 @@ import managers.CommandManager;
 
 import java.util.Scanner;
 
+import other.Request;
+import utils.CommandType;
 /**
  * Абстрактный класс команды
  * @author dmitrij
@@ -11,6 +13,7 @@ import java.util.Scanner;
 public abstract class Command {
     String name;
     String description;
+    public static CommandType commandType;
     public static int argsLen;
     public Command(String name, String description) {
         this.name = name;
@@ -55,9 +58,12 @@ public abstract class Command {
         return execute(args);
     }
 
+    public boolean execute(Request request){
+        return false;
+    }
     /**
      * Получить кол-во аргументов команды
      * @return Кол-во аргументов команды
      */
-    public abstract int getArgsLen();
+    public abstract CommandType getCommandType();
 }

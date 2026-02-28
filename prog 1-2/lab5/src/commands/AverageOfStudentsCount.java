@@ -4,6 +4,7 @@ import managers.CollectionManager;
 import managers.CommandManager;
 import managers.Console;
 import other.StudyGroup;
+import utils.CommandType;
 
 /**
  * Команда 'average_of_students_count'. Выводит среднее значение поля studentsCount для всех элементов коллекции.
@@ -13,7 +14,7 @@ public class AverageOfStudentsCount extends Command {
     private final Console console;
     private final CollectionManager collectionManager;
     private final CommandManager commandManager;
-    static final int argsLen = 0;
+    private static final CommandType commandType = CommandType.NO_ARGS;
     public AverageOfStudentsCount(Console console, CollectionManager collectionManager, CommandManager commandManager) {
         super("average_of_students_count","вывести среднее значение поля studentsCount для всех элементов коллекции");
         this.console = console;
@@ -38,7 +39,7 @@ public class AverageOfStudentsCount extends Command {
         return true;
     }
 
-    public int getArgsLen() {
-        return argsLen;
+    public CommandType getCommandType() {
+        return commandType;
     }
 }

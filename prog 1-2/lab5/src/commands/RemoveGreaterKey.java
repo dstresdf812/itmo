@@ -3,6 +3,7 @@ package commands;
 import managers.CollectionManager;
 import managers.CommandManager;
 import managers.Console;
+import utils.CommandType;
 
 import java.util.ArrayList;
 
@@ -14,7 +15,7 @@ public class RemoveGreaterKey extends Command {
     private final CollectionManager collectionManager;
     private final CommandManager commandManager;
     private final Console console;
-    static final int argsLen = 1;
+    private static final CommandType commandType = CommandType.ONE_ARG;
     public  RemoveGreaterKey(CollectionManager collectionManager, CommandManager commandManager, Console console) {
         super("remove_greater_key (key)","удалить из коллекции все элементы, ключ которых превышает заданный");
         this.collectionManager = collectionManager;
@@ -57,7 +58,7 @@ public class RemoveGreaterKey extends Command {
      * Получить кол-во аргументов команды
      * @return Кол-во аргументов команды
      */
-    public int getArgsLen() {
-        return argsLen;
+    public CommandType getCommandType() {
+        return commandType;
     }
 }

@@ -4,6 +4,7 @@ import managers.CollectionManager;
 import managers.CommandManager;
 import managers.Console;
 import other.StudyGroup;
+import utils.CommandType;
 
 import java.util.Scanner;
 
@@ -15,7 +16,7 @@ public class Update extends Command {
     private final CollectionManager collectionManager;
     private final CommandManager commandManager;
     private final Console console;
-    static final int argsLen = 1;
+    private static final CommandType commandType = CommandType.ARG_AND_ELEM;
     public Update(CollectionManager collectionManager, CommandManager commandManager, Console console) {
         super("update (id)", "обновить значение элемента коллекции, id которого равен заданному");
         this.collectionManager = collectionManager;
@@ -55,7 +56,7 @@ public class Update extends Command {
      * Получить кол-во аргументов команды
      * @return Кол-во аргументов команды
      */
-    public int getArgsLen() {
-        return argsLen;
+    public CommandType getCommandType() {
+        return commandType;
     }
 }

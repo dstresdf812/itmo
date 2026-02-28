@@ -5,6 +5,7 @@ import managers.CollectionManager;
 import managers.CommandManager;
 import managers.Console;
 import other.StudyGroup;
+import utils.CommandType;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -18,7 +19,7 @@ public class PrintFieldAscendingExpelledStudents extends Command {
     private final Console console;
     private final CollectionManager collectionManager;
     private final CommandManager commandManager;
-    static final int argsLen = 0;
+    private static final CommandType commandType = CommandType.NO_ARGS;
     public PrintFieldAscendingExpelledStudents(Console console, CollectionManager collectionManager,  CommandManager commandManager) {
         super("print_field_ascending_expelled_students", "вывести значения поля expelledStudents всех элементов в порядке возрастания");
         this.console = console;
@@ -47,7 +48,7 @@ public class PrintFieldAscendingExpelledStudents extends Command {
      * Получить кол-во аргументов команды
      * @return Кол-во аргументов команды
      */
-    public int getArgsLen() {
-        return argsLen;
+    public CommandType getCommandType() {
+        return commandType;
     }
 }

@@ -4,6 +4,8 @@ import managers.CollectionManager;
 import managers.CommandManager;
 import managers.Console;
 import managers.FileManager;
+import other.Request;
+import utils.CommandType;
 
 import java.io.*;
 import java.util.ArrayList;
@@ -19,7 +21,7 @@ public class ExecuteScript extends Command{
     private final CollectionManager collectionManager;
     private final CommandManager commandManager;
     private final FileManager fileManager;
-    static final int argsLen = 1;
+    private static final CommandType commandType = CommandType.FILE;
     public ExecuteScript(Console console, CollectionManager collectionManager,  CommandManager commandManager, FileManager fileManager) {
         super("execute_script (script_name.txt)", "считать и исполнить скрипт из указанного файла. В скрипте содержатся команды в таком же виде, в котором их вводит пользователь в интерактивном режиме.");
         this.console = console;
@@ -34,16 +36,17 @@ public class ExecuteScript extends Command{
      * @param scanner
      * @return Выполнена ли команда
      */
-    public boolean execute(String[] args, Scanner scanner) {
-        commandManager.stack += 1;
-        if (commandManager.stack >= commandManager.max_stack) {
-            System.out.println("OVERFLOWWW " + commandManager.max_stack);
+    public boolean execute(Request request) {
+        String fileName = request.getFileName();
+        System.out.println(commandManager.stack);
+        if (commandManager.checkStack(fileName)) {
             return false;
         }
+        commandManager.incStack(fileName);
         commandManager.addToHistory(this);
         InputStream origin = System.in;
         try {
-            System.setIn(new FileInputStream(args[0]));
+            System.setIn(new FileInputStream(fileName));
             Scanner new_scanner = new Scanner(System.in);
             while (new_scanner.hasNextLine()) {
                 String line = new_scanner.nextLine();
@@ -51,10 +54,12 @@ public class ExecuteScript extends Command{
                 String[] new_args = line.split(" ");
                 String currentCommand = new_args[0];
                 String[] inputArgs = Arrays.copyOfRange(new_args, 1, new_args.length);
+                Request req2 = new Request(request.getKey(), (inputArgs.length == 0 ? "" : inputArgs[0]), new_scanner, request.getStudyGroup());
+                System.out.println(req2.toString());
                 if (commandManager.getCommands().containsKey(currentCommand)) {
                     Command command = commandManager.getCommands().get(currentCommand);
                     console.isScriptMode = true;
-                    command.execute(inputArgs, new_scanner);
+                    command.execute(req2);
                     console.isScriptMode = false;
                 }
             }
@@ -63,7 +68,7 @@ public class ExecuteScript extends Command{
         } finally {
             System.setIn(origin);
         }
-        commandManager.stack = 0;
+        commandManager.decStack(fileName);
         System.out.println("Команда " + this.name + " выполнена");
         return true;
     }
@@ -72,7 +77,7 @@ public class ExecuteScript extends Command{
      * Получить кол-во аргументов команды
      * @return Кол-во аргументов команды
      */
-    public int getArgsLen() {
-        return argsLen;
+    public CommandType getCommandType() {
+        return commandType;
     }
 }

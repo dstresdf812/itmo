@@ -2,6 +2,7 @@ package commands;
 
 import managers.CollectionManager;
 import managers.CommandManager;
+import utils.CommandType;
 
 /**
  * Команда 'clear'. Очищает коллекцию.
@@ -10,7 +11,7 @@ import managers.CommandManager;
 public class Clear extends Command {
     private final CollectionManager collectionManager;
     private final CommandManager commandManager;
-    static final int argsLen = 0;
+    private static final CommandType commandType = CommandType.NO_ARGS;
     public Clear(CollectionManager collectionManager, CommandManager commandManager) {
         super("clear", "очистить коллекцию");
         this.collectionManager = collectionManager;
@@ -29,7 +30,7 @@ public class Clear extends Command {
         return true;
     }
 
-    public int getArgsLen() {
-        return argsLen;
+    public CommandType getCommandType() {
+        return commandType;
     }
 }

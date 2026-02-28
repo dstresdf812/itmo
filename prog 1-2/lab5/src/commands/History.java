@@ -2,6 +2,7 @@ package commands;
 
 import managers.CommandManager;
 import managers.Console;
+import utils.CommandType;
 
 /**
  * Команда 'history'. Выводит последние 8 команд.
@@ -9,7 +10,7 @@ import managers.Console;
 public class History extends Command {
     private final Console console;
     private final CommandManager commandManager;
-    static final int argsLen = 0;
+    private static final CommandType commandType = CommandType.NO_ARGS;
     public History(Console console, CommandManager commandManager) {
         super("history","вывести последние 8 команд (без их аргументов)");
         this.commandManager = commandManager;
@@ -31,7 +32,7 @@ public class History extends Command {
      * Получить кол-во аргументов команды
      * @return Кол-во аргументов команды
      */
-    public int getArgsLen() {
-        return argsLen;
+    public CommandType getCommandType() {
+        return commandType;
     }
 }

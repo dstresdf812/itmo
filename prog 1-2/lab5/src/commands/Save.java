@@ -4,6 +4,7 @@ import managers.CollectionManager;
 import managers.CommandManager;
 import managers.FileManager;
 import other.StudyGroup;
+import utils.CommandType;
 
 /**
  * Команда 'save'. Сохраняет коллекцию в файл.
@@ -13,7 +14,7 @@ public class Save extends Command {
     private final CollectionManager collectionManager;
     private final FileManager fileManager;
     private final CommandManager commandManager;
-    static final int argsLen = 0;
+    private static final CommandType commandType = CommandType.NO_ARGS;
     public Save(CollectionManager collectionManager, FileManager fileManager, CommandManager commandManager) {
         super("save","сохранить коллекцию в файл");
         this.collectionManager = collectionManager;
@@ -36,7 +37,7 @@ public class Save extends Command {
      * Получить кол-во аргументов команды
      * @return Кол-во аргументов команды
      */
-    public int getArgsLen() {
-        return argsLen;
+    public CommandType getCommandType() {
+        return commandType;
     }
 }

@@ -33,17 +33,9 @@ public class FileManager {
             FileInputStream fis = new FileInputStream(fileName);
             BufferedInputStream bis = new BufferedInputStream(fis);
             InputStreamReader isr = new InputStreamReader(bis);
-            // BufferedReader br = new BufferedReader(isr);
-
-            //collection = parser.readValue();
-            try {
-                collection = parser.readValue(isr, StudyGroup[].class);
-            } catch (IOException e) {
-                System.out.println(e.getMessage());
-            }
-            // Arrays.stream(collection).forEach(System.out::println);
+            collection = parser.readValue(isr, StudyGroup[].class);
         } catch (Exception e) {
-            System.out.println(e);
+            System.out.println(e + "ASDADSAD");
         }
         return new ArrayList<>(Arrays.asList(collection));
     }

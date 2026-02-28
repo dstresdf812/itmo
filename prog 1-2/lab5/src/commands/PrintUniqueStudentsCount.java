@@ -4,6 +4,7 @@ import managers.CommandManager;
 import managers.Console;
 import managers.CollectionManager;
 import other.StudyGroup;
+import utils.CommandType;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -16,7 +17,7 @@ public class PrintUniqueStudentsCount extends Command {
     private final Console console;
     private final CollectionManager collectionManager;
     private final CommandManager commandManager;
-    static final int argsLen = 0;
+    private static final CommandType commandType = CommandType.NO_ARGS;
     public PrintUniqueStudentsCount(Console console, CollectionManager collectionManager, CommandManager commandManager) {
         super("print_unique_students_count","вывести уникальные значения поля studentsCount всех элементов в коллекции");
         this.console = console;
@@ -42,7 +43,7 @@ public class PrintUniqueStudentsCount extends Command {
      * Получить кол-во аргументов команды
      * @return Кол-во аргументов команды
      */
-    public int getArgsLen() {
-        return argsLen;
+    public CommandType getCommandType() {
+        return commandType;
     }
 }

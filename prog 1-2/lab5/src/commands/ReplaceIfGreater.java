@@ -5,6 +5,7 @@ import managers.CommandManager;
 import managers.Console;
 import managers.FileManager;
 import other.StudyGroup;
+import utils.CommandType;
 import utils.StudyGroupComparator;
 
 import java.util.Scanner;
@@ -19,7 +20,7 @@ public class ReplaceIfGreater extends Command {
     private final FileManager fileManager;
     private final CommandManager commandManager;
     private final StudyGroupComparator studyGroupComparator;
-    static final int argsLen = 1;
+    private static final CommandType commandType = CommandType.ARG_AND_ELEM;
     public ReplaceIfGreater(CollectionManager collectionManager, Console console, FileManager fileManager, CommandManager commandManager) {
         super("replace_if_greater (key)", "заменить значение по ключу, если новое значение больше старого");
         this.collectionManager = collectionManager;
@@ -62,7 +63,7 @@ public class ReplaceIfGreater extends Command {
      * Получить кол-во аргументов команды
      * @return Кол-во аргументов команды
      */
-    public int getArgsLen() {
-        return argsLen;
+    public CommandType getCommandType() {
+        return commandType;
     }
 }

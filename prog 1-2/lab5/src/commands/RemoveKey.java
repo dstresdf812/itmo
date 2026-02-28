@@ -3,6 +3,7 @@ package commands;
 import managers.CollectionManager;
 import managers.CommandManager;
 import managers.Console;
+import utils.CommandType;
 
 /**
  * Команда 'remove_key'. Удаляет элемент из коллекции по его ключу.
@@ -12,7 +13,7 @@ public class RemoveKey extends Command {
     private final CommandManager commandManager;
     private final CollectionManager collectionManager;
     private final Console console;
-    static final int argsLen = 1;
+    public static final CommandType commandType = CommandType.ONE_ARG;
     public RemoveKey(CommandManager commandManager, CollectionManager collectionManager,  Console console) {
         super("remove_key (key)", "удалить элемент из коллекции по его ключу");
         this.commandManager = commandManager;
@@ -44,7 +45,7 @@ public class RemoveKey extends Command {
      * Получить кол-во аргументов команды
      * @return Кол-во аргументов команды
      */
-    public int getArgsLen() {
-        return argsLen;
+    public CommandType getCommandType() {
+        return commandType;
     }
 }

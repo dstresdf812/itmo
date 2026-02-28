@@ -1,8 +1,10 @@
 package managers;
 
+import commands.Command;
 import other.*;
 
 import java.time.ZonedDateTime;
+import java.util.Arrays;
 import java.util.Scanner;
 
 /**
@@ -407,4 +409,92 @@ public class Console {
 
     }
 
+    public void start(Console console, CommandManager commandManager) {
+        while (true) {
+            String[] input = console.read();
+            String currentCommand = input[0];
+            String[] inputArgs = Arrays.copyOfRange(input, 1, input.length);
+//            if (commandManager.getCommands().containsKey(currentCommand)) {
+//                Command command = commandManager.getCommands().get(currentCommand);
+//                if (command.getArgsLen() != inputArgs.length) {
+//                    console.println("Wrong amount of arguments. Command needs " + command.getArgsLen() + " arguments. :)");
+//                } else {
+//                    isInputCorrect = true;
+//                }
+//                // TODO
+//                //  перенести ввод в main (ввод вывод на клиенте)
+//                //  client main 1 строка
+//                //  валидация отдельно от команд (шаблоны проектирования или solid)
+//                //  переписать под maven
+//                if (isInputCorrect) {
+//                    isInputCorrect = command.execute(inputArgs,new Scanner(System.in));
+//                }
+//            } else {
+//                console.println("Command " + currentCommand + " not found. Use help for list of commands. :)");
+//            }
+
+            if (commandManager.getCommands().containsKey(currentCommand)) {
+                Command command = commandManager.getCommands().get(currentCommand);
+                System.out.println(command.getName());
+                switch (command.getCommandType()) {
+                    // TODO
+                    // WHILE TRUE убрать
+                    // фабрика, абстрактная фабрика, попробовать применить :))
+                    case NO_ARGS: {
+                        if (inputArgs.length != 0) {
+                            System.out.println("Invalid command arguments!");
+                        } else {
+                            command.execute(inputArgs);
+                        }
+                        break;
+                    }
+                    case ONE_ARG: {
+                        if (inputArgs.length != 1) {
+                            System.out.println("Invalid command arguments!");
+                        } else {
+                            command.execute(inputArgs);
+                        }
+                        System.out.println("1");
+                        break;
+                    }
+                    case ARG_AND_ELEM: {
+                        if (inputArgs.length != 1) {
+                            System.out.println("Invalid command arguments!");
+                        } else {
+                            Integer key = null;
+                            while (key == null) {
+                                try {
+                                    key = Integer.parseInt(inputArgs[0]);
+                                } catch (NumberFormatException e) {
+                                    System.out.println("Invalid command arguments!");
+                                    break;
+                                }
+                            }
+                            if (key == null) {
+                                break;
+                            }
+                            Scanner scanner = new Scanner(System.in);
+                            StudyGroup elem = console.readElement(scanner);
+                            Request request = new Request(key,null, scanner, elem);
+                            command.execute(request);
+                        }
+                        System.out.println("2");
+                        break;
+                    }
+                    case FILE: {
+                        if (inputArgs.length != 1) {
+                            System.out.println("Invalid command arguments!");
+                        } else {
+                            String fileName = inputArgs[0];
+                            Scanner scanner = new Scanner(System.in);
+                            Request request = new Request(0,fileName, scanner, null);
+                            command.execute(request);
+                        }
+                    }
+                }
+            } else {
+                console.println("Command " + currentCommand + " not found. Use help for list of commands. :)");
+            }
+        }
+    }
 }

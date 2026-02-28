@@ -3,6 +3,7 @@ package commands;
 import managers.CommandManager;
 import managers.Console;
 import managers.CollectionManager;
+import utils.CommandType;
 
 import java.util.Date;
 
@@ -14,7 +15,7 @@ public class Info extends Command {
     private final Console console;
     private final  CollectionManager collectionManager;
     private final CommandManager commandManager;
-    static final int argsLen = 0;
+    private static final CommandType commandType = CommandType.NO_ARGS;
     public Info(Console console, CollectionManager collectionManager,CommandManager commandManager) {
         super("info", "вывести в стандартный поток вывода информацию о коллекции (тип, дата инициализации, количество элементов и т.д.)");
         this.console = console;
@@ -41,7 +42,7 @@ public class Info extends Command {
      * Получить кол-во аргументов команды
      * @return Кол-во аргументов команды
      */
-    public int getArgsLen() {
-        return argsLen;
+    public CommandType getCommandType() {
+        return commandType;
     }
 }
