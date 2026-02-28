@@ -46,7 +46,7 @@ public class Person implements Checkable {
     public String toString() {
         return "\n(Имя: " + this.name + "\n"
                 + "Вес: " + this.weight + "\n"
-                + "Цвет глаз: " + this.eyeColor + "\n"
-                + "Цвет волос: " + this.hairColor + ")";
+                + "Цвет глаз: " + (this.eyeColor == null ? "NULL" + "\n" : this.eyeColor + "\n")
+                + "Цвет волос: " + (this.hairColor == null ? "NULL" + "\n" : this.hairColor + ")");
     }
 }

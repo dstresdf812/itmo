@@ -1,9 +1,9 @@
 [
   {
-    "id": 1,
+    "id": 5,
     "name": "МП-15",
     "coordinates": {
-      "x": 50,
+      "x": 55,
       "y": 200
     },
     "creationDate": null,

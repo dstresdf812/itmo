@@ -3,6 +3,10 @@ package commands;
 import managers.CollectionManager;
 import managers.CommandManager;
 
+/**
+ * Команда 'clear'. Очищает коллекцию.
+ * @author dmitrij
+ */
 public class Clear extends Command {
     private final CollectionManager collectionManager;
     private final CommandManager commandManager;
@@ -13,9 +17,15 @@ public class Clear extends Command {
         this.commandManager = commandManager;
     }
 
+    /**
+     * Выполняет команду
+     * @param args
+     * @return Выполнена ли команда
+     */
     public boolean execute(String[] args) {
         commandManager.addToHistory(this);
-        collectionManager.collection.clear();
+        collectionManager.clearCollection();
+        System.out.println("Команда " + this.name + " выполнена");
         return true;
     }
 

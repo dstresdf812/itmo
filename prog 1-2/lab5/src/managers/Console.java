@@ -1,11 +1,19 @@
 package managers;
+
 import other.*;
 
 import java.time.ZonedDateTime;
 import java.util.Scanner;
+
+/**
+ * Ввод/вывод данных.
+ * @author dmitrij
+ */
 public class Console {
     private final Scanner scanner = new Scanner(System.in);
     private final CollectionManager collectionManager = new CollectionManager();
+    public static boolean isScriptMode = false;
+
     public void print(Object o) {
         System.out.print(o);
     }
@@ -21,89 +29,191 @@ public class Console {
         return input;
     }
 
-    public String[] readArgs() {
-        print("Введите аргументы еще раз: ");
-        String s = scanner.nextLine();
-        String[] input = s.split(" ");
-        return input;
-    }
-
-    public StudyGroup readElement() {
+    /**
+     * Считывание элемента. Каждое поле в отдельной строке.
+     * @param scanner
+     * @return
+     */
+    public StudyGroup readElement(Scanner scanner) {
         StudyGroup elem = new StudyGroup();
-
         int id = collectionManager.getIncId();
 
-        print("Введите имя: ");
-        String name = scanner.nextLine();
-        while (name == null || name.equals("")) {
-            println("Некорректный ввод) Поле не может быть null, Строка не может быть пустой.");
-            print("Новая попытка: ");
+        String name;
+        if (!isScriptMode) {
+            print("Введите имя: ");
+            name = scanner.nextLine();
+            while (name == null || name.equals("")) {
+                println("Некорректный ввод) Поле не может быть null, Строка не может быть пустой.");
+                print("Новая попытка: ");
+                name = scanner.nextLine();
+            }
+        } else {
             name = scanner.nextLine();
         }
 
-        print("Введите координату x: ");
-        while (scanner.hasNextLong() == false) {println("Неверный тип данных)"); scanner.next();print("Новая попытка: ");}
-        Long x = scanner.nextLong();
-        while (x <= -23 || x == null) {
-            println("Некорректный ввод) Значение поля должно быть больше -23, Поле не может быть null");
-            print("Новая попытка: ");
-            while (scanner.hasNextLong() == false) {println("Неверный тип данных)"); scanner.next();print("Новая попытка: ");}
+        Long x;
+        if (!isScriptMode) {
+            print("Введите координату x: ");
+            while (scanner.hasNextLong() == false) {
+                println("Неверный тип данных)");
+                scanner.next();
+                print("Новая попытка: ");
+            }
+            x = scanner.nextLong();
+            while (x <= -23 || x == null) {
+                println("Некорректный ввод) Значение поля должно быть больше -23, Поле не может быть null");
+                print("Новая попытка: ");
+                while (scanner.hasNextLong() == false) {
+                    println("Неверный тип данных)");
+                    scanner.next();
+                    print("Новая попытка: ");
+                }
+                x = scanner.nextLong();
+            }
+        } else {
+            if (!scanner.hasNextLong()) {
+                return null;
+            }
             x = scanner.nextLong();
         }
 
-        print("Введите координату y: ");
-        while (scanner.hasNextLong() == false) {println("Неверный тип данных)"); scanner.next();print("Новая попытка: ");}
-        long y = scanner.nextLong();
-        while (y > 316) {
-            println("Некорректный ввод) Максимальное значение поля: 316");
-            print("Новая попытка: ");
-            while (scanner.hasNextLong() == false) {println("Неверный тип данных)"); scanner.next();print("Новая попытка: ");}
+        long y;
+
+        if (!isScriptMode) {
+            print("Введите координату y: ");
+            while (scanner.hasNextLong() == false) {
+                println("Неверный тип данных)");
+                scanner.next();
+                print("Новая попытка: ");
+            }
+            y = scanner.nextLong();
+            while (y > 316) {
+                println("Некорректный ввод) Максимальное значение поля: 316");
+                print("Новая попытка: ");
+                while (scanner.hasNextLong() == false) {
+                    println("Неверный тип данных)");
+                    scanner.next();
+                    print("Новая попытка: ");
+                }
+                y = scanner.nextLong();
+            }
+        } else {
+            if (!scanner.hasNextLong()) {
+                return null;
+            }
             y = scanner.nextLong();
         }
 
         ZonedDateTime creationDate = ZonedDateTime.now();
 
-        print("Введите кол-во студентов: ");
-        while (scanner.hasNextInt() == false) {println("Неверный тип данных)"); scanner.next();print("Новая попытка: ");}
-        Integer studentsCount = scanner.nextInt();
-        while (studentsCount <= 0 || studentsCount == null) {
-            println("Некорректный ввод) Значение поля должно быть больше 0, Поле не может быть null");
-            print("Новая попытка: ");
-            while (scanner.hasNextInt() == false) {println("Неверный тип данных)"); scanner.next();print("Новая попытка: ");}
+        Integer studentsCount;
+        if (!isScriptMode) {
+            print("Введите кол-во студентов: ");
+            while (scanner.hasNextInt() == false) {
+                println("Неверный тип данных)");
+                scanner.next();
+                print("Новая попытка: ");
+            }
+            studentsCount = scanner.nextInt();
+            while (studentsCount <= 0 || studentsCount == null) {
+                println("Некорректный ввод) Значение поля должно быть больше 0, Поле не может быть null");
+                print("Новая попытка: ");
+                while (scanner.hasNextInt() == false) {
+                    println("Неверный тип данных)");
+                    scanner.next();
+                    print("Новая попытка: ");
+                }
+                studentsCount = scanner.nextInt();
+            }
+        } else {
+            if (!scanner.hasNextInt()) {
+                return null;
+            }
             studentsCount = scanner.nextInt();
         }
 
-        print("Введите кол-во отчисленных студентов: ");
-        while (scanner.hasNextLong() == false) {println("Неверный тип данных)"); scanner.next();print("Новая попытка: ");}
-        long expelledStudents  = scanner.nextLong();
-        while (expelledStudents <= 0) {
-            println("Некорректный ввод) Значение поля должно быть больше 0");
-            print("Новая попытка: ");
-            while (scanner.hasNextLong() == false) {println("Неверный тип данных)"); scanner.next();print("Новая попытка: ");}
+        long expelledStudents;
+        if (!isScriptMode) {
+            print("Введите кол-во отчисленных студентов: ");
+            while (scanner.hasNextLong() == false) {
+                println("Неверный тип данных)");
+                scanner.next();
+                print("Новая попытка: ");
+            }
+            expelledStudents = scanner.nextLong();
+            while (expelledStudents <= 0) {
+                println("Некорректный ввод) Значение поля должно быть больше 0");
+                print("Новая попытка: ");
+                while (scanner.hasNextLong() == false) {
+                    println("Неверный тип данных)");
+                    scanner.next();
+                    print("Новая попытка: ");
+                }
+                expelledStudents = scanner.nextLong();
+            }
+        } else {
+            if (!scanner.hasNextLong()) {
+                return null;
+            }
             expelledStudents = scanner.nextLong();
         }
 
-        print("Введите кол-во студентов, которые должны быть отчислены: ");
-        while (scanner.hasNextLong() == false) {println("Неверный тип данных)"); scanner.next();print("Новая попытка: ");}
-        Long shouldBeExpelled  = scanner.nextLong();
-        while (shouldBeExpelled <= 0) {
-            println("Некорректный ввод) Значение поля должно быть больше 0");
-            print("Новая попытка: ");
-            while (scanner.hasNextLong() == false) {println("Неверный тип данных)"); scanner.next();print("Новая попытка: ");}
+        Long shouldBeExpelled;
+        if (!isScriptMode) {
+            print("Введите кол-во студентов, которые должны быть отчислены: ");
+            while (scanner.hasNextLong() == false) {
+                println("Неверный тип данных)");
+                scanner.next();
+                print("Новая попытка: ");
+            }
+            shouldBeExpelled = scanner.nextLong();
+            while (shouldBeExpelled <= 0) {
+                println("Некорректный ввод) Значение поля должно быть больше 0");
+                print("Новая попытка: ");
+                while (scanner.hasNextLong() == false) {
+                    println("Неверный тип данных)");
+                    scanner.next();
+                    print("Новая попытка: ");
+                }
+                shouldBeExpelled = scanner.nextLong();
+            }
+        } else {
+            if (!scanner.hasNextLong()) {
+                return null;
+            }
             shouldBeExpelled = scanner.nextLong();
         }
-        println("Введите форму обучения (0-3): ");
-        println("0 - ПРОПУСТИТЬ ВВОД ФОРМЫ ОБУЧЕНИЯ");
-        println("1 - ЗАОЧНОЕ");
-        println("2 - ОЧНОЕ");
-        println("3 - ВЕЧЕРНЕЕ");
+
+        int choice = -1;
         FormOfEducation formOfEducation = null;
-        while (scanner.hasNextInt() == false) {println("Неверный тип данных)"); scanner.next();print("Новая попытка: ");}
-        int choice = scanner.nextInt();
-        while (choice < 0 || choice > 3) {
-            println("0-3 :)");
+        boolean isChoiseCorrect = false;
+        if (!isScriptMode) {
+            println("Введите форму обучения (0-3): ");
+            println("0 - ПРОПУСТИТЬ ВВОД ФОРМЫ ОБУЧЕНИЯ");
+            println("1 - ЗАОЧНОЕ");
+            println("2 - ОЧНОЕ");
+            println("3 - ВЕЧЕРНЕЕ");
+
+            while (isChoiseCorrect == false) {
+                if (!scanner.hasNextInt()) {
+                    println("Неверный тип данных");
+                    scanner.next();
+                } else {
+                    choice = scanner.nextInt();
+                    if (choice < 0 || choice > 3) {
+                        println("0-3 :)");
+                    } else {
+                        isChoiseCorrect = true;
+                    }
+                }
+            }
+        } else {
+            if (!scanner.hasNextInt()) {
+                return null;
+            }
             choice = scanner.nextInt();
         }
+
         switch (choice) {
             case 0:
                 formOfEducation = null;
@@ -118,45 +228,95 @@ public class Console {
                 formOfEducation = FormOfEducation.EVENING_CLASSES;
                 break;
         }
-        print("Будете ли вводить старосту группы (Y/N): ");
-        scanner.nextLine();
-        String groupAdminYN = scanner.nextLine();
-        while (!groupAdminYN.equalsIgnoreCase("Y") & !groupAdminYN.equalsIgnoreCase("N") ) {
+        if (scanner.hasNextLine()) {
+            scanner.nextLine();
+        }
+        String groupAdminYN;
+        if (!isScriptMode) {
             print("Будете ли вводить старосту группы (Y/N): ");
             groupAdminYN = scanner.nextLine();
+            while (!groupAdminYN.equalsIgnoreCase("Y") & !groupAdminYN.equalsIgnoreCase("N")) {
+                print("Будете ли вводить старосту группы (Y/N): ");
+                groupAdminYN = scanner.nextLine();
+            }
+        } else {
+            if (!scanner.hasNextLine()) {
+                return null;
+            }
+            groupAdminYN = scanner.nextLine();
         }
+
         Person groupAdmin = new Person();
-        if  (groupAdminYN.equalsIgnoreCase("y")) {
-            print("Введите имя старосты: ");
-            String nameOfGroupAdmin = scanner.nextLine();
-            while (nameOfGroupAdmin == null || nameOfGroupAdmin.equals("")) {
-                println("Некорректный ввод) Поле не может быть null, Строка не может быть пустой.");
-                print("Новая попытка: ");
+
+        if (groupAdminYN.equalsIgnoreCase("y")) {
+            String nameOfGroupAdmin;
+            if (!isScriptMode) {
+                print("Введите имя старосты: ");
+                nameOfGroupAdmin = scanner.nextLine();
+                while (nameOfGroupAdmin == null || nameOfGroupAdmin.equals("")) {
+                    println("Некорректный ввод) Поле не может быть null, Строка не может быть пустой.");
+                    print("Новая попытка: ");
+                    nameOfGroupAdmin = scanner.nextLine();
+                }
+            } else {
+                if (!scanner.hasNextLine()) {
+                    return null;
+                }
                 nameOfGroupAdmin = scanner.nextLine();
             }
 
-            print("Введите вес старосты: ");
-            while (scanner.hasNextDouble() == false) {println("Неверный тип данных)"); scanner.next();print("Новая попытка: ");}
-            double weightOfGroupAdmin = scanner.nextDouble();
-            scanner.nextLine();
-            while (weightOfGroupAdmin <= 0) {
-                println("Некорректный ввод) Значение поля должно быть больше 0");
-                print("Новая попытка: ");
-                while (scanner.hasNextDouble() == false) {println("Неверный тип данных)"); scanner.next();print("Новая попытка: ");}
+            double weightOfGroupAdmin;
+            if (!isScriptMode) {
+                print("Введите вес старосты: ");
+                while (scanner.hasNextDouble() == false) {
+                    println("Неверный тип данных)");
+                    scanner.next();
+                    print("Новая попытка: ");
+                }
+                weightOfGroupAdmin = scanner.nextDouble();
+                scanner.nextLine();
+                while (weightOfGroupAdmin <= 0) {
+                    println("Некорректный ввод) Значение поля должно быть больше 0");
+                    print("Новая попытка: ");
+                    while (scanner.hasNextDouble() == false) {
+                        println("Неверный тип данных)");
+                        scanner.next();
+                        print("Новая попытка: ");
+                    }
+                    weightOfGroupAdmin = scanner.nextDouble();
+                }
+            } else {
+                if (!scanner.hasNextDouble()) {
+                    return null;
+                }
                 weightOfGroupAdmin = scanner.nextDouble();
             }
 
-            println("Выберите цвет глаз старосты (0-3): ");
-            println("0 - ПРОПУСТИТЬ ВВОД ЦВЕТА ГЛАЗ");
-            println("1 - ЗЕЛЕНЫЕ");
-            println("2 - ЖЕЛТЫЕ");
-            println("3 - КАРИЕ");
             EyeColor eyeColor = null;
-            while (scanner.hasNextInt() == false) {println("Неверный тип данных)"); scanner.next();print("Новая попытка: ");}
-            choice = scanner.nextInt();
-            scanner.nextLine();
-            while (choice < 0 || choice >3) {
-                println("0-3 :)");
+            isChoiseCorrect = false;
+            if (!isScriptMode) {
+                println("Выберите цвет глаз старосты (0-3): ");
+                println("0 - ПРОПУСТИТЬ ВВОД ЦВЕТА ГЛАЗ");
+                println("1 - ЗЕЛЕНЫЕ");
+                println("2 - ЖЕЛТЫЕ");
+                println("3 - КАРИЕ");
+                while (isChoiseCorrect == false) {
+                    if (!scanner.hasNextInt()) {
+                        println("Неверный тип данных");
+                        scanner.next();
+                    } else {
+                        choice = scanner.nextInt();
+                        if (choice < 0 || choice > 3) {
+                            println("0-3 :)");
+                        } else {
+                            isChoiseCorrect = true;
+                        }
+                    }
+                }
+            } else {
+                if (!scanner.hasNextInt()) {
+                    return null;
+                }
                 choice = scanner.nextInt();
             }
             switch (choice) {
@@ -174,18 +334,33 @@ public class Console {
                     break;
             }
 
-            println("Выберите цвет волос старосты (0-4): ");
-            println("0 - ПРОПУСТИТЬ ВВОД ЦВЕТА ВОЛОС");
-            println("1 - ЧЕРНЫЕ");
-            println("2 - СИНИЕ");
-            println("3 - БЕЛЫЕ");
-            println("4 - РУСЫЕ");
             HairColor hairColor = null;
-            while (scanner.hasNextInt() == false) {println("Неверный тип данных)"); scanner.next();print("Новая попытка: ");}
-            choice = scanner.nextInt();
-            scanner.nextLine();
-            while (choice < 0 || choice > 4) {
-                println("0-4 :)");
+            isChoiseCorrect = false;
+            if (!isScriptMode) {
+                println("Выберите цвет волос старосты (0-4): ");
+                println("0 - ПРОПУСТИТЬ ВВОД ЦВЕТА ВОЛОС");
+                println("1 - ЧЕРНЫЕ");
+                println("2 - СИНИЕ");
+                println("3 - БЕЛЫЕ");
+                println("4 - РУСЫЕ");
+
+                while (isChoiseCorrect == false) {
+                    if (!scanner.hasNextInt()) {
+                        println("Неверный тип данных");
+                        scanner.next();
+                    } else {
+                        choice = scanner.nextInt();
+                        if (choice < 0 || choice > 4) {
+                            println("0-4 :)");
+                        } else {
+                            isChoiseCorrect = true;
+                        }
+                    }
+                }
+            } else {
+                if (!scanner.hasNextInt()) {
+                    return null;
+                }
                 choice = scanner.nextInt();
             }
             switch (choice) {
@@ -227,7 +402,9 @@ public class Console {
         elem.setFormOfEducation(formOfEducation);
         elem.setGroupAdmin(groupAdmin);
         elem.check();
+        isScriptMode = false;
         return elem;
 
     }
+
 }

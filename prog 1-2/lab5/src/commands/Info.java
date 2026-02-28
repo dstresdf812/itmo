@@ -6,6 +6,10 @@ import managers.CollectionManager;
 
 import java.util.Date;
 
+/**
+ * Команда 'info'. Выводит информацию о коллекции.
+ * @author dmitrij
+ */
 public class Info extends Command {
     private final Console console;
     private final  CollectionManager collectionManager;
@@ -18,6 +22,11 @@ public class Info extends Command {
         this.commandManager = commandManager;
     }
 
+    /**
+     * Выполняет команду
+     * @param args
+     * @return Выполнена ли команда
+     */
     public  boolean execute(String[] args) {
         commandManager.addToHistory(this);
         int size = collectionManager.getLength();
@@ -25,9 +34,13 @@ public class Info extends Command {
         String type = collectionManager.getType();
         console.println("Тип: " + type + "\nДата" +
                 " инициализации: " + initDate + "\nРазмер: " + size);
+        System.out.println("Команда " + this.name + " выполнена");
         return true;
     }
-
+    /**
+     * Получить кол-во аргументов команды
+     * @return Кол-во аргументов команды
+     */
     public int getArgsLen() {
         return argsLen;
     }

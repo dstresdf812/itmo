@@ -5,20 +5,31 @@ import managers.CommandManager;
 import managers.Console;
 import other.StudyGroup;
 
+import java.util.Scanner;
 
+/**
+ * Команда 'insert'. Добавляет новый элемент в коллекцию по заданному ключу.
+ * @author dmitrij
+ */
 public class Insert extends Command {
     private final CollectionManager collectionManager;
     private final Console console;
     private final CommandManager commandManager;
     static final int argsLen = 1;
     public Insert(CollectionManager collectionManager, Console console,  CommandManager commandManager) {
-        super("insert", "добавить новый элемент с заданным ключом");
+        super("insert (key)", "добавить новый элемент с заданным ключом");
         this.collectionManager = collectionManager;
         this.console = console;
         this.commandManager = commandManager;
     }
 
-    public boolean execute(String[] args) {
+    /**
+     * Выполняет команду
+     * @param args
+     * @param scanner
+     * @return Выполнена ли команда.
+     */
+    public boolean execute(String[] args, Scanner scanner) {
         commandManager.addToHistory(this);
         Integer key;
         try {
@@ -32,12 +43,17 @@ public class Insert extends Command {
             console.println("Key уже использован!");
             return false;
         }
-        StudyGroup elem = console.readElement();
+        StudyGroup elem = console.readElement(scanner);
+        if (elem == null) {return false;}
         elem.setId(key);
         collectionManager.insertByKey(key, elem);
+        System.out.println("Команда " + this.name + " выполнена");
         return true;
     }
-
+    /**
+     * Получить кол-во аргументов команды
+     * @return Кол-во аргументов команды
+     */
     public int getArgsLen() {
         return argsLen;
     }

@@ -5,8 +5,11 @@ import other.StudyGroup;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.LinkedHashMap;
-import java.util.Map;
 
+/**
+ * Управление коллекцией.
+ * @author dmitrij
+ */
 public class CollectionManager {
     public static int id = 0;
     public LinkedHashMap<Integer, StudyGroup> collection = new LinkedHashMap<>();
@@ -16,10 +19,10 @@ public class CollectionManager {
 
     }
 
-    public StudyGroup getStudyGroup(int id) {
-        return collection.get(id);
-    }
-
+    /**
+     * Добавить элемент в коллецию по ключу.
+     * @param studyGroups
+     */
     public void SetStudyGroup(ArrayList<StudyGroup> studyGroups) {
         for (StudyGroup studyGroup : studyGroups) {
             int key = studyGroup.getId();
@@ -35,37 +38,33 @@ public class CollectionManager {
     public int getIncId() {
         return id++;
     }
-    // COMMAND INFO
+
     public int getLength() {
         return collection.size();
     }
+
     public String getType() {
         return collection.getClass().getTypeName();
     }
+
     public Date getInitDate() {
         return initDate;
     }
 
-    // COMMAND INSERT
     public void insertByKey(Integer key, StudyGroup studyGroup) {
         used_keys.add(key);
         collection.put(key, studyGroup);
     }
 
-    // COMMAND UPDATE
     public void updateByKey(Integer key, StudyGroup studyGroup) {
         collection.put(key, studyGroup);
     }
 
-    // COMMAND REMOVE
     public void removeByKey(Integer key) {
         collection.remove(key);
     }
 
-    // COMMAND CLEAR
     public void clearCollection() {
         collection.clear();
     }
-
-
 }
