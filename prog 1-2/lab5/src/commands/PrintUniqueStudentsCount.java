@@ -3,6 +3,8 @@ package commands;
 import managers.CommandManager;
 import managers.Console;
 import managers.CollectionManager;
+import other.CommandStatus;
+import other.Request;
 import other.StudyGroup;
 import utils.CommandType;
 
@@ -29,7 +31,7 @@ public class PrintUniqueStudentsCount extends Command {
      * @param args
      * @return Выполнена ли команда
      */
-    public boolean execute(String[] args) {
+    public CommandStatus execute(Request request) {
         commandManager.addToHistory(this);
         Set<Integer> keys = new HashSet<>();
         for (StudyGroup elem : collectionManager.collection.values()) {
@@ -37,7 +39,7 @@ public class PrintUniqueStudentsCount extends Command {
         }
         console.println(keys);
         System.out.println("Команда " + this.name + " выполнена");
-        return true;
+        return CommandStatus.OK;
     }
     /**
      * Получить кол-во аргументов команды

@@ -3,6 +3,8 @@ package commands;
 import managers.CollectionManager;
 import managers.CommandManager;
 import managers.Console;
+import other.CommandStatus;
+import other.Request;
 import other.StudyGroup;
 import utils.CommandType;
 
@@ -27,7 +29,7 @@ public class AverageOfStudentsCount extends Command {
      * @param args
      * @return Выполнена ли команда
      */
-    public boolean execute(String[] args) {
+    public CommandStatus execute(Request request) {
         commandManager.addToHistory(this);
         float totalStudentsCount = 0;
         for (StudyGroup studyGroup : collectionManager.collection.values()) {
@@ -36,7 +38,7 @@ public class AverageOfStudentsCount extends Command {
         }
         System.out.println(totalStudentsCount/collectionManager.collection.size());
         System.out.println("Команда " + this.name + " выполнена");
-        return true;
+        return CommandStatus.OK;
     }
 
     public CommandType getCommandType() {

@@ -3,6 +3,8 @@ package commands;
 import managers.CollectionManager;
 import managers.CommandManager;
 import managers.Console;
+import other.CommandStatus;
+import other.Request;
 import utils.CommandType;
 
 /**
@@ -25,21 +27,12 @@ public class RemoveKey extends Command {
      * @param args
      * @return Выполнена ли команда
      */
-    public boolean execute(String[] args) {
+    public CommandStatus execute(Request request) {
         commandManager.addToHistory(this);
-        Integer key;
-        try {
-            key = Integer.parseInt(args[0]);
-        } catch (NumberFormatException e) {
-
-            console.println("ID должен быть целым числом");
-            return false;
-        }
-
-
+        Integer key = request.getKey();
         collectionManager.removeByKey(key);
         System.out.println("Команда " + this.name + " выполнена");
-        return true;
+        return CommandStatus.OK;
     }
     /**
      * Получить кол-во аргументов команды

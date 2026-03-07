@@ -3,6 +3,7 @@ package commands;
 import managers.CollectionManager;
 import managers.CommandManager;
 import managers.Console;
+import other.CommandStatus;
 import other.Request;
 import other.StudyGroup;
 import utils.CommandType;
@@ -31,17 +32,18 @@ public class Insert extends Command {
      * @param scanner
      * @return Выполнена ли команда.
      */
-    public boolean execute(Request request) {
+    public CommandStatus execute(Request request) {
         commandManager.addToHistory(this);
         Integer key = request.getKey();
         StudyGroup elem = request.getStudyGroup();
-        Scanner scanner = request.getScanner();
 
-        if (elem == null) {return false;}
+        if (collectionManager.used_keys.contains(key)) {return CommandStatus.ERROR;}
+        if (elem == null) {return CommandStatus.ERROR;}
+
         elem.setId(key);
         collectionManager.insertByKey(key, elem);
         System.out.println("Команда " + this.name + " выполнена");
-        return true;
+        return CommandStatus.OK;
     }
     /**
      * Получить кол-во аргументов команды

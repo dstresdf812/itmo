@@ -2,6 +2,8 @@ package commands;
 
 import managers.CommandManager;
 import managers.Console;
+import other.CommandStatus;
+import other.Request;
 import utils.CommandType;
 
 /**
@@ -22,11 +24,11 @@ public class History extends Command {
      * @param args
      * @return Выполнена ли команда
      */
-    public boolean execute(String[] args) {
+    public CommandStatus execute(Request request) {
         System.out.println(commandManager.getCommandHistory());
         commandManager.addToHistory(this);
         System.out.println("Команда " + this.name + " выполнена");
-        return true;
+        return CommandStatus.OK;
     }
     /**
      * Получить кол-во аргументов команды

@@ -3,6 +3,8 @@ package commands;
 import managers.CollectionManager;
 import managers.CommandManager;
 import managers.Console;
+import other.CommandStatus;
+import other.Request;
 import other.StudyGroup;
 import utils.CommandType;
 
@@ -29,28 +31,19 @@ public class Update extends Command {
      * @param scanner
      * @return Выполнена ли команда
      */
-    public boolean execute(String[] args, Scanner scanner) {
+    public CommandStatus execute(Request request) {
         commandManager.addToHistory(this);
-        Integer key;
-
-        try {
-            key = Integer.parseInt(args[0]);
-        } catch (NumberFormatException e) {
-            console.println("ID должен быть целым числом");
-            return false;
-        }
-
+        Integer key  = request.getKey();
+        StudyGroup elem = request.getStudyGroup();
         if (!collectionManager.used_keys.contains(key)) {
             console.println("Key не использован!");
-            return false;
+            return CommandStatus.ERROR;
         }
-        StudyGroup elem =  console.readElement(scanner);
-        if (elem == null) {return false;}
+
         elem.setId(key);
         collectionManager.updateByKey(key, elem);
-        // collectionManager.collection.put(key, elem);
         System.out.println("Команда " + this.name + " выполнена");
-        return true;
+        return CommandStatus.OK;
     }
     /**
      * Получить кол-во аргументов команды

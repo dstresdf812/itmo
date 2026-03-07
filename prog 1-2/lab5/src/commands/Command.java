@@ -4,6 +4,7 @@ import managers.CommandManager;
 
 import java.util.Scanner;
 
+import other.CommandStatus;
 import other.Request;
 import utils.CommandType;
 /**
@@ -58,9 +59,10 @@ public abstract class Command {
         return execute(args);
     }
 
-    public boolean execute(Request request){
-        return false;
+    public CommandStatus execute(Request request){
+        return CommandStatus.EXIT;
     }
+
     /**
      * Получить кол-во аргументов команды
      * @return Кол-во аргументов команды

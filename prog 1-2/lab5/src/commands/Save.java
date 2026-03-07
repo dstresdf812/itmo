@@ -3,6 +3,8 @@ package commands;
 import managers.CollectionManager;
 import managers.CommandManager;
 import managers.FileManager;
+import other.CommandStatus;
+import other.Request;
 import other.StudyGroup;
 import utils.CommandType;
 
@@ -27,11 +29,11 @@ public class Save extends Command {
      * @param args
      * @return Выполнена ли команда
      */
-    public boolean execute(String[] args) {
+    public CommandStatus execute(Request request) {
         commandManager.addToHistory(this);
         fileManager.saveToFile(collectionManager.collection);
         System.out.println("Команда " + this.name + " выполнена");
-        return true;
+        return CommandStatus.OK;
     }
     /**
      * Получить кол-во аргументов команды

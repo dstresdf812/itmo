@@ -3,6 +3,8 @@ package commands;
 import managers.CollectionManager;
 import managers.CommandManager;
 import managers.Console;
+import other.CommandStatus;
+import other.Request;
 import utils.CommandType;
 
 import java.util.ArrayList;
@@ -27,21 +29,12 @@ public class RemoveGreaterKey extends Command {
      * @param args
      * @return Выполнена ли команда
      */
-    public boolean execute(String[] args) {
+    public CommandStatus execute(Request request) {
         commandManager.addToHistory(this);
-        Integer key;
+        Integer key = request.getKey();
         int count = 0;
-        try {
-            key = Integer.parseInt(args[0]);
-        } catch (NumberFormatException e) {
-            console.println("ID должен быть целым числом");
-            return false;
-        }
-
         ArrayList<Integer> del = new ArrayList<>();
-        // System.out.println(collectionManager.used_keys);
         for (Integer elem_key : collectionManager.used_keys) {
-            // System.out.println(elem_key);
             if (elem_key > key) {
                 collectionManager.collection.remove(elem_key);
                 del.add(elem_key);
@@ -52,7 +45,7 @@ public class RemoveGreaterKey extends Command {
         collectionManager.used_keys.removeAll(del);
         console.println("Удалено " + count + " элементов.");
         System.out.println("Команда " + this.name + " выполнена");
-        return true;
+        return CommandStatus.OK;
     }
     /**
      * Получить кол-во аргументов команды

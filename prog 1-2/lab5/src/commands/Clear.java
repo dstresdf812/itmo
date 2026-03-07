@@ -2,6 +2,8 @@ package commands;
 
 import managers.CollectionManager;
 import managers.CommandManager;
+import other.CommandStatus;
+import other.Request;
 import utils.CommandType;
 
 /**
@@ -23,11 +25,11 @@ public class Clear extends Command {
      * @param args
      * @return Выполнена ли команда
      */
-    public boolean execute(String[] args) {
+    public CommandStatus execute(Request request) {
         commandManager.addToHistory(this);
         collectionManager.clearCollection();
         System.out.println("Команда " + this.name + " выполнена");
-        return true;
+        return CommandStatus.OK;
     }
 
     public CommandType getCommandType() {

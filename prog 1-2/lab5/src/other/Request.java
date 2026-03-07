@@ -4,6 +4,7 @@ import java.util.Scanner;
 
 public class Request {
     // добавить передачу команды
+    // record mb
     private final int key;
     private final String fileName;
     private final Scanner scanner;

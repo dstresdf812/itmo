@@ -1,5 +1,7 @@
 package commands;
 
+import other.CommandStatus;
+import other.Request;
 import utils.CommandType;
 
 /**
@@ -17,9 +19,8 @@ public class Exit extends Command{
      * @param args
      * @return Выполнена ли комаинда
      */
-    public boolean execute(String[] args) {
-        System.exit(1);
-        return true;
+    public CommandStatus execute(Request request) {
+        return CommandStatus.EXIT;
     }
 
     /**

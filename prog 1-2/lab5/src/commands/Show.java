@@ -3,6 +3,8 @@ package commands;
 import managers.CommandManager;
 import managers.Console;
 import managers.CollectionManager;
+import other.CommandStatus;
+import other.Request;
 import other.StudyGroup;
 import utils.CommandType;
 
@@ -26,13 +28,13 @@ public class Show extends Command {
      * @param args
      * @return Выполнена ли команда
      */
-    public boolean execute(String[] args) {
+    public CommandStatus execute(Request request) {
         commandManager.addToHistory(this);
         for (StudyGroup element : collectionManager.collection.values()) {
             System.out.println(element.toString());
         }
         System.out.println("Команда " + this.name + " выполнена");
-        return true;
+        return CommandStatus.OK;
     }
     /**
      * Получить кол-во аргументов команды

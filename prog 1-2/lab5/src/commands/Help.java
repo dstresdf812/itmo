@@ -2,6 +2,8 @@ package commands;
 
 import managers.CommandManager;
 import managers.Console;
+import other.CommandStatus;
+import other.Request;
 import utils.CommandType;
 
 /**
@@ -24,14 +26,14 @@ public class Help extends Command {
      * @return Выполнена ли команда
      */
     @Override
-    public boolean execute(String[] args) {
+    public CommandStatus execute(Request request) {
         commandManager.addToHistory(this);
         System.out.println("Доступные команды:");
         for (Command command : commandManager.getCommands().values()) {
             console.println(command.getName() + ": " + command.getDescription());
         }
         System.out.println("Команда " + this.name + " выполнена");
-        return true;
+        return CommandStatus.OK;
     }
     /**
      * Получить кол-во аргументов команды

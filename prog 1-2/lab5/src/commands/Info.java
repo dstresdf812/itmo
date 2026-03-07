@@ -3,6 +3,8 @@ package commands;
 import managers.CommandManager;
 import managers.Console;
 import managers.CollectionManager;
+import other.CommandStatus;
+import other.Request;
 import utils.CommandType;
 
 import java.util.Date;
@@ -28,7 +30,7 @@ public class Info extends Command {
      * @param args
      * @return Выполнена ли команда
      */
-    public  boolean execute(String[] args) {
+    public CommandStatus execute(Request request) {
         commandManager.addToHistory(this);
         int size = collectionManager.getLength();
         Date initDate = collectionManager.getInitDate();
@@ -36,7 +38,7 @@ public class Info extends Command {
         console.println("Тип: " + type + "\nДата" +
                 " инициализации: " + initDate + "\nРазмер: " + size);
         System.out.println("Команда " + this.name + " выполнена");
-        return true;
+        return CommandStatus.OK;
     }
     /**
      * Получить кол-во аргументов команды

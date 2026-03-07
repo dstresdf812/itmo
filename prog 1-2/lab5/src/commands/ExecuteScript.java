@@ -4,6 +4,7 @@ import managers.CollectionManager;
 import managers.CommandManager;
 import managers.Console;
 import managers.FileManager;
+import other.CommandStatus;
 import other.Request;
 import utils.CommandType;
 
@@ -36,23 +37,25 @@ public class ExecuteScript extends Command{
      * @param scanner
      * @return Выполнена ли команда
      */
-    public boolean execute(Request request) {
+    public CommandStatus execute(Request request) {
         String fileName = request.getFileName();
         System.out.println(commandManager.stack);
         if (commandManager.checkStack(fileName)) {
-            return false;
+            return CommandStatus.ERROR;
         }
         commandManager.incStack(fileName);
         commandManager.addToHistory(this);
         InputStream origin = System.in;
         try {
-            System.setIn(new FileInputStream(fileName));
-            Scanner new_scanner = new Scanner(System.in);
+             // System.setIn(new FileInputStream(fileName));
+             Scanner new_scanner = new Scanner(new FileInputStream(fileName));
+//            Scanner new_scanner = new Scanner(new FileInputStream(fileName));
             while (new_scanner.hasNextLine()) {
                 String line = new_scanner.nextLine();
-                System.out.println("Выполняем: " + line);
+                // execute_script script.txt
                 String[] new_args = line.split(" ");
                 String currentCommand = new_args[0];
+                System.out.println("Выполняем: " + currentCommand);
                 String[] inputArgs = Arrays.copyOfRange(new_args, 1, new_args.length);
                 Request req2 = new Request(request.getKey(), (inputArgs.length == 0 ? "" : inputArgs[0]), new_scanner, request.getStudyGroup());
                 System.out.println(req2.toString());
@@ -70,7 +73,7 @@ public class ExecuteScript extends Command{
         }
         commandManager.decStack(fileName);
         System.out.println("Команда " + this.name + " выполнена");
-        return true;
+        return CommandStatus.OK;
     }
 
     /**

@@ -410,28 +410,17 @@ public class Console {
     }
 
     public void start(Console console, CommandManager commandManager) {
-        while (true) {
+        CommandStatus status = CommandStatus.OK;
+        while (status != CommandStatus.EXIT) {
             String[] input = console.read();
             String currentCommand = input[0];
             String[] inputArgs = Arrays.copyOfRange(input, 1, input.length);
-//            if (commandManager.getCommands().containsKey(currentCommand)) {
-//                Command command = commandManager.getCommands().get(currentCommand);
-//                if (command.getArgsLen() != inputArgs.length) {
-//                    console.println("Wrong amount of arguments. Command needs " + command.getArgsLen() + " arguments. :)");
-//                } else {
-//                    isInputCorrect = true;
-//                }
+
 //                // TODO
 //                //  перенести ввод в main (ввод вывод на клиенте)
 //                //  client main 1 строка
 //                //  валидация отдельно от команд (шаблоны проектирования или solid)
 //                //  переписать под maven
-//                if (isInputCorrect) {
-//                    isInputCorrect = command.execute(inputArgs,new Scanner(System.in));
-//                }
-//            } else {
-//                console.println("Command " + currentCommand + " not found. Use help for list of commands. :)");
-//            }
 
             if (commandManager.getCommands().containsKey(currentCommand)) {
                 Command command = commandManager.getCommands().get(currentCommand);
@@ -440,11 +429,13 @@ public class Console {
                     // TODO
                     // WHILE TRUE убрать
                     // фабрика, абстрактная фабрика, попробовать применить :))
+
                     case NO_ARGS: {
                         if (inputArgs.length != 0) {
                             System.out.println("Invalid command arguments!");
                         } else {
-                            command.execute(inputArgs);
+                            status = command.execute(new Request(-1,null,null,null));
+                            // FIX
                         }
                         break;
                     }
@@ -452,7 +443,7 @@ public class Console {
                         if (inputArgs.length != 1) {
                             System.out.println("Invalid command arguments!");
                         } else {
-                            command.execute(inputArgs);
+                            command.execute(new Request(Integer.parseInt(inputArgs[0]),null,null,null));
                         }
                         System.out.println("1");
                         break;

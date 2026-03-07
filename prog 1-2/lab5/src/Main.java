@@ -7,8 +7,7 @@ import managers.CommandManager;
 import managers.Console;
 import commands.*;
 import managers.FileManager;
-import other.Request;
-import other.StudyGroup;
+
 // послед читать элементы
 // eyecolor null +
 // execute_script

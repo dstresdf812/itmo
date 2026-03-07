@@ -1,2 +1,3 @@
 help
-execute_script script_1.txt
+show
+exit

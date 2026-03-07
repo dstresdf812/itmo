@@ -4,6 +4,8 @@ import managers.CollectionManager;
 import managers.CommandManager;
 import managers.Console;
 import managers.FileManager;
+import other.CommandStatus;
+import other.Request;
 import other.StudyGroup;
 import utils.CommandType;
 import utils.StudyGroupComparator;
@@ -35,29 +37,23 @@ public class ReplaceIfGreater extends Command {
      * @param scanner
      * @return Выполнена ли команда
      */
-    public boolean execute(String[] args, Scanner scanner) {
+    public CommandStatus execute(Request request) {
         commandManager.addToHistory(this);
-        StudyGroup elem;
-        Integer key;
-        try {
-            key = Integer.parseInt(args[0]);
-        } catch (NumberFormatException e) {
-            console.println("ID должен быть целым числом");
-            return false;
-        }
+        Integer key = request.getKey();
+        StudyGroup elem = request.getStudyGroup();
 
         if (!collectionManager.used_keys.contains(key)) {
             console.println("Key не использован!");
-            return false;
+            return CommandStatus.ERROR;
         }
-        elem = console.readElement(scanner);
+
         StudyGroup elem_by_key = collectionManager.collection.get(key);
         if (studyGroupComparator.compare(elem_by_key, elem) < 0) {
             elem.setId(key);
             collectionManager.collection.put(key, elem);
         }
         System.out.println("Команда " + this.name + " выполнена");
-        return true;
+        return CommandStatus.OK;
     }
     /**
      * Получить кол-во аргументов команды
