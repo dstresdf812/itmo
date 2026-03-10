@@ -4,10 +4,13 @@ import other.StudyGroup;
 
 import java.io.*;
 
+import java.time.ZonedDateTime;
 import java.util.*;
 
 import com.fasterxml.jackson.databind.*;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
+
+import static java.lang.Thread.sleep;
 
 
 /**
@@ -27,15 +30,38 @@ public class FileManager {
      * @return Массив элементов типа StudyGroup.
      */
     public ArrayList<StudyGroup> ReadFile(String fileName) {
+        ArrayList<StudyGroup> studyGroups = new ArrayList<>();
         try {
             FileInputStream fis = new FileInputStream(fileName);
             BufferedInputStream bis = new BufferedInputStream(fis);
             InputStreamReader isr = new InputStreamReader(bis);
-            collection = parser.readValue(isr, StudyGroup[].class);
+            JsonParser jp = parser.getFactory().createParser(isr);
+
+            if (jp.nextToken() != JsonToken.START_ARRAY) {
+                System.out.println("Ожидался массив объектов StudyGroup");
+                return studyGroups;
+            }
+
+            while (jp.nextToken() != JsonToken.END_ARRAY) {
+                try {
+                    StudyGroup studyGroup = parser.readValue(jp, StudyGroup.class);
+
+                    if (studyGroup == null) continue;
+
+                    if (!studyGroup.check()) {
+                        System.out.println("Невалидный StudyGroup пропущен");
+                        continue;
+                    }
+                    System.out.println("Прочитан ID: " + studyGroup.getId());
+                    studyGroups.add(studyGroup);
+                } catch (Exception e) {
+                    System.out.println("Ошибка при чтении элемента StudyGroup: " + e.getMessage());
+                }
+            }
         } catch (Exception e) {
-            System.out.println(e + "ASDADSAD");
+            System.out.println(e + "FILE MANAGER ERRRRRRRRREOROOREO");
         }
-        return new ArrayList<>(Arrays.asList(collection));
+        return studyGroups;
     }
 
     /**

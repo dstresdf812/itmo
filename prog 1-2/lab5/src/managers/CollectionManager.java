@@ -52,6 +52,7 @@ public class CollectionManager {
     }
 
     public void insertByKey(Integer key, StudyGroup studyGroup) {
+        studyGroup.setId(key);
         used_keys.add(key);
         collection.put(key, studyGroup);
     }

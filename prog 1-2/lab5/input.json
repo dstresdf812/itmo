@@ -3,7 +3,7 @@
     "id": 1,
     "name": "МП-15",
     "coordinates": {
-      "x": 222,
+      "x": "ASDASD",
       "y": 200
     },
     "creationDate": null,
@@ -28,7 +28,7 @@
     "creationDate": null,
     "studentsCount": 22,
     "expelledStudents": 3,
-    "shouldBeExpelled": null,
+    "shouldBeExpelled": 3,
     "formOfEducation": "DISTANCE_EDUCATION",
     "groupAdmin": {
       "name": "Петрова Анна Сергеевна",
@@ -47,7 +47,7 @@
     "creationDate": null,
     "studentsCount": 28,
     "expelledStudents": 1,
-    "shouldBeExpelled": 0,
+    "shouldBeExpelled": 4,
     "formOfEducation": null,
     "groupAdmin": null
   }

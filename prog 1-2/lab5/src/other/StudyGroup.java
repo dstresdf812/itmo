@@ -1,9 +1,6 @@
 package other;
 
 import managers.Checkable;
-import utils.StudyGroupComparator;
-
-import java.util.Comparator;
 
 public class StudyGroup implements Checkable {
     private int id; //Значение поля должно быть больше 0, Значение этого поля должно быть уникальным, Значение этого поля должно генерироваться автоматически
@@ -17,11 +14,12 @@ public class StudyGroup implements Checkable {
     private Person groupAdmin; //Поле может быть null
     // static list of ids
     public boolean check(){
-        // if (this.id <= 0) { return false; }
-        if (this.name == null || this.name == "") { return false; }
+        // System.out.println(this.toString());
+        if (this.id <= 0) { return false; }
+        if (this.name == null || this.name.isEmpty()) { return false; }
         if (this.coordinates == null) { return false; }
-        if (this.creationDate == null) { return false; }
-        if (this.studentsCount <= 0 || this.studentsCount == null) { return false; }
+        if (this.creationDate == null) { this.creationDate = java.time.ZonedDateTime.now(); }
+        if (this.studentsCount <= 0) { return false; }
         if (this.expelledStudents <= 0) { return false; }
         if (this.shouldBeExpelled <= 0) { return false; }
         return true;
@@ -101,11 +99,6 @@ public class StudyGroup implements Checkable {
         s += "Отчислено студентов: " + this.expelledStudents + "\n";
         s += "Должно быть отчислено студентов: " + this.shouldBeExpelled + "\n";
         s += "Форма обучения: " + (this.formOfEducation == null ? "NULL" + "\n" : this.formOfEducation + "\n");
-//        try {
-//            s += "Форма обучения: " + this.formOfEducation.toString() + "\n";
-//        } catch (NullPointerException e) {
-//            s += "Форма обучения: " + "NULL" + "\n";
-//        }
         s += "Староста: " + this.groupAdmin + "\n";
         return s;
     }
