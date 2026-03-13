@@ -36,7 +36,7 @@ public class Main {
         commandManager.add("print_unique_students_count", new PrintUniqueStudentsCount(console, collectionManager, commandManager));
         commandManager.add("print_field_ascending_expelled_students", new PrintFieldAscendingExpelledStudents(console, collectionManager, commandManager));
 
-        collectionManager.SetStudyGroup(fileManager.ReadFile("input.json"));
+        collectionManager.SetStudyGroup(fileManager.readFile("input.json"));
 
         // System.out.println(collectionManager.collection.get(2));
         console.start(console, commandManager);

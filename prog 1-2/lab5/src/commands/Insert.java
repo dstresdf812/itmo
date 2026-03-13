@@ -8,8 +8,6 @@ import other.Request;
 import other.StudyGroup;
 import utils.CommandType;
 
-import java.util.Scanner;
-
 /**
  * Команда 'insert'. Добавляет новый элемент в коллекцию по заданному ключу.
  * @author dmitrij

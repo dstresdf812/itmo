@@ -6,10 +6,10 @@ import managers.Console;
 import managers.FileManager;
 import other.CommandStatus;
 import other.Request;
+import utils.CommandHandler;
 import utils.CommandType;
 
 import java.io.*;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Scanner;
 
@@ -38,6 +38,7 @@ public class ExecuteScript extends Command{
      * @return Выполнена ли команда
      */
     public CommandStatus execute(Request request) {
+        CommandStatus status = CommandStatus.ERROR;
         String fileName = request.getFileName();
         System.out.println(commandManager.stack);
         if (commandManager.checkStack(fileName)) {
@@ -45,35 +46,35 @@ public class ExecuteScript extends Command{
         }
         commandManager.incStack(fileName);
         commandManager.addToHistory(this);
-        InputStream origin = System.in;
+        Scanner old_scanner = console.getScanner();
         try {
-             // System.setIn(new FileInputStream(fileName));
-             Scanner new_scanner = new Scanner(new FileInputStream(fileName));
-//            Scanner new_scanner = new Scanner(new FileInputStream(fileName));
+            Scanner new_scanner = new Scanner(new FileInputStream(fileName));
+            console.isScriptMode = true;
+            console.setScanner(new_scanner);
             while (new_scanner.hasNextLine()) {
                 String line = new_scanner.nextLine();
                 // execute_script script.txt
                 String[] new_args = line.split(" ");
+
                 String currentCommand = new_args[0];
                 System.out.println("Выполняем: " + currentCommand);
                 String[] inputArgs = Arrays.copyOfRange(new_args, 1, new_args.length);
-                Request req2 = new Request(request.getKey(), (inputArgs.length == 0 ? "" : inputArgs[0]), new_scanner, request.getStudyGroup());
-                System.out.println(req2.toString());
+
                 if (commandManager.getCommands().containsKey(currentCommand)) {
                     Command command = commandManager.getCommands().get(currentCommand);
-                    console.isScriptMode = true;
-                    command.execute(req2);
-                    console.isScriptMode = false;
+                    CommandHandler handler = command.getCommandType().getFactory().createHandler(console);
+                    status = handler.handle(command, inputArgs);
                 }
             }
         } catch (Exception e) {
             System.out.println(e.getMessage());
         } finally {
-            System.setIn(origin);
+            console.isScriptMode = false;
+            console.setScanner(old_scanner);
         }
         commandManager.decStack(fileName);
         System.out.println("Команда " + this.name + " выполнена");
-        return CommandStatus.OK;
+        return status;
     }
 
     /**

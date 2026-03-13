@@ -1,6 +1,5 @@
 package commands;
 
-
 import managers.CollectionManager;
 import managers.CommandManager;
 import managers.Console;
@@ -10,7 +9,6 @@ import other.StudyGroup;
 import utils.CommandType;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collections;
 
 /**

@@ -8,8 +8,6 @@ import other.Request;
 import other.StudyGroup;
 import utils.CommandType;
 
-import java.util.Scanner;
-
 /**
  * Команда 'update'. Обновляет элемент коллекции по ключу.
  * @author dmitrij

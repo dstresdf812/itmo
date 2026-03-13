@@ -2,6 +2,7 @@ package managers;
 
 import commands.Command;
 import other.*;
+import utils.CommandHandler;
 
 import java.time.ZonedDateTime;
 import java.util.Arrays;
@@ -12,7 +13,7 @@ import java.util.Scanner;
  * @author dmitrij
  */
 public class Console {
-    private final Scanner scanner = new Scanner(System.in);
+    private Scanner scanner = new Scanner(System.in);
     private final CollectionManager collectionManager = new CollectionManager();
     public static boolean isScriptMode = false;
 
@@ -425,67 +426,18 @@ public class Console {
             if (commandManager.getCommands().containsKey(currentCommand)) {
                 Command command = commandManager.getCommands().get(currentCommand);
                 System.out.println(command.getName());
-                switch (command.getCommandType()) {
-                    // TODO
-                    // WHILE TRUE убрать
-                    // фабрика, абстрактная фабрика, попробовать применить :))
-
-                    case NO_ARGS: {
-                        if (inputArgs.length != 0) {
-                            System.out.println("Invalid command arguments!");
-                        } else {
-                            status = command.execute(new Request(-1,null,null,null));
-                            // FIX
-                        }
-                        break;
-                    }
-                    case ONE_ARG: {
-                        if (inputArgs.length != 1) {
-                            System.out.println("Invalid command arguments!");
-                        } else {
-                            command.execute(new Request(Integer.parseInt(inputArgs[0]),null,null,null));
-                        }
-                        System.out.println("1");
-                        break;
-                    }
-                    case ARG_AND_ELEM: {
-                        if (inputArgs.length != 1) {
-                            System.out.println("Invalid command arguments!");
-                        } else {
-                            Integer key = null;
-                            while (key == null) {
-                                try {
-                                    key = Integer.parseInt(inputArgs[0]);
-                                } catch (NumberFormatException e) {
-                                    System.out.println("Invalid command arguments!");
-                                    break;
-                                }
-                            }
-                            if (key == null) {
-                                break;
-                            }
-                            Scanner scanner = new Scanner(System.in);
-                            StudyGroup elem = console.readElement(scanner);
-                            Request request = new Request(key,null, scanner, elem);
-                            command.execute(request);
-                        }
-                        System.out.println("2");
-                        break;
-                    }
-                    case FILE: {
-                        if (inputArgs.length != 1) {
-                            System.out.println("Invalid command arguments!");
-                        } else {
-                            String fileName = inputArgs[0];
-                            Scanner scanner = new Scanner(System.in);
-                            Request request = new Request(0,fileName, scanner, null);
-                            command.execute(request);
-                        }
-                    }
-                }
+                CommandHandler handler = command.getCommandType().getFactory().createHandler(console);
+                status = handler.handle(command, inputArgs);
             } else {
                 console.println("Command " + currentCommand + " not found. Use help for list of commands. :)");
             }
         }
+        }
+    public Scanner getScanner(){
+        return scanner;
+    }
+
+    public void setScanner(Scanner scanner){
+        this.scanner = scanner;
     }
 }

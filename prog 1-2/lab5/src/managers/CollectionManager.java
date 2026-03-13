@@ -16,7 +16,6 @@ public class CollectionManager {
     public ArrayList<Integer> used_keys = new ArrayList<>();
     public Date initDate = new Date();
     public CollectionManager() {
-
     }
 
     /**

@@ -3,14 +3,10 @@ import com.fasterxml.jackson.core.*;
 import other.StudyGroup;
 
 import java.io.*;
-
-import java.time.ZonedDateTime;
 import java.util.*;
 
 import com.fasterxml.jackson.databind.*;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
-
-import static java.lang.Thread.sleep;
 
 
 /**
@@ -29,13 +25,13 @@ public class FileManager {
      * @param fileName
      * @return Массив элементов типа StudyGroup.
      */
-    public ArrayList<StudyGroup> ReadFile(String fileName) {
+    public ArrayList<StudyGroup> readFile(String fileName) {
         ArrayList<StudyGroup> studyGroups = new ArrayList<>();
         try {
             FileInputStream fis = new FileInputStream(fileName);
             BufferedInputStream bis = new BufferedInputStream(fis);
             InputStreamReader isr = new InputStreamReader(bis);
-            JsonParser jp = parser.getFactory().createParser(isr);
+            JsonParser jp = parser.createParser(isr);
 
             if (jp.nextToken() != JsonToken.START_ARRAY) {
                 System.out.println("Ожидался массив объектов StudyGroup");
@@ -85,6 +81,7 @@ public class FileManager {
         }
         return lines;
     }
+
     public void saveToFile(LinkedHashMap<Integer, StudyGroup> collection) {
         try {
             parser.writeValue(new File("output.json"), collection);

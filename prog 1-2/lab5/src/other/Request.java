@@ -7,13 +7,11 @@ public class Request {
     // record mb
     private final int key;
     private final String fileName;
-    private final Scanner scanner;
     private final StudyGroup studyGroup;
 
     public Request(int key, String fileName, Scanner scanner, StudyGroup studyGroup) {
         this.key = key;
         this.fileName = fileName;
-        this.scanner = scanner;
         this.studyGroup = studyGroup;
     }
     // расширение request для execute_script
@@ -27,16 +25,12 @@ public class Request {
     public StudyGroup getStudyGroup() {
         return studyGroup;
     }
-    public Scanner getScanner() {
-        return scanner;
-    }
 
     @Override
     public String toString() {
         return "Request{" +
                 "key=" + key +
                 ", fileName='" + fileName + '\'' +
-                ", scanner=" + scanner +
                 ", studyGroup=" + studyGroup +
                 '}';
     }

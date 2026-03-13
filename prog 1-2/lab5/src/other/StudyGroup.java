@@ -12,9 +12,7 @@ public class StudyGroup implements Checkable {
     private Long shouldBeExpelled; //Значение поля должно быть больше 0, Поле может быть null
     private FormOfEducation formOfEducation;
     private Person groupAdmin; //Поле может быть null
-    // static list of ids
     public boolean check(){
-        // System.out.println(this.toString());
         if (this.id <= 0) { return false; }
         if (this.name == null || this.name.isEmpty()) { return false; }
         if (this.coordinates == null) { return false; }
