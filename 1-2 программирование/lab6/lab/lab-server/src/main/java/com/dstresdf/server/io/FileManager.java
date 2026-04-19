@@ -5,6 +5,7 @@ import com.dstresdf.common.model.StudyGroup;
 import java.io.*;
 import java.util.*;
 
+import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.*;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 
@@ -27,7 +28,7 @@ public class FileManager {
             while (jp.nextToken() != null) {
                 try {
                     // StudyGroup studyGroup = parser.readValue(jp, StudyGroup.class);
-                    Map<Integer,StudyGroup> studyGroupmap = parser.readValue(jp, Map.class);
+                    Map<Integer,StudyGroup> studyGroupmap = parser.readValue(jp, new TypeReference<Map<Integer, StudyGroup>>() {});
 
                     for (Map.Entry<Integer, StudyGroup> entry : studyGroupmap.entrySet()) {
                         StudyGroup studyGroup = entry.getValue();
