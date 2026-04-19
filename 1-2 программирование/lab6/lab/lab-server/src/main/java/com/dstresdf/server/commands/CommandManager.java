@@ -1,7 +1,5 @@
 package com.dstresdf.server.commands;
 
-import com.dstresdf.server.commands.Command;
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;

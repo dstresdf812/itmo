@@ -5,7 +5,6 @@ import com.dstresdf.server.collection.CollectionManager;
 import com.dstresdf.common.network.Request;
 import com.dstresdf.common.model.StudyGroup;
 
-import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 

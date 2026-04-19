@@ -1,4 +1,4 @@
-package com.dstresdf.client.commands;
+package com.dstresdf.common.commands;
 
 public enum ArgumentType {
     NO_ARGS,

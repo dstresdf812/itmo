@@ -1,9 +1,8 @@
 package com.dstresdf.client.console;
 
 import com.dstresdf.client.Client;
-import com.dstresdf.client.commands.ArgumentType;
-import com.dstresdf.client.commands.CommandList;
-import com.dstresdf.client.console.Console;
+import com.dstresdf.common.commands.ArgumentType;
+import com.dstresdf.common.commands.CommandType;
 import com.dstresdf.client.network.ClientManager;
 import com.dstresdf.common.network.Request;
 import com.dstresdf.common.network.Response;
@@ -20,15 +19,13 @@ import java.util.Scanner;
 public class ScriptExecutor {
     private final Client client;
     private final Console console;
-    private final HistoryManager historyManager;
     private final ClientManager clientManager;
     private final StudyGroupReader studyGroupReader;
     private Map<String, Integer> stack = new HashMap<>();
     private final int max_stack = 5;
-    public ScriptExecutor(Client client, Console console, HistoryManager historyManager, ClientManager clientManager, StudyGroupReader studyGroupReader) {
+    public ScriptExecutor(Client client, Console console, ClientManager clientManager, StudyGroupReader studyGroupReader) {
         this.client = client;
         this.console = console;
-        this.historyManager = historyManager;
         this.clientManager = clientManager;
         this.studyGroupReader = studyGroupReader;
     }
@@ -52,27 +49,21 @@ public class ScriptExecutor {
                 String currentCommand = new_args[0];
                 System.out.println("Выполняем: " + currentCommand);
 
-                CommandList command = CommandList.getCommand(currentCommand);
+                CommandType command = CommandType.getCommand(currentCommand);
                 if (command == null) {
                     console.println("Invalid command");
                     continue;
                 }
-                String commandName = command.getCommandName();
-                ArgumentType argumentType = command.getArgumentType();
+                String commandName = command.getName();
+                ArgumentType argumentType = command.getArg();
 
                 String[] args = Arrays.copyOfRange(new_args, 1, new_args.length);
-
-                if (commandName.equals("history")) {
-                    console.println(historyManager.getHistory().toString());
-                    continue;
-                }
 
                 if (commandName.equals("exit")) {
                     console.println("Завершение работы скрипта.");
                     break;
                 }
 
-                historyManager.addToHistory(commandName);
 
                 if (commandName.equals("execute_script")) {
                     if (args.length != 1) {
@@ -80,12 +71,12 @@ public class ScriptExecutor {
                         continue;
                     }
 
-                    ScriptExecutor scriptExecutor = new ScriptExecutor(client, console, historyManager, clientManager, studyGroupReader);
+                    ScriptExecutor scriptExecutor = new ScriptExecutor(client, console, clientManager, studyGroupReader);
                     scriptExecutor.executeScript(args[0]);
                     continue;
                 }
 
-                Request request = client.buildRequest(commandName, argumentType, args);
+                Request request = client.buildRequest(command, argumentType, args);
                 if (request == null) {
                     continue;
                 }

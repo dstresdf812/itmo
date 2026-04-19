@@ -1,8 +1,6 @@
 package com.dstresdf.client.console;
 
 import com.dstresdf.common.model.*;
-
-import java.time.ZonedDateTime;
 import java.util.Scanner;
 
 public class StudyGroupReader {

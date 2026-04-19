@@ -102,6 +102,8 @@ public class ServerManager {
             return new Response(false, "Неизвестная команда.", null);
         }
         LOG.info("Выполняется команда: " + request.getCommandType().getName() + "\n");
+        commandManager.addToHistory(command);
+        LOG.info("Команда " + command.getName() + "добавлена в историю.");
         return command.execute(request);
     }
 }

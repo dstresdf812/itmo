@@ -1,19 +1,15 @@
 package com.dstresdf.client;
 
-import com.dstresdf.client.commands.ArgumentType;
-import com.dstresdf.client.commands.Command;
-import com.dstresdf.client.commands.CommandList;
+import com.dstresdf.common.commands.ArgumentType;
+import com.dstresdf.common.commands.CommandType;
 import com.dstresdf.client.console.Console;
-import com.dstresdf.client.console.HistoryManager;
 import com.dstresdf.client.console.ScriptExecutor;
 import com.dstresdf.client.console.StudyGroupReader;
 import com.dstresdf.client.network.ClientManager;
-import com.dstresdf.common.commands.CommandType;
 import com.dstresdf.common.model.StudyGroup;
 import com.dstresdf.common.network.Request;
 import com.dstresdf.common.network.Response;
 
-import java.net.InetAddress;
 import java.util.Arrays;
 
 /**
@@ -21,14 +17,12 @@ import java.util.Arrays;
  */
 public class Client {
     private final Console console;
-    private final HistoryManager historyManager;
     private final StudyGroupReader studyGroupReader;
     private final ClientManager clientManager;
 
     private boolean flag = true;
     public Client(String host, int port) throws Exception {
         this.console = new Console();
-        this.historyManager = new HistoryManager();
         this.studyGroupReader = new StudyGroupReader(console);
         this.clientManager = new ClientManager(host, port);
     }
@@ -41,20 +35,15 @@ public class Client {
                 input = console.read();
             }
 
-            CommandList command = CommandList.getCommand(input[0]);
+            CommandType command = CommandType.getCommand(input[0]);
             if (command == null) {
                 console.println("Invalid command");
                 continue;
             }
-            String commandName = command.getCommandName();
-            ArgumentType argumentType = command.getArgumentType();
+            String commandName = command.getName();
+            ArgumentType argumentType = command.getArg();
 
             String[] args = Arrays.copyOfRange(input, 1, input.length);
-
-            if (commandName.equals("history")) { // на сервере
-                console.println(historyManager.getHistory().toString());
-                continue;
-            }
 
             if (commandName.equals("exit")) {
                 console.println("Завершение работы клиента");
@@ -62,20 +51,18 @@ public class Client {
                 continue;
             }
 
-            historyManager.addToHistory(commandName);
-
             if (commandName.equals("execute_script")) {
                 if (args.length != 1) {
                     console.println("У команды execute_script должен быть один аргумент");
                     continue;
                 }
 
-                ScriptExecutor scriptExecutor = new ScriptExecutor(this, console, historyManager, clientManager, studyGroupReader);
+                ScriptExecutor scriptExecutor = new ScriptExecutor(this, console, clientManager, studyGroupReader);
                 scriptExecutor.executeScript(args[0]);
                 continue;
             }
 
-            Request request = buildRequest(commandName, argumentType, args);
+            Request request = buildRequest(command, argumentType, args);
             if (request == null) {
                 continue;
             }
@@ -94,15 +81,11 @@ public class Client {
         }
     }
 
-    public Request buildRequest(String commandName, ArgumentType argumentType, String[] args) {
-        CommandType commandType = getCommandType(commandName);
-        if (commandType == null) {
-            console.println("Неизвестная команда. Используйте help.");
-            return null;
-        }
+    public Request buildRequest(CommandType command, ArgumentType argumentType, String[] args) {
+        ArgumentType commandType = command.getArg();
 
         if (argumentType.equals(ArgumentType.NO_ARGS)) {
-            Request request = new Request(commandType, null, null);
+            Request request = new Request(command, null, null);
             return request;
         }
 
@@ -118,7 +101,7 @@ public class Client {
                 console.println("Неверный формат аргумента. Требуется число.");
                 return null;
             }
-            Request request = new Request(commandType, integerArg, null);
+            Request request = new Request(command, integerArg, null);
             return request;
         }
 
@@ -135,41 +118,10 @@ public class Client {
                 return null;
             }
             StudyGroup elem = studyGroupReader.readElement(console.getScanner());
-            Request request = new Request(commandType, integerArg, elem);
+            Request request = new Request(command, integerArg, elem);
             return request;
         }
         return null;
-    }
-
-    private CommandType getCommandType(String commandName) { // убрать : получать с сервера
-        switch (commandName) {
-            case "help":
-                return CommandType.HELP;
-            case "info":
-                return CommandType.INFO;
-            case "show":
-                return CommandType.SHOW;
-            case "insert":
-                return CommandType.INSERT;
-            case "update":
-                return CommandType.UPDATE;
-            case "remove_key":
-                return CommandType.REMOVE_KEY;
-            case "clear":
-                return CommandType.CLEAR;
-            case "replace_if_greater":
-                return CommandType.REPLACE_IF_GREATER;
-            case "remove_greater_key":
-                return CommandType.REMOVE_GREATER_KEY;
-            case "average_of_students_count":
-                return CommandType.AVERAGE_OF_STUDENTS_COUNT;
-            case "print_unique_students_count":
-                return CommandType.PRINT_UNIQUE_STUDENTS_COUNT;
-            case "print_field_ascending_expelled_students":
-                return CommandType.PRINT_FIELD_ASCENDING_EXPELLED_STUDENTS;
-            default:
-                return null;
-        }
     }
 
     public static void main(String[] args) {

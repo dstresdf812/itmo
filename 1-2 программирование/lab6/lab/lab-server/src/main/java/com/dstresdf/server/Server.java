@@ -26,6 +26,7 @@ public class Server {
         commandManager.add("average_of_students_count", new AverageOfStudentsCount(collectionManager));
         commandManager.add("print_unique_students_count", new PrintUniqueStudentsCount(collectionManager));
         commandManager.add("print_field_ascending_expelled_students", new PrintFieldAscendingExpelledStudents(collectionManager));
+        commandManager.add("history", new History(commandManager));
 
         collectionManager.SetStudyGroup(fileManager.readFile("input.json"));
         Runtime.getRuntime().addShutdownHook(new Thread(() -> fileManager.saveToFile(collectionManager.getCollection())));

@@ -29,7 +29,6 @@ public class ClientManager {
     public Response sendRequest(Request request) {
         try {
             byte[] requestData = serialize(request);
-            System.out.println("ASDKASJKDSAJK ");
             DatagramPacket sendPacket = new DatagramPacket(requestData, requestData.length, serverAddress, serverPort);
 
             for (int i = 0; i < retryes; i++) {
@@ -40,7 +39,7 @@ public class ClientManager {
                     socket.receive(receivePacketLen);
                     len = deserializeNum(receivePacketLen.getData());
                     byte[] buffer = new byte[len];
-                    // System.out.println("BUFFER SIZE " + len);
+                    System.out.println("BUFFER SIZE " + len);
                     DatagramPacket receivePacket = new DatagramPacket(buffer, buffer.length);
                     socket.receive(receivePacket);
 
@@ -51,7 +50,6 @@ public class ClientManager {
                     System.out.println("Сервер временно недоступен. Попытка " + (i + 1) + " из " + retryes);
                 }
             }
-
             return new Response(false, "Не удалось получить ответ от сервера.", null);
         } catch (IOException e) {
             return new Response(false, "Ошибка сети: " + e, null);

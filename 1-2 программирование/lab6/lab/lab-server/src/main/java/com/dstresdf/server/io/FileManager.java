@@ -10,7 +10,6 @@ import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 
 public class FileManager {
     final private ObjectMapper parser = new ObjectMapper();
-    private StudyGroup[] collection = new StudyGroup[0];
     public FileManager() {
         parser.registerModule(new JavaTimeModule());
     }
