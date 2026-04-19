@@ -49,7 +49,12 @@ public class ServerManager {
                 Response response = handle(request, commandManager);
                 LOG.info("Запрос обработан.");
                 byte[] responseData = serializeResponse(response);
+                LOG.info("GOT LEN " + responseData.length);
+                byte[] responseLen = serializeNum(responseData.length);
                 // отправлять кол-во пакетов и максимальный размер
+                ByteBuffer responseLenBuffer = ByteBuffer.wrap(responseLen);
+                channel.send(responseLenBuffer, clientAddress);
+                LOG.info("SENT LEN " + responseData.length);
                 ByteBuffer responseBuffer = ByteBuffer.wrap(responseData);
                 channel.send(responseBuffer, clientAddress);
                 LOG.info("Ответ отправлен.");
@@ -67,6 +72,14 @@ public class ServerManager {
         return byteStream.toByteArray();
     }
 
+    private byte[] serializeNum(Integer len) throws IOException {
+        ByteArrayOutputStream byteStream = new ByteArrayOutputStream();
+        ObjectOutputStream objectStream = new ObjectOutputStream(byteStream);
+        objectStream.writeObject(len);
+        objectStream.flush();
+        return byteStream.toByteArray();
+    }
+
     private Request deserializeRequest(byte[] data) throws IOException {
         ByteArrayInputStream byteStream = new ByteArrayInputStream(data);
         try (ObjectInputStream objectStream = new ObjectInputStream(byteStream)) {
@@ -77,6 +90,7 @@ public class ServerManager {
             }
         }
     }
+
 
     private Response handle(Request request, CommandManager commandManager) throws IOException {
         if (request == null || request.getCommandType() == null) {

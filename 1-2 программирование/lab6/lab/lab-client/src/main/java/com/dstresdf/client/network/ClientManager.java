@@ -11,7 +11,7 @@ import java.net.SocketTimeoutException;
 import java.util.Arrays;
 
 public class ClientManager {
-    private static int len = 100; // считать динамически
+    private static int len; // считать динамически
     private static final int timeout = 3000;
     private static final int retryes = 3;
 
@@ -29,13 +29,18 @@ public class ClientManager {
     public Response sendRequest(Request request) {
         try {
             byte[] requestData = serialize(request);
-            System.out.println("ASDKASJKDSAJK " + len);
+            System.out.println("ASDKASJKDSAJK ");
             DatagramPacket sendPacket = new DatagramPacket(requestData, requestData.length, serverAddress, serverPort);
 
             for (int i = 0; i < retryes; i++) {
                 try {
                     socket.send(sendPacket);
+                    byte[] len_buffer = new byte[1000];
+                    DatagramPacket receivePacketLen = new DatagramPacket(len_buffer, len_buffer.length);
+                    socket.receive(receivePacketLen);
+                    len = deserializeNum(receivePacketLen.getData());
                     byte[] buffer = new byte[len];
+                    // System.out.println("BUFFER SIZE " + len);
                     DatagramPacket receivePacket = new DatagramPacket(buffer, buffer.length);
                     socket.receive(receivePacket);
 
@@ -48,12 +53,7 @@ public class ClientManager {
             }
 
             return new Response(false, "Не удалось получить ответ от сервера.", null);
-
-        } catch (EOFException e) {
-            len = len * 2;
-            System.out.println("NEW LEN " + len);
-            return sendRequest(request);
-        }  catch (IOException e) {
+        } catch (IOException e) {
             return new Response(false, "Ошибка сети: " + e, null);
         }
     }
