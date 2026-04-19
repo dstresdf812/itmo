@@ -16,6 +16,8 @@ public class FileManager {
 
     public ArrayList<StudyGroup> readFile(String fileName) {
         ArrayList<StudyGroup> studyGroups = new ArrayList<>();
+        LinkedHashMap<Integer, StudyGroup> studyGroupLinkedHashMap = new LinkedHashMap<>();
+
         try {
             FileInputStream fis = new FileInputStream(fileName);
             BufferedInputStream bis = new BufferedInputStream(fis);
@@ -24,16 +26,20 @@ public class FileManager {
 
             while (jp.nextToken() != null) {
                 try {
-                    StudyGroup studyGroup = parser.readValue(jp, StudyGroup.class);
+                    // StudyGroup studyGroup = parser.readValue(jp, StudyGroup.class);
+                    Map<Integer,StudyGroup> studyGroupmap = parser.readValue(jp, Map.class);
 
-                    if (studyGroup == null) continue;
+                    for (Map.Entry<Integer, StudyGroup> entry : studyGroupmap.entrySet()) {
+                        StudyGroup studyGroup = entry.getValue();
+                        if (studyGroup == null) continue;
 
-                    if (!studyGroup.check()) {
-                        System.out.println("Невалидный StudyGroup пропущен");
-                        continue;
+                        if (!studyGroup.check()) {
+                            System.out.println("Невалидный StudyGroup пропущен");
+                            continue;
+                        }
+                        System.out.println("Прочитан ID: " + studyGroup.getId());
+                        studyGroups.add(studyGroup);
                     }
-                    System.out.println("Прочитан ID: " + studyGroup.getId());
-                    studyGroups.add(studyGroup);
                 } catch (Exception e) {
                     System.out.println("Ошибка при чтении элемента StudyGroup: " + e.getMessage());
                 }
