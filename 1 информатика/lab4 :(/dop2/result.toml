@@ -1,0 +1,28 @@
+[[schedule]]
+date = "Четверг, 22 октября 2025 года"
+owner = "Балакшин Павел Валерьевич"
+week_type = "Even"
+
+[[schedule.pair]]
+[[schedule.pair.info]]
+class = "1260/0 (Актовый зал)"
+format = "Очно-дистанционный"
+group = "ИНФОРМ (P3116) 1.11"
+place = "ул. Ломоносова д.9, лит.Е"
+type = "Лабораторная"
+
+[[schedule.pair.time]]
+end_time = 18
+start_time = 17
+
+[[schedule.pair]]
+[[schedule.pair.info]]
+class = "1260/0 (Актовый зал)"
+format = "Очно-дистанционный"
+group = "ИНФОРМ (P3116) 1.11"
+place = "ул. Ломоносова д.9, лит.Е"
+type = "Лабораторная"
+
+[[schedule.pair.time]]
+end_time = "20:20"
+start_time = "18:50"

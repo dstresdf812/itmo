@@ -1,0 +1,35 @@
+{
+  "2": {
+    "id": 2,
+    "name": "ИТ-21",
+    "coordinates": {
+      "x": 75,
+      "y": 150
+    },
+    "creationDate": 1773491167.091119000,
+    "studentsCount": 22,
+    "expelledStudents": 3,
+    "shouldBeExpelled": 3,
+    "formOfEducation": "DISTANCE_EDUCATION",
+    "groupAdmin": {
+      "name": "Петрова Анна Сергеевна",
+      "weight": 58.0,
+      "eyeColor": "GREEN",
+      "hairColor": "BROWN"
+    }
+  },
+  "3": {
+    "id": 3,
+    "name": "ПО-17",
+    "coordinates": {
+      "x": 30,
+      "y": 250
+    },
+    "creationDate": 1773491167.091583000,
+    "studentsCount": 28,
+    "expelledStudents": 1,
+    "shouldBeExpelled": 4,
+    "formOfEducation": null,
+    "groupAdmin": null
+  }
+}

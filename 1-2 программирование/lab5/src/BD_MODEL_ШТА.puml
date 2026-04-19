@@ -1,0 +1,26 @@
+@startuml
+
+left to right direction
+!theme plain
+skinparam ranksep 20
+skinparam nodesep 90
+
+class город {
+популярен ли
+кем создан
+прошлое
+}
+
+class прошлое {
+сфабриковано ли
+тщательно ли сфабриковано
+}
+
+class человек {
+город
+}
+
+город ---> человек : кем_создан
+город --> прошлое : прошлое
+человек --> город : город
+@enduml
