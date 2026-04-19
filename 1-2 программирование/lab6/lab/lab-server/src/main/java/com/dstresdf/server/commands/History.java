@@ -23,8 +23,9 @@ public class History extends Command {
         boolean isSuccess;
         String message;
         List<StudyGroup> studyGroups = null;
-
-        message = commandManager.getCommandHistory().toString();
+        String client = request.getClient();
+        Integer key = request.getIntegerArgument();
+        message = commandManager.getCommandHistory(client).toString();
         message = "История: \n" + message;
         isSuccess = true;
         Response response = new Response(isSuccess, message, studyGroups);

@@ -11,7 +11,7 @@ import java.util.Map;
  */
 public class CommandManager {
     private final Map<String,Command> commands = new HashMap<>();
-    private ArrayList<String> commandHistory = new ArrayList<>();
+    private Map<String, List<String>> commandHistory = new HashMap<>();
     public static final int max_stack = 5;
     public Map<String, Integer> stack = new HashMap<>();
     /**
@@ -19,6 +19,7 @@ public class CommandManager {
      * @param CommandName
      * @param command
      */
+
     public void add(String CommandName, Command command) {
         commands.put(CommandName, command);
     }
@@ -27,11 +28,14 @@ public class CommandManager {
         return commands;
     }
 
-    public void addToHistory(Command command) {
-        commandHistory.add(command.getName());
+    public void addToHistory(Command command, String client) {
+        List<String> tmp = commandHistory.getOrDefault(client, new ArrayList<>());
+        tmp.add(command.getName());
+        commandHistory.put(client, tmp);
     }
-    public List<String> getCommandHistory() {
-        return commandHistory.subList((commandHistory.toArray().length - 8) < 0 ? 0 : commandHistory.toArray().length - 8, commandHistory.toArray().length);
+    public List<String> getCommandHistory(String client) {
+        List<String> commands = commandHistory.getOrDefault(client, new ArrayList<>());
+        return commands.subList((commands.toArray().length - 8) < 0 ? 0 : commands.toArray().length - 8, commands.toArray().length);
     }
 
     public void incStack(String scriptName) {

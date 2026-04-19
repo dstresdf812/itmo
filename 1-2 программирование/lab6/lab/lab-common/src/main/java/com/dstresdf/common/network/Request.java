@@ -10,11 +10,13 @@ public class Request implements Serializable {
     private final CommandType commandType;
     private final Integer integerArgument;
     private final StudyGroup studyGroup;
+    private String client;
 
     public Request(CommandType commandType, Integer integerArgument, StudyGroup studyGroup) {
         this.commandType = commandType;
         this.integerArgument = integerArgument;
         this.studyGroup = studyGroup;
+        this.client = null;
     }
 
     public CommandType getCommandType() {
@@ -29,6 +31,13 @@ public class Request implements Serializable {
         return studyGroup;
     }
 
+    public String getClient() {
+        return client;
+    }
+
+    public void setClient(String client) {
+        this.client = client;
+    }
     @Override
     public String toString() {
         return "Request{"

@@ -6,6 +6,8 @@ import com.dstresdf.server.commands.*;
 import com.dstresdf.server.io.FileManager;
 import com.dstresdf.server.network.ServerManager;
 
+import java.util.HashMap;
+
 
 public class Server {
     public static void main(String[] args) {

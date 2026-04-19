@@ -46,7 +46,8 @@ public class ServerManager {
 
                 Request request = deserializeRequest(requestData);
                 LOG.info("Запрос десериализован.\n" + request.toString() + "\n");
-                Response response = handle(request, commandManager);
+                String clientAddressString = clientAddress.toString();
+                Response response = handle(request, commandManager,clientAddressString);
                 LOG.info("Запрос обработан.");
                 byte[] responseData = serializeResponse(response);
                 LOG.info("GOT LEN " + responseData.length);
@@ -92,7 +93,7 @@ public class ServerManager {
     }
 
 
-    private Response handle(Request request, CommandManager commandManager) throws IOException {
+    private Response handle(Request request, CommandManager commandManager, String clientAddressString) throws IOException {
         if (request == null || request.getCommandType() == null) {
             return new Response(false, "Некорректный запрос.", null);
         }
@@ -102,7 +103,8 @@ public class ServerManager {
             return new Response(false, "Неизвестная команда.", null);
         }
         LOG.info("Выполняется команда: " + request.getCommandType().getName() + "\n");
-        commandManager.addToHistory(command);
+        request.setClient(clientAddressString);
+        commandManager.addToHistory(command, clientAddressString);
         LOG.info("Команда " + command.getName() + "добавлена в историю.");
         return command.execute(request);
     }
