@@ -4,16 +4,17 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 
 /**
  * Управление командами.
  * @author dmitrij
  */
 public class CommandManager {
-    private final Map<String,Command> commands = new HashMap<>();
-    private Map<String, List<String>> commandHistory = new HashMap<>();
+    private final Map<String,Command> commands = new ConcurrentHashMap<>();
+    private Map<String, List<String>> commandHistory = new ConcurrentHashMap<>();
     public static final int max_stack = 5;
-    public Map<String, Integer> stack = new HashMap<>();
+    public Map<String, Integer> stack = new ConcurrentHashMap<>();
     /**
      * Добавление новой команды.
      * @param CommandName

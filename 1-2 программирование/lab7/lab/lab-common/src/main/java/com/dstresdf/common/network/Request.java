@@ -12,6 +12,9 @@ public class Request implements Serializable {
     private final StudyGroup studyGroup;
     private String client;
 
+    private String login;
+    private String password;
+
     public Request(CommandType commandType, Integer integerArgument, StudyGroup studyGroup) {
         this.commandType = commandType;
         this.integerArgument = integerArgument;
@@ -38,12 +41,28 @@ public class Request implements Serializable {
     public void setClient(String client) {
         this.client = client;
     }
+
+    public String getLogin() {
+        return login;
+    }
+    public void setLogin(String login) {
+        this.login = login;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
     @Override
     public String toString() {
         return "Request{"
                 + "commandType=" + commandType
                 + ", integerArgument=" + integerArgument
                 + ", studyGroup=" + studyGroup
+                + ", login='" + login
                 + '}';
     }
 }

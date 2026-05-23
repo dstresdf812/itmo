@@ -20,6 +20,10 @@ public class Client {
     private final StudyGroupReader studyGroupReader;
     private final ClientManager clientManager;
 
+    private boolean isAuthorized = false;
+    private String login;
+    private String password;
+
     private boolean flag = true;
     public Client(String host, int port) throws Exception {
         this.console = new Console();
@@ -31,15 +35,21 @@ public class Client {
         while (flag) { // плохо: ввести переменную либо условие
             String[] input = null;
 
+            if (!isAuthorized) {
+                console.println("Необходима авторизация");
+            }
+
             while (input == null || input.length == 0) {
                 input = console.read();
             }
 
             CommandType command = CommandType.getCommand(input[0]);
+
             if (command == null) {
                 console.println("Invalid command");
                 continue;
             }
+
             String commandName = command.getName();
             ArgumentType argumentType = command.getArg();
 
@@ -48,6 +58,25 @@ public class Client {
             if (commandName.equals("exit")) {
                 console.println("Завершение работы клиента");
                 flag = false;
+                continue;
+            }
+
+            if (!isAuthorized) {
+
+                if (commandName.equals("login") || commandName.equals("register")) {
+                    Request request = buildRequest(command, argumentType, args);
+                    if (request == null) {
+                        continue;
+                    }
+                    Response response = clientManager.sendRequest(request);
+                    if (response.isSuccess()) {
+                        isAuthorized = true;
+                        login = request.getLogin();
+                        password = request.getPassword();
+                    }
+                    console.println(response.getMessage());
+
+                }
                 continue;
             }
 
@@ -66,7 +95,7 @@ public class Client {
             if (request == null) {
                 continue;
             }
-
+            addAuth(request);
             System.out.println(request.toString());
             Response response = clientManager.sendRequest(request);
             if (response == null) {
@@ -81,8 +110,28 @@ public class Client {
         }
     }
 
+    public void addAuth(Request request) {
+        request.setLogin(login);
+        request.setPassword(password);
+    }
+
     public Request buildRequest(CommandType command, ArgumentType argumentType, String[] args) {
         ArgumentType commandType = command.getArg();
+
+        if (command.equals(CommandType.LOGIN) || command.equals(CommandType.REGISTER)) {
+            if (args.length != 1) {
+                console.println("Введите имя пользователя: ");
+                return null;
+            }
+
+            console.print("Введите пароль: ");
+            String enteredPassword = console.getScanner().nextLine();
+
+            Request request = new Request(command, null, null);
+            request.setLogin(args[0]);
+            request.setPassword(enteredPassword);
+            return request;
+        }
 
         if (argumentType.equals(ArgumentType.NO_ARGS)) {
             Request request = new Request(command, null, null);

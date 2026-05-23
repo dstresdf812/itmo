@@ -1,28 +1,35 @@
 package com.dstresdf.server.collection;
 
 import com.dstresdf.common.model.StudyGroup;
+import com.dstresdf.server.db.DatabaseManager;
 
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.LinkedHashMap;
+import java.sql.SQLException;
+import java.util.*;
+import java.util.concurrent.ConcurrentHashMap;
 
 /**
  * Управление коллекцией.
  * @author dmitrij
  */
 public class CollectionManager {
-    public static int id = 0;
-    public LinkedHashMap<Integer, StudyGroup> collection = new LinkedHashMap<>();
+    public Map<Integer, StudyGroup> collection = new ConcurrentHashMap<>();
     public ArrayList<Integer> used_keys = new ArrayList<>();
     public Date initDate = new Date();
-    public CollectionManager() {
-    }
 
+    private final DatabaseManager databaseManager;
+    public CollectionManager(DatabaseManager databaseManager) {
+        this.databaseManager = databaseManager;
+    }
     /**
      * Добавить элемент в коллецию по ключу.
      * @param studyGroups
      */
-    public void SetStudyGroup(ArrayList<StudyGroup> studyGroups) {
+
+    public Map<Integer, StudyGroup> getCollection() {
+        return collection;
+    }
+
+    public void SetStudyGroup(List<StudyGroup> studyGroups) {
         for (StudyGroup studyGroup : studyGroups) {
             int key = studyGroup.getId();
             if (containsKey(key)) {
@@ -41,12 +48,6 @@ public class CollectionManager {
         return collection.get(key);
     }
 
-    public LinkedHashMap<Integer, StudyGroup> getCollection() {
-        return collection;
-    }
-    public int getIncId() {
-        return id++;
-    }
 
     public int getLength() {
         return collection.size();
@@ -60,20 +61,43 @@ public class CollectionManager {
         return initDate;
     }
 
-    public void insertByKey(Integer key, StudyGroup studyGroup) {
+    public void insertByKey(Integer key, StudyGroup studyGroup) throws SQLException {
+        int id = databaseManager.insertStudyGroup(studyGroup);
+        studyGroup.setId(id);
+        collection.put(id, studyGroup);
+    }
+
+    public boolean updateByKey(Integer key, StudyGroup studyGroup) throws SQLException {
         studyGroup.setId(key);
-        collection.put(key, studyGroup);
+
+        boolean t = databaseManager.updateStudyGroup(studyGroup);
+        if (t) {
+            collection.put(key, studyGroup);
+            return true;
+        }
+
+        return false;
     }
 
-    public void updateByKey(Integer key, StudyGroup studyGroup) {
-        collection.put(key, studyGroup);
+    public boolean removeByKey(Integer key, String  ownerLogin) throws SQLException {
+        boolean t = databaseManager.removeStudyGroup(key, ownerLogin);
+        if (t) {
+            collection.remove(key);
+            return true;
+        }
+        return false;
     }
 
-    public void removeByKey(Integer key) {
-        collection.remove(key);
-    }
-
-    public void clearCollection() {
-        collection.clear();
+    public int clearCollection(String ownerLogin) throws SQLException {
+        int count = 0;
+        for (Integer key : collection.keySet()) {
+            StudyGroup studyGroup = collection.get(key);
+            if (studyGroup != null && ownerLogin.equals(studyGroup.getOwnerLogin())) {
+                if (removeByKey(key, ownerLogin)) {
+                    count++;
+                }
+            }
+        }
+        return count;
     }
 }

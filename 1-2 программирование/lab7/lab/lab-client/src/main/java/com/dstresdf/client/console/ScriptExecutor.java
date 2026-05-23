@@ -85,7 +85,7 @@ public class ScriptExecutor {
                     console.println("Не удалось получить ответ от сервера.");
                     continue;
                 }
-
+                client.addAuth(request);
                 console.println(response.getMessage());
 
                 if (response.getStudyGroups() != null && !response.getStudyGroups().isEmpty()) {

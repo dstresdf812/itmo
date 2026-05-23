@@ -5,6 +5,7 @@ import com.dstresdf.common.network.Request;
 import com.dstresdf.common.network.Response;
 import com.dstresdf.server.collection.CollectionManager;
 
+import java.sql.SQLException;
 import java.util.List;
 
 /**
@@ -18,12 +19,12 @@ public class Clear extends Command {
         this.collectionManager = collectionManager;
     }
 
-    public Response execute(Request request) {
+    public Response execute(Request request) throws SQLException {
         boolean isSuccess;
         String message;
         List<StudyGroup> studyGroups = null;
 
-        collectionManager.clearCollection();
+        collectionManager.clearCollection(request.getLogin());
         isSuccess = true;
         message = "Коллекция очищена";
         Response response = new Response(isSuccess, message, studyGroups);

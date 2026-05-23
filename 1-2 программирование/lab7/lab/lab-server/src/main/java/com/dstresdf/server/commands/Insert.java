@@ -5,6 +5,7 @@ import com.dstresdf.common.network.Request;
 import com.dstresdf.common.network.Response;
 import com.dstresdf.server.collection.CollectionManager;
 
+import java.sql.SQLException;
 import java.util.List;
 
 /**
@@ -24,7 +25,7 @@ public class Insert extends Command {
      * @param scanner
      * @return Выполнена ли команда.
      */
-    public Response execute(Request request) {
+    public Response execute(Request request) throws SQLException {
         boolean isSuccess;
         String message;
         List<StudyGroup> studyGroups = null;
@@ -45,7 +46,7 @@ public class Insert extends Command {
             return response;
         }
 
-        elem.setId(key);
+        elem.setOwnerLogin(request.getLogin());
         collectionManager.insertByKey(key, elem);
         isSuccess = true;
         message = "все гуд!";

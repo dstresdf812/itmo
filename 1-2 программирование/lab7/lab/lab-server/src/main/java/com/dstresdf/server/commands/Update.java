@@ -5,6 +5,7 @@ import com.dstresdf.common.network.Request;
 import com.dstresdf.common.network.Response;
 import com.dstresdf.common.model.StudyGroup;
 
+import java.sql.SQLException;
 import java.util.List;
 
 
@@ -20,7 +21,7 @@ public class Update extends Command {
         this.collectionManager = collectionManager;
     }
 
-    public Response execute(Request request) {
+    public Response execute(Request request) throws SQLException {
         boolean isSuccess;
         String message;
         List<StudyGroup> studyGroups = null;
@@ -35,10 +36,9 @@ public class Update extends Command {
             return response;
         }
 
-        elem.setId(key);
-        collectionManager.updateByKey(key, elem);
-        isSuccess = true;
-        message = "Команда выполнена!";
+        elem.setOwnerLogin(request.getLogin());
+        isSuccess = collectionManager.updateByKey(key, elem);
+        message = isSuccess ? "Команда выполнена!" : "Команда не выполнена!";
         Response response = new Response(isSuccess, message, studyGroups);
         return response;
     }

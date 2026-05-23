@@ -19,7 +19,10 @@ public enum CommandType implements Serializable {
 
     REMOVE_GREATER_KEY("remove_greater_key",ArgumentType.ONE_ARG),
     EXECUTE_SCRIPT("execute_script",ArgumentType.ONE_ARG),
-    REMOVE_KEY("remove_key", ArgumentType.ONE_ARG);
+    REMOVE_KEY("remove_key", ArgumentType.ONE_ARG),
+
+    LOGIN("login", ArgumentType.ONE_ARG),
+    REGISTER("register", ArgumentType.ONE_ARG);
 
     private final String name;
     private final ArgumentType arg;

@@ -13,6 +13,8 @@ public class StudyGroup implements Serializable {
     private FormOfEducation formOfEducation;
     private Person groupAdmin; //Поле может быть null
 
+    private String  ownerLogin;
+
     public boolean check() {
         boolean result = true;
         if (this.id <= 0) {
@@ -96,7 +98,7 @@ public class StudyGroup implements Serializable {
     }
 
     public FormOfEducation getFormOfEducation() {
-        return formOfEducation;
+        return this.formOfEducation;
     }
 
     public void setFormOfEducation(FormOfEducation formOfEducation) {
@@ -111,6 +113,12 @@ public class StudyGroup implements Serializable {
         this.groupAdmin = groupAdmin;
     }
 
+    public void setOwnerLogin(String  ownerLogin) {
+        this.ownerLogin = ownerLogin;
+    }
+    public String  getOwnerLogin() {
+        return ownerLogin;
+    }
     @Override
     public String toString() {
         String s = new String();
@@ -123,6 +131,8 @@ public class StudyGroup implements Serializable {
         s += "Должно быть отчислено студентов: " + this.shouldBeExpelled + "\n";
         s += "Форма обучения: " + (this.formOfEducation == null ? "NULL" + "\n" : this.formOfEducation + "\n");
         s += "Староста: " + this.groupAdmin + "\n";
+        s += "Создатель: " + this.ownerLogin + "\n";
         return s;
     }
+
 }

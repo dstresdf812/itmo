@@ -5,6 +5,7 @@ import com.dstresdf.common.network.Response;
 import com.dstresdf.server.collection.CollectionManager;
 import com.dstresdf.server.util.StudyGroupComparator;
 
+import java.sql.SQLException;
 import java.util.List;
 
 /**
@@ -20,7 +21,7 @@ public class ReplaceIfGreater extends Command {
         this.studyGroupComparator = new StudyGroupComparator();
     }
 
-    public Response execute(Request request) {
+    public Response execute(Request request) throws SQLException {
         boolean isSuccess;
         String message;
         List<StudyGroup> studyGroups = null;
@@ -37,13 +38,15 @@ public class ReplaceIfGreater extends Command {
 
         StudyGroup elem_by_key = collectionManager.getByKey(key);
         if (studyGroupComparator.compare(elem_by_key, elem) < 0) {
-            elem.setId(key);
-            collectionManager.updateByKey(key, elem);
-            message = "Элемент изменен";
+            elem.setOwnerLogin(request.getLogin());
+
+            isSuccess = collectionManager.updateByKey(key, elem);
+            message = isSuccess ? "Элемент изменен" : "Нельзя изменить чужой элемент!";
         } else {
+            isSuccess = true;
             message = "Элемент не изменен";
         }
-        isSuccess = true;
+
         Response response = new Response(isSuccess, message, studyGroups);
         return response;
     }

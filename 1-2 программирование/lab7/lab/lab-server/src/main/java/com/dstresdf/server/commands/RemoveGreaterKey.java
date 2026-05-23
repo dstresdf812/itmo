@@ -5,6 +5,7 @@ import com.dstresdf.common.network.Request;
 import com.dstresdf.common.network.Response;
 import com.dstresdf.server.collection.CollectionManager;
 
+import java.sql.SQLException;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
@@ -19,7 +20,7 @@ public class RemoveGreaterKey extends Command {
         super("remove_greater_key (key)","удалить из коллекции все элементы, ключ которых превышает заданный");
         this.collectionManager = collectionManager;
     }
-    public Response execute(Request request) {
+    public Response execute(Request request) throws SQLException {
         boolean isSuccess;
         String message;
         List<StudyGroup> studyGroups = null;
@@ -31,7 +32,7 @@ public class RemoveGreaterKey extends Command {
         while (iterator.hasNext()) {
             Map.Entry<Integer,StudyGroup> entry = iterator.next();
             if (entry.getKey() > key) {
-                iterator.remove();
+                collectionManager.removeByKey(key,request.getLogin());
                 count++;
             }
         }
