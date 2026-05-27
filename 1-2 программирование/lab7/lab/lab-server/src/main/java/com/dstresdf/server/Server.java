@@ -43,3 +43,13 @@ public class Server {
         }
     }
 }
+
+// fix retry help
+// не держать connection с бд connectionpool
+// вынести в отдельные классы db manager controller service repository
+// проверка на принадлежность (роль привилегия)
+// help кто угодно
+// show читать
+// update insert читать писать и свой элемент
+// админ со всеми правами
+// один пользователь может купить элемент коллекции другого

@@ -13,16 +13,13 @@ import java.nio.ByteBuffer;
 import java.nio.channels.DatagramChannel;
 import java.security.NoSuchAlgorithmException;
 import java.sql.SQLException;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
-import java.util.concurrent.ForkJoinPool;
+import java.util.concurrent.*;
+import java.util.concurrent.atomic.AtomicBoolean;
 
 import com.dstresdf.server.db.DatabaseManager;
+import com.dstresdf.server.util.RequestKey;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import javax.xml.crypto.Data;
-
 public class ServerManager {
     private static final int len = 10000;
     private static final Logger LOG = LoggerFactory.getLogger(ServerManager.class);
@@ -30,6 +27,7 @@ public class ServerManager {
     private final DatabaseManager databaseManager;
     private final ExecutorService requestReaders = Executors.newCachedThreadPool();
     private final ForkJoinPool requestHandlers = new ForkJoinPool();
+    private ConcurrentHashMap<RequestKey, CompletableFuture<Response>> requestsList = new ConcurrentHashMap<>();
     public ServerManager(String host, int serverPort, DatabaseManager databaseManager) throws IOException {
         this.channel = DatagramChannel.open();
         this.channel.configureBlocking(false);
@@ -66,11 +64,10 @@ public class ServerManager {
             String clientAddressString = clientAddress.toString();
             requestHandlers.submit(() -> {
                 try {
-                    Response response = handle(request, commandManager, clientAddressString);
-                    new Thread(() -> {sendResponse(response, clientAddress);}).start();
+                    concurrentHandle(request, commandManager, clientAddressString, clientAddress);
                 } catch (Exception e) {
                     Response response = new Response(false, "Ошибка обработки:" + e.getMessage(), null);
-                    new Thread(() -> {sendResponse(response, clientAddress);}).start();
+                    sendResponse(response, clientAddress);
                 }
             });
 
@@ -142,5 +139,30 @@ public class ServerManager {
         commandManager.addToHistory(command, clientAddressString);
         LOG.info("Команда " + command.getName() + "добавлена в историю.");
         return command.execute(request);
+    }
+
+    private void concurrentHandle(Request request, CommandManager commandManager, String clientAddressString, SocketAddress clientAddress) {
+        RequestKey requestKey = new RequestKey(clientAddressString, request.getRequestId());
+        AtomicBoolean created = new AtomicBoolean(false);
+
+        CompletableFuture<Response> future = requestsList.computeIfAbsent(requestKey, key -> {
+            created.set(true);
+            return CompletableFuture.supplyAsync(() -> {
+                try {
+                    return handle(request, commandManager, clientAddressString);
+                } catch (Exception e) {
+                    return new Response(false, "Ошибка сервера:" + e.getMessage(), null);
+                }
+            });
+        });
+
+        if (created.get()) {
+            future.thenAccept(response -> sendResponse(response, clientAddress));
+            return;
+        }
+
+        if (future.isDone()) {
+            future.thenAccept(response -> sendResponse(response, clientAddress));
+        }
     }
 }

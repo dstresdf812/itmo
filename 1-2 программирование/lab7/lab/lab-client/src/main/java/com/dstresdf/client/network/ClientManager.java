@@ -14,7 +14,7 @@ public class ClientManager {
     private static int len; // считать динамически
     private static final int timeout = 3000;
     private static final int retryes = 3;
-
+    private int requestCounter = 0;
     private final InetAddress serverAddress;
     private final int serverPort;
     private final DatagramSocket socket;

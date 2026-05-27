@@ -19,7 +19,7 @@ public class Client {
     private final Console console;
     private final StudyGroupReader studyGroupReader;
     private final ClientManager clientManager;
-
+    private int requestCounter = 0;
     private boolean isAuthorized = false;
     private String login;
     private String password;
@@ -127,14 +127,14 @@ public class Client {
             console.print("Введите пароль: ");
             String enteredPassword = console.getScanner().nextLine();
 
-            Request request = new Request(command, null, null);
+            Request request = new Request(requestCounter++, command, null, null);
             request.setLogin(args[0]);
             request.setPassword(enteredPassword);
             return request;
         }
 
         if (argumentType.equals(ArgumentType.NO_ARGS)) {
-            Request request = new Request(command, null, null);
+            Request request = new Request(requestCounter++, command, null, null);
             return request;
         }
 
@@ -150,7 +150,7 @@ public class Client {
                 console.println("Неверный формат аргумента. Требуется число.");
                 return null;
             }
-            Request request = new Request(command, integerArg, null);
+            Request request = new Request(requestCounter++, command, integerArg, null);
             return request;
         }
 
@@ -167,7 +167,7 @@ public class Client {
                 return null;
             }
             StudyGroup elem = studyGroupReader.readElement(console.getScanner());
-            Request request = new Request(command, integerArg, elem);
+            Request request = new Request(requestCounter++, command, integerArg, elem);
             return request;
         }
         return null;

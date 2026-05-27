@@ -29,7 +29,11 @@ public class Help extends Command {
         boolean isSuccess;
         String message;
         List<StudyGroup> studyGroups = null;
-
+        try {
+            Thread.sleep(5000);
+        } catch (InterruptedException e) {
+            System.out.println("Sleep interrupted");
+        }
         message = commandManager.getCommands().values().stream()
                         .map(command -> command.getName() + " --- " + command.getDescription())
                         .collect(Collectors.joining("\n"));

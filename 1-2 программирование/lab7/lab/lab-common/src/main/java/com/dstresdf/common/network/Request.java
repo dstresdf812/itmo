@@ -2,11 +2,13 @@ package com.dstresdf.common.network;
 
 import com.dstresdf.common.commands.CommandType;
 import com.dstresdf.common.model.StudyGroup;
+import com.dstresdf.common.util.RequestStatus;
 
 import java.io.Serializable;
 
 public class Request implements Serializable {
-
+    private Integer requestId;
+    private RequestStatus requestStatus;
     private final CommandType commandType;
     private final Integer integerArgument;
     private final StudyGroup studyGroup;
@@ -15,7 +17,8 @@ public class Request implements Serializable {
     private String login;
     private String password;
 
-    public Request(CommandType commandType, Integer integerArgument, StudyGroup studyGroup) {
+    public Request(Integer requestID,CommandType commandType, Integer integerArgument, StudyGroup studyGroup) {
+        this.requestId = requestID;
         this.commandType = commandType;
         this.integerArgument = integerArgument;
         this.studyGroup = studyGroup;
@@ -42,6 +45,19 @@ public class Request implements Serializable {
         this.client = client;
     }
 
+    public Integer getRequestId() {
+        return requestId;
+    }
+    public void setRequestId(Integer requestId) {
+        this.requestId = requestId;
+    }
+
+    public RequestStatus getRequestStatus() {
+        return requestStatus;
+    }
+    public void setRequestStatus(RequestStatus requestStatus) {
+        this.requestStatus = requestStatus;
+    }
     public String getLogin() {
         return login;
     }
