@@ -1,6 +1,8 @@
 package com.dstresdf.server.db;
 
 import com.dstresdf.common.model.*;
+import com.zaxxer.hikari.HikariConfig;
+import com.zaxxer.hikari.HikariDataSource;
 
 import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
@@ -11,27 +13,50 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class DatabaseManager {
-    private static final String URL = "jdbc:postgresql://localhost:5432/studs";
-    private static final String USERNAME = "s000000";
-    private static final String PASSWORD = "s000000_password";
+    private static final String URL = System.getenv("DB_URL");
+    private static final String USERNAME = System.getenv("USERNAME");
+    private static final String PASSWORD = System.getenv("PASSWORD");
 
-    public Connection getConnection() throws SQLException {
-        return DriverManager.getConnection(URL, USERNAME, PASSWORD);
-    }
+    private HikariDataSource dataSource;
 
     public DatabaseManager() throws SQLException {
-        initDatabase();
+        HikariConfig config = new HikariConfig();
+        config.setJdbcUrl(URL);
+        config.setUsername(USERNAME);
+        config.setPassword(PASSWORD);
+        config.setMaximumPoolSize(5);
+        config.setMinimumIdle(0);
+        config.setIdleTimeout(30000);
+
+        try {
+            this.dataSource = new HikariDataSource(config);
+            initDatabase();
+        } catch (Exception e) {
+            try {
+                if (dataSource != null) {
+                    dataSource.close();
+                }
+                config.setJdbcUrl(System.getenv("SERVER_DB_URL"));
+                config.setUsername(System.getenv("SERVER_USERNAME"));
+                config.setPassword(System.getenv("SERVER_PASSWORD"));
+                this.dataSource = new HikariDataSource(config);
+                initDatabase();
+            } catch (Exception ex) {
+                if (dataSource != null) {
+                    dataSource.close();
+                }
+
+                System.out.println("серв и локал бд печально все");
+                throw new SQLException("серв и локал бд печально все");
+            }
+        }
     }
     public void initDatabase() throws SQLException {
-        Connection connection = getConnection();
-        Statement statement = connection.createStatement();
-        statement.execute("CREATE SEQUENCE IF NOT EXISTS study_group_id_seq START 1");
-
-        statement.execute("CREATE TABLE IF NOT EXISTS users("
-                + "login TEXT PRIMARY KEY,"
-                + "hash TEXT NOT NULL)");
-
-        statement.execute("CREATE TABLE IF NOT EXISTS study_groups ("
+        String SQL_seq_create = "CREATE SEQUENCE IF NOT EXISTS study_group_id_seq START 1";
+        String SQL_users_create = "CREATE TABLE IF NOT EXISTS users(" +
+                "login TEXT PRIMARY KEY," +
+                "hash TEXT NOT NULL)";
+        String SQL_groups_create = "CREATE TABLE IF NOT EXISTS study_groups ("
                 + "id INTEGER PRIMARY KEY DEFAULT nextval('study_group_id_seq'),"
                 + "name TEXT NOT NULL,"
                 + "x BIGINT NOT NULL,"
@@ -45,39 +70,49 @@ public class DatabaseManager {
                 + "admin_weight DOUBLE PRECISION,"
                 + "admin_eye_color TEXT,"
                 + "admin_hair_color TEXT,"
-                + "owner_login TEXT NOT NULL REFERENCES users)");
-        statement.close();
+                + "owner_login TEXT NOT NULL REFERENCES users)";
+        try (Connection connection = dataSource.getConnection();
+        Statement statement = connection.createStatement();) {
+            statement.execute(SQL_seq_create);
+            statement.execute(SQL_users_create);
+            statement.execute(SQL_groups_create);
+        }
     }
 
     public boolean registerUser(String login, String password) throws SQLException, NoSuchAlgorithmException {
-        Connection connection = getConnection();
-        PreparedStatement ps = connection.prepareStatement("INSERT INTO users VALUES (?, ?)");
-        ps.setString(1, login);
-        ps.setString(2, hashPassword(password));
-        return ps.executeUpdate() == 1;
+        String SQL = "INSERT INTO users VALUES (?, ?)";
+        try (Connection connection = dataSource.getConnection();
+        PreparedStatement ps = connection.prepareStatement(SQL)) {
+            ps.setString(1, login);
+            ps.setString(2, hashPassword(password));
+            return ps.executeUpdate() == 1;
+        }
     }
 
     public boolean checkUser(String login, String password) throws SQLException, NoSuchAlgorithmException {
-        Connection connection = getConnection();
-        PreparedStatement ps = connection.prepareStatement("SELECT hash FROM users WHERE login = ?");
-        ps.setString(1, login);
-        ResultSet rs = ps.executeQuery();
-        if (!rs.next()) {
-            return false;
+        String SQL = "SELECT hash FROM users WHERE login = ?";
+        try (Connection connection = dataSource.getConnection();
+        PreparedStatement ps = connection.prepareStatement(SQL)) {
+            ps.setString(1, login);
+            ResultSet rs = ps.executeQuery();
+            if (!rs.next()) {
+                return false;
+            }
+            return rs.getString("hash").equals(hashPassword(password));
         }
-
-        return rs.getString("hash").equals(hashPassword(password));
     }
 
     public List<StudyGroup> getCollection() throws SQLException {
-        Connection connection = getConnection();
-        List<StudyGroup> studyGroups = new ArrayList<>();
-        PreparedStatement ps = connection.prepareStatement("SELECT * FROM study_groups");
-        ResultSet rs = ps.executeQuery();
-        while (rs.next()) {
-            studyGroups.add(readStudyGroup(rs));
+        String SQL = "SELECT * FROM study_groups";
+        try (Connection connection = dataSource.getConnection();
+        PreparedStatement ps = connection.prepareStatement(SQL)) {
+            List<StudyGroup> studyGroups = new ArrayList<>();
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                studyGroups.add(readStudyGroup(rs));
+            }
+            return studyGroups;
         }
-        return studyGroups;
     };
 
     public StudyGroup readStudyGroup(ResultSet rs) throws SQLException {
@@ -115,39 +150,44 @@ public class DatabaseManager {
     }
 
     public int insertStudyGroup(StudyGroup studyGroup) throws SQLException {
-        Connection connection = getConnection();
-        PreparedStatement ps = connection.prepareStatement("INSERT INTO study_groups(" +
+        String SQL = "INSERT INTO study_groups(" +
                 "name, x, y, creation_date, students_count, expelled_students, " +
                 "should_be_expelled, form_of_education, admin_name," +
                 "admin_weight, admin_eye_color, admin_hair_color, " +
                 "owner_login)" +
-                "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?) RETURNING id");
-        fillStatement(ps,studyGroup);
-        ResultSet rs = ps.executeQuery();
-        rs.next();
-        return rs.getInt("id");
+                "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?) RETURNING id";
+        try (Connection connection = dataSource.getConnection();
+        PreparedStatement ps = connection.prepareStatement(SQL)) {
+            fillStatement(ps, studyGroup);
+            ResultSet rs = ps.executeQuery();
+            rs.next();
+            return rs.getInt("id");
+        }
     }
 
     public boolean updateStudyGroup(StudyGroup studyGroup) throws SQLException {
-        Connection connection = getConnection();
-        PreparedStatement ps = connection.prepareStatement("UPDATE study_groups SET "
+        String SQL = "UPDATE study_groups SET "
                 + "name = ?, x = ?, y = ?, creation_date = ?, "
                 + "students_count = ?, expelled_students = ?, should_be_expelled = ?, form_of_education = ?, "
                 + "admin_name = ?, admin_weight = ?, admin_eye_color = ?, admin_hair_color = ?, owner_login = ? "
-                + "WHERE id = ? AND owner_login = ?");
-        fillStatement(ps,studyGroup);
-        ps.setInt(14, studyGroup.getId());
-        ps.setString(15, studyGroup.getOwnerLogin());
-        return ps.executeUpdate() == 1;
+                + "WHERE id = ? AND owner_login = ?";
+        try (Connection connection = dataSource.getConnection();
+        PreparedStatement ps = connection.prepareStatement(SQL)) {
+            fillStatement(ps,studyGroup);
+            ps.setInt(14, studyGroup.getId());
+            ps.setString(15, studyGroup.getOwnerLogin());
+            return ps.executeUpdate() == 1;
+        }
     }
 
     public boolean removeStudyGroup(int key, String ownerLogin) throws SQLException {
-        Connection connection = getConnection();
-        PreparedStatement ps = connection.prepareStatement("DELETE FROM study_groups WHERE id = ? AND owner_login = ?");
-        ps.setInt(1, key);
-        ps.setString(2, ownerLogin);
-        return ps.executeUpdate() == 1;
-
+        String SQL = "DELETE FROM study_groups WHERE id = ? AND owner_login = ?";
+        try (Connection connection = dataSource.getConnection();
+        PreparedStatement ps = connection.prepareStatement(SQL)) {
+            ps.setInt(1, key);
+            ps.setString(2, ownerLogin);
+            return ps.executeUpdate() == 1;
+        }
     }
     public void fillStatement(PreparedStatement ps, StudyGroup studyGroup) throws SQLException {
 
