@@ -35,6 +35,7 @@ public class Server {
         commandManager.add("history", new History(commandManager));
         commandManager.add("register", new Register(userService));
         commandManager.add("login", new Login(userService));
+        commandManager.add("buy", new Buy(studyGroupService));
         collectionManager.SetStudyGroup(studyGroupService.getCollection());
         try {
             ServerManager serverManager = new ServerManager("localhost", 1090, databaseManager);;
@@ -53,4 +54,4 @@ public class Server {
 // show читать +
 // update insert читать писать и свой элемент +
 // админ со всеми правами +
-// один пользователь может купить элемент коллекции другого
+// один пользователь может купить элемент коллекции другого +

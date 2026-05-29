@@ -56,6 +56,9 @@ public class CollectionManager {
         return initDate;
     }
 
+    public void changeOwner(Integer key, String newOwnerLogin) {
+        collection.get(key).setOwnerLogin(newOwnerLogin);
+    }
     public void insertByKey(Integer key, StudyGroup studyGroup) throws SQLException {
         collection.put(key, studyGroup);
     }

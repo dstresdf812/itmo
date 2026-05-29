@@ -66,6 +66,29 @@ public class StudyGroupService {
         }
     }
 
+    public Response buyStudyGroup(String login, Integer key) throws SQLException {
+        boolean isAdmin = userService.isAdmin(login);
+
+        if (!userService.canWrite(login) && !isAdmin) {
+            return new Response(false, "У вас нет прав на выполнение этой команды!", null);
+        }
+
+        if (!collectionManager.containsKey(key)) {
+            return new Response(false, "Элемента с таким ключом не существует :(", null);
+        }
+
+        StudyGroup elem = collectionManager.getByKey(key);
+        if (elem.getOwnerLogin().equals(login)) {
+            return new Response(false, "Вы уже владеете этим элементом!", null);
+        }
+        String oldOwnerLogin = elem.getOwnerLogin();
+
+        if (studyGroupRepository.buyStudyGroup(key, login, oldOwnerLogin, elem.getPrice())) {
+            collectionManager.changeOwner(key, login);
+            return new Response(true, "Элемент куплен!", null);
+        }
+        return new Response(false, "Элемент не куплен!", null);
+    }
     public Response updateStudyGroup(String login, Integer key, StudyGroup elem) throws SQLException {
         boolean isAdmin = userService.isAdmin(login);
 

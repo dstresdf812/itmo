@@ -107,6 +107,62 @@ public class StudyGroupRepository {
         }
     }
 
+    public boolean buyStudyGroup(int key, String newOwnerLogin, String oldOwnerLogin, int price) throws SQLException {
+        try (Connection connection = dataSource.getConnection()) {
+            try {
+                connection.setAutoCommit(false);
+
+                // Проверка баланса покупателя
+                PreparedStatement ps = connection.prepareStatement("SELECT balance FROM users WHERE login = ?");
+                ps.setString(1, newOwnerLogin);
+                ResultSet rs = ps.executeQuery();
+                rs.next();
+                int balance_buyer = rs.getInt("balance");
+                if (balance_buyer < price) {
+                    ps.close();
+                    throw new SQLException("Insufficient balance");
+                };
+                ps.close();
+
+                // Обновление баланса покупателя
+                ps = connection.prepareStatement("UPDATE users SET balance = ? WHERE login = ?");
+                ps.setInt(1, balance_buyer-price);
+                ps.setString(2, newOwnerLogin);
+                ps.executeUpdate();
+                ps.close();
+
+                // Получаение баланса продавца
+                ps = connection.prepareStatement("SELECT balance FROM users WHERE login = ?");
+                ps.setString(1, oldOwnerLogin);
+                rs = ps.executeQuery();
+                rs.next();
+                int balance_seller = rs.getInt("balance");
+                ps.close();
+
+                // Обновление баланса продавца
+                ps = connection.prepareStatement("UPDATE users SET balance = ? WHERE login = ?");
+                ps.setInt(1, balance_seller+price);
+                ps.setString(2, oldOwnerLogin);
+                ps.executeUpdate();
+                ps.close();
+
+                // Обновление коллеции
+                ps = connection.prepareStatement("UPDATE study_groups SET owner_login = ? WHERE id = ?");
+                ps.setString(1, newOwnerLogin);
+                ps.setInt(2, key);
+                ps.executeUpdate();
+                ps.close();
+                connection.commit();
+                return true;
+            } catch (Exception e) {
+                connection.rollback();
+                return false;
+            } finally {
+                connection.setAutoCommit(true);
+            }
+
+        }
+    }
     public boolean removeStudyGroup(int key, String ownerLogin, boolean isAdmin) throws SQLException {
         if (isAdmin) {
             String SQL = "DELETE FROM study_groups WHERE id = ?";

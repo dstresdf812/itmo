@@ -35,14 +35,6 @@ public class UserService {
         message = isSuccess ? "Успешный вход" : ":(((";
         Response response = new Response(isSuccess, message, studyGroups);
         return response;
-
-        if (hash == null) {
-            return false;
-        }
-        if (!hash.equals(hashedPassword)) {
-            return false;
-        }
-        return true;
     }
 
     public Response register(String username, String password) throws NoSuchAlgorithmException, SQLException {

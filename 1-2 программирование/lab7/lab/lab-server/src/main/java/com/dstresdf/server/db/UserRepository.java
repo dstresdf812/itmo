@@ -37,7 +37,6 @@ public class UserRepository {
             return ps.executeUpdate() == 1;
         }
     }
-
     public int getPermissions(String login) throws SQLException {
         String SQL = "SELECT permissions FROM users WHERE login = ?";
         try (Connection connection = dataSource.getConnection();

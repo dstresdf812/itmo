@@ -61,7 +61,8 @@ public class DatabaseManager {
         String SQL_users_create = "CREATE TABLE IF NOT EXISTS users(" +
                 "login TEXT PRIMARY KEY," +
                 "hash TEXT NOT NULL," +
-                "permissions INTEGER NOT NULL DEFAULT 3)";
+                "permissions INTEGER NOT NULL DEFAULT 3," +
+                "balance INTEGER NOT NULL DEFAULT 10000)";
         String SQL_groups_create = "CREATE TABLE IF NOT EXISTS study_groups ("
                 + "id INTEGER PRIMARY KEY DEFAULT nextval('study_group_id_seq'),"
                 + "name TEXT NOT NULL,"
@@ -93,14 +94,10 @@ public class DatabaseManager {
         return studyGroupService;
     }
 
-    public boolean registerUser(String login, String password) throws SQLException, NoSuchAlgorithmException {
-        return  userService.register(login, password);
-    }
-
     public boolean checkUser(String login, String password) throws SQLException, NoSuchAlgorithmException {
         if (login == null || password == null) {
             return false;
         }
-        return userService.login(login, password);
+        return userService.login(login, password).isSuccess();
     }
 }

@@ -22,7 +22,8 @@ public enum CommandType implements Serializable {
     REMOVE_KEY("remove_key", ArgumentType.ONE_ARG),
 
     LOGIN("login", ArgumentType.ONE_ARG),
-    REGISTER("register", ArgumentType.ONE_ARG);
+    REGISTER("register", ArgumentType.ONE_ARG),
+    BUY("buy", ArgumentType.ONE_ARG);
 
     private final String name;
     private final ArgumentType arg;

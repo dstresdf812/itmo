@@ -12,7 +12,7 @@ public class StudyGroup implements Serializable {
     private Long shouldBeExpelled; //Значение поля должно быть больше 0, Поле может быть null
     private FormOfEducation formOfEducation;
     private Person groupAdmin; //Поле может быть null
-
+    private final int price = 100;
     private String  ownerLogin;
 
     public boolean check() {
@@ -119,6 +119,11 @@ public class StudyGroup implements Serializable {
     public String  getOwnerLogin() {
         return ownerLogin;
     }
+
+    public int getPrice() {
+        return price;
+    }
+
     @Override
     public String toString() {
         String s = new String();
@@ -132,6 +137,7 @@ public class StudyGroup implements Serializable {
         s += "Форма обучения: " + (this.formOfEducation == null ? "NULL" + "\n" : this.formOfEducation + "\n");
         s += "Староста: " + this.groupAdmin + "\n";
         s += "Создатель: " + this.ownerLogin + "\n";
+        s += "Цена: " + this.price + "\n";
         return s;
     }
 
