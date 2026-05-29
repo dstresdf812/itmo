@@ -2,6 +2,7 @@ package com.dstresdf.server.collection;
 
 import com.dstresdf.common.model.StudyGroup;
 import com.dstresdf.server.db.DatabaseManager;
+import com.dstresdf.server.db.StudyGroupService;
 
 import java.sql.SQLException;
 import java.util.*;
@@ -16,10 +17,7 @@ public class CollectionManager {
     public ArrayList<Integer> used_keys = new ArrayList<>();
     public Date initDate = new Date();
 
-    private final DatabaseManager databaseManager;
-    public CollectionManager(DatabaseManager databaseManager) {
-        this.databaseManager = databaseManager;
-    }
+    public CollectionManager() {}
     /**
      * Добавить элемент в коллецию по ключу.
      * @param studyGroups
@@ -62,42 +60,25 @@ public class CollectionManager {
     }
 
     public void insertByKey(Integer key, StudyGroup studyGroup) throws SQLException {
-        int id = databaseManager.insertStudyGroup(studyGroup);
-        studyGroup.setId(id);
-        collection.put(id, studyGroup);
+        collection.put(key, studyGroup);
     }
 
-    public boolean updateByKey(Integer key, StudyGroup studyGroup) throws SQLException {
-        studyGroup.setId(key);
-
-        boolean t = databaseManager.updateStudyGroup(studyGroup);
-        if (t) {
-            collection.put(key, studyGroup);
-            return true;
-        }
-
-        return false;
+    public void updateByKey(Integer key, StudyGroup studyGroup) throws SQLException {
+        collection.put(key, studyGroup);
     }
 
-    public boolean removeByKey(Integer key, String  ownerLogin) throws SQLException {
-        boolean t = databaseManager.removeStudyGroup(key, ownerLogin);
-        if (t) {
-            collection.remove(key);
-            return true;
-        }
-        return false;
+    public void removeByKey(Integer key) throws SQLException {
+        collection.remove(key);
     }
 
-    public int clearCollection(String ownerLogin) throws SQLException {
-        int count = 0;
+    public List<Integer> getUsersElems(String ownerLogin) {
+        List<Integer> usersElems = new ArrayList<>();
         for (Integer key : collection.keySet()) {
             StudyGroup studyGroup = collection.get(key);
             if (studyGroup != null && ownerLogin.equals(studyGroup.getOwnerLogin())) {
-                if (removeByKey(key, ownerLogin)) {
-                    count++;
-                }
+                usersElems.add(studyGroup.getId());
             }
         }
-        return count;
+        return usersElems;
     }
 }

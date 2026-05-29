@@ -102,19 +102,19 @@ public class DatabaseManager {
         return userService.login(login, password);
     }
 
-    public List<StudyGroup> getCollection() throws SQLException {
-        return studyGroupService.getCollection();
-    }
-
-    public int insertStudyGroup(StudyGroup studyGroup) throws SQLException {
-        return studyGroupService.insertStudyGroup(studyGroup);
-    }
-
-    public boolean updateStudyGroup(StudyGroup studyGroup) throws SQLException {
-        return studyGroupService.updateStudyGroup(studyGroup);
-    }
-
-    public boolean removeStudyGroup(int key, String ownerLogin) throws SQLException {
-        return studyGroupService.removeStudyGroup(key, ownerLogin);
-    }
+//    public List<StudyGroup> getCollection() throws SQLException {
+//        return studyGroupService.getCollection();
+//    }
+//
+//    public int insertStudyGroup(StudyGroup studyGroup) throws SQLException {
+//        return studyGroupService.insertStudyGroup(studyGroup);
+//    }
+//
+//    public boolean updateStudyGroup(StudyGroup studyGroup) throws SQLException {
+//        return studyGroupService.updateStudyGroup(studyGroup);
+//    }
+//
+//    public boolean removeStudyGroup(int key, String ownerLogin) throws SQLException {
+//        return studyGroupService.removeStudyGroup(key, ownerLogin);
+//    }
 }

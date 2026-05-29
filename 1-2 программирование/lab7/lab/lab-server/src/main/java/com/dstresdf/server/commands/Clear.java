@@ -4,6 +4,7 @@ import com.dstresdf.common.model.StudyGroup;
 import com.dstresdf.common.network.Request;
 import com.dstresdf.common.network.Response;
 import com.dstresdf.server.collection.CollectionManager;
+import com.dstresdf.server.db.StudyGroupService;
 
 import java.sql.SQLException;
 import java.util.List;
@@ -13,21 +14,13 @@ import java.util.List;
  * @author dmitrij
  */
 public class Clear extends Command {
-    private final CollectionManager collectionManager;
-    public Clear(CollectionManager collectionManager) {
+    private final StudyGroupService studyGroupService;
+    public Clear(StudyGroupService studyGroupService) {
         super("clear", "очистить коллекцию");
-        this.collectionManager = collectionManager;
+        this.studyGroupService = studyGroupService;
     }
 
     public Response execute(Request request) throws SQLException {
-        boolean isSuccess;
-        String message;
-        List<StudyGroup> studyGroups = null;
-
-        collectionManager.clearCollection(request.getLogin());
-        isSuccess = true;
-        message = "Коллекция очищена";
-        Response response = new Response(isSuccess, message, studyGroups);
-        return response;
+        return studyGroupService.clearCollection(request.getLogin());
     }
 }

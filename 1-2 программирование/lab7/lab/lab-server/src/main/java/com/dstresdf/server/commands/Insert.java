@@ -4,6 +4,7 @@ import com.dstresdf.common.model.StudyGroup;
 import com.dstresdf.common.network.Request;
 import com.dstresdf.common.network.Response;
 import com.dstresdf.server.collection.CollectionManager;
+import com.dstresdf.server.db.StudyGroupService;
 
 import java.sql.SQLException;
 import java.util.List;
@@ -13,10 +14,10 @@ import java.util.List;
  * @author dmitrij
  */
 public class Insert extends Command {
-    private final CollectionManager collectionManager;
-    public Insert(CollectionManager collectionManager) {
+    private final StudyGroupService studyGroupService;
+    public Insert(StudyGroupService studyGroupService) {
         super("insert (key)", "добавить новый элемент с заданным ключом");
-        this.collectionManager = collectionManager;
+        this.studyGroupService = studyGroupService;
     }
 
     /**
@@ -26,31 +27,6 @@ public class Insert extends Command {
      * @return Выполнена ли команда.
      */
     public Response execute(Request request) throws SQLException {
-        boolean isSuccess;
-        String message;
-        List<StudyGroup> studyGroups = null;
-
-        Integer key = request.getIntegerArgument();
-        StudyGroup elem = request.getStudyGroup();
-
-        if (collectionManager.used_keys.contains(key)) {
-            isSuccess = false;
-            message = "Элемент с таким ключом уже существует!";
-            Response response = new Response(isSuccess, message, studyGroups);
-            return response;
-        }
-        if (elem == null) {
-            isSuccess = false;
-            message = "elem = null :((";
-            Response response = new Response(isSuccess, message, studyGroups);
-            return response;
-        }
-
-        elem.setOwnerLogin(request.getLogin());
-        collectionManager.insertByKey(key, elem);
-        isSuccess = true;
-        message = "все гуд!";
-        Response response = new Response(isSuccess, message, studyGroups);
-        return response;
+        return studyGroupService.insertStudyGroup(request.getLogin(), request.getIntegerArgument(), request.getStudyGroup());
     }
 }

@@ -4,6 +4,7 @@ import com.dstresdf.server.collection.CollectionManager;
 import com.dstresdf.common.network.Request;
 import com.dstresdf.common.network.Response;
 import com.dstresdf.common.model.StudyGroup;
+import com.dstresdf.server.db.StudyGroupService;
 
 import java.sql.SQLException;
 import java.util.List;
@@ -14,32 +15,14 @@ import java.util.List;
  * @author dmitrij
  */
 public class Update extends Command {
-    private final CollectionManager collectionManager;
+    private final StudyGroupService studyGroupService;
 
-    public Update(CollectionManager collectionManager) {
+    public Update(StudyGroupService studyGroupService) {
         super("update (id)", "обновить значение элемента коллекции, id которого равен заданному");
-        this.collectionManager = collectionManager;
+        this.studyGroupService = studyGroupService;
     }
 
     public Response execute(Request request) throws SQLException {
-        boolean isSuccess;
-        String message;
-        List<StudyGroup> studyGroups = null;
-
-        Integer key  = request.getIntegerArgument();
-        StudyGroup elem = request.getStudyGroup();
-
-        if (!collectionManager.containsKey(key)) {
-            isSuccess = false;
-            message = "Элемента с таким ключом не существует :(";
-            Response response = new Response(isSuccess, message, studyGroups);
-            return response;
-        }
-
-        elem.setOwnerLogin(request.getLogin());
-        isSuccess = collectionManager.updateByKey(key, elem);
-        message = isSuccess ? "Команда выполнена!" : "Команда не выполнена!";
-        Response response = new Response(isSuccess, message, studyGroups);
-        return response;
+        return studyGroupService.updateStudyGroup(request.getLogin(), request.getIntegerArgument(), request.getStudyGroup());
     }
 }

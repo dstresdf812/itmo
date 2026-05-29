@@ -78,7 +78,7 @@ public class StudyGroupRepository {
         }
     }
 
-    public boolean updateStudyGroup(StudyGroup studyGroup) throws SQLException {
+    public boolean updateStudyGroup(int key, StudyGroup studyGroup) throws SQLException {
         String SQL = "UPDATE study_groups SET "
                 + "name = ?, x = ?, y = ?, creation_date = ?, "
                 + "students_count = ?, expelled_students = ?, should_be_expelled = ?, form_of_education = ?, "

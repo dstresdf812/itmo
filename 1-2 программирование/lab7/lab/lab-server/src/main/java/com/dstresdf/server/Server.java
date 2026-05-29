@@ -18,19 +18,20 @@ public class Server {
     public static void main(String[] args) throws SQLException {
         CommandManager commandManager = new CommandManager();
         DatabaseManager databaseManager = new DatabaseManager();
+        CollectionManager collectionManager = new CollectionManager();
         UserService userService = databaseManager.getUserService();
         StudyGroupService studyGroupService = databaseManager.getStudyGroupService();
+        studyGroupService.setCollectionManager(collectionManager);
 
-        CollectionManager collectionManager = new CollectionManager(databaseManager);
         commandManager.add("help", new Help(commandManager));
-        commandManager.add("update", new Update(collectionManager));
+        commandManager.add("update", new Update(studyGroupService));
         commandManager.add("info", new Info(collectionManager));
         commandManager.add("show", new Show(collectionManager));
-        commandManager.add("insert", new Insert(collectionManager));
-        commandManager.add("remove_key", new RemoveKey(collectionManager));
-        commandManager.add("clear", new Clear(collectionManager));
-        commandManager.add("replace_if_greater", new ReplaceIfGreater(collectionManager));
-        commandManager.add("remove_greater_key", new RemoveGreaterKey(collectionManager));
+        commandManager.add("insert", new Insert(studyGroupService));
+        commandManager.add("remove_key", new RemoveKey(studyGroupService));
+        commandManager.add("clear", new Clear(studyGroupService));
+        commandManager.add("replace_if_greater", new ReplaceIfGreater(studyGroupService));
+        commandManager.add("remove_greater_key", new RemoveGreaterKey(studyGroupService));
         commandManager.add("average_of_students_count", new AverageOfStudentsCount(collectionManager));
         commandManager.add("print_unique_students_count", new PrintUniqueStudentsCount(collectionManager));
         commandManager.add("print_field_ascending_expelled_students", new PrintFieldAscendingExpelledStudents(collectionManager));
@@ -38,7 +39,7 @@ public class Server {
         commandManager.add("register", new Register(userService));
         commandManager.add("login", new Login(userService));
         // collectionManager.SetStudyGroup(fileManager.readFile("input.json"));
-        collectionManager.SetStudyGroup(databaseManager.getCollection());
+        collectionManager.SetStudyGroup(studyGroupService.getCollection());
         try {
             ServerManager serverManager = new ServerManager("localhost", 1090, databaseManager);;
             serverManager.start(commandManager);
