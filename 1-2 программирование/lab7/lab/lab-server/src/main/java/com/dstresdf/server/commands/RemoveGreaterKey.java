@@ -1,15 +1,10 @@
 package com.dstresdf.server.commands;
 
-import com.dstresdf.common.model.StudyGroup;
 import com.dstresdf.common.network.Request;
 import com.dstresdf.common.network.Response;
-import com.dstresdf.server.collection.CollectionManager;
 import com.dstresdf.server.db.StudyGroupService;
 
 import java.sql.SQLException;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
 
 /**
  * Команда 'remove_greater_key'. Удаляет из коллекции все элементы, ключ которых превышает заданный.

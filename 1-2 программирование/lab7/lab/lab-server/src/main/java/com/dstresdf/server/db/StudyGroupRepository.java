@@ -78,30 +78,54 @@ public class StudyGroupRepository {
         }
     }
 
-    public boolean updateStudyGroup(int key, StudyGroup studyGroup) throws SQLException {
-        String SQL = "UPDATE study_groups SET "
-                + "name = ?, x = ?, y = ?, creation_date = ?, "
-                + "students_count = ?, expelled_students = ?, should_be_expelled = ?, form_of_education = ?, "
-                + "admin_name = ?, admin_weight = ?, admin_eye_color = ?, admin_hair_color = ?, owner_login = ? "
-                + "WHERE id = ? AND owner_login = ?";
-        try (Connection connection = dataSource.getConnection();
-             PreparedStatement ps = connection.prepareStatement(SQL)) {
-            fillStatement(ps,studyGroup);
-            ps.setInt(14, studyGroup.getId());
-            ps.setString(15, studyGroup.getOwnerLogin());
-            return ps.executeUpdate() == 1;
+    public boolean updateStudyGroup(int key, StudyGroup studyGroup, boolean isAdmin) throws SQLException {
+        if (isAdmin) {
+            String SQL = "UPDATE study_groups SET "
+                    + "name = ?, x = ?, y = ?, creation_date = ?, "
+                    + "students_count = ?, expelled_students = ?, should_be_expelled = ?, form_of_education = ?, "
+                    + "admin_name = ?, admin_weight = ?, admin_eye_color = ?, admin_hair_color = ?, owner_login = ? "
+                    + "WHERE id = ?";
+            try (Connection connection = dataSource.getConnection();
+                 PreparedStatement ps = connection.prepareStatement(SQL)) {
+                fillStatement(ps,studyGroup);
+                ps.setInt(14, studyGroup.getId());
+                return ps.executeUpdate() == 1;
+            }
+        } else {
+            String SQL = "UPDATE study_groups SET "
+                    + "name = ?, x = ?, y = ?, creation_date = ?, "
+                    + "students_count = ?, expelled_students = ?, should_be_expelled = ?, form_of_education = ?, "
+                    + "admin_name = ?, admin_weight = ?, admin_eye_color = ?, admin_hair_color = ?, owner_login = ? "
+                    + "WHERE id = ? AND owner_login = ?";
+            try (Connection connection = dataSource.getConnection();
+                 PreparedStatement ps = connection.prepareStatement(SQL)) {
+                fillStatement(ps,studyGroup);
+                ps.setInt(14, studyGroup.getId());
+                ps.setString(15, studyGroup.getOwnerLogin());
+                return ps.executeUpdate() == 1;
+            }
         }
     }
 
-    public boolean removeStudyGroup(int key, String ownerLogin) throws SQLException {
-        String SQL = "DELETE FROM study_groups WHERE id = ? AND owner_login = ?";
-        try (Connection connection = dataSource.getConnection();
-             PreparedStatement ps = connection.prepareStatement(SQL)) {
-            ps.setInt(1, key);
-            ps.setString(2, ownerLogin);
-            return ps.executeUpdate() == 1;
+    public boolean removeStudyGroup(int key, String ownerLogin, boolean isAdmin) throws SQLException {
+        if (isAdmin) {
+            String SQL = "DELETE FROM study_groups WHERE id = ?";
+            try (Connection connection = dataSource.getConnection();
+                 PreparedStatement ps = connection.prepareStatement(SQL)) {
+                ps.setInt(1, key);
+                return ps.executeUpdate() == 1;
+            }
+        } else {
+            String SQL = "DELETE FROM study_groups WHERE id = ? AND owner_login = ?";
+            try (Connection connection = dataSource.getConnection();
+                 PreparedStatement ps = connection.prepareStatement(SQL)) {
+                ps.setInt(1, key);
+                ps.setString(2, ownerLogin);
+                return ps.executeUpdate() == 1;
+            }
         }
     }
+
     public void fillStatement(PreparedStatement ps, StudyGroup studyGroup) throws SQLException {
 
         ps.setString(1, studyGroup.getName());

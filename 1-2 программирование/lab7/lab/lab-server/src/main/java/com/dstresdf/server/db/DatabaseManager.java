@@ -6,7 +6,6 @@ import com.zaxxer.hikari.HikariDataSource;
 
 import java.security.NoSuchAlgorithmException;
 import java.sql.*;
-import java.util.List;
 
 public class DatabaseManager {
     private static final String URL = System.getenv("DB_URL");
@@ -53,7 +52,7 @@ public class DatabaseManager {
             userRepository = new UserRepository(dataSource);
             studyGroupRepository = new StudyGroupRepository(dataSource);
             userService = new UserService(userRepository);
-            studyGroupService = new StudyGroupService(studyGroupRepository);
+            studyGroupService = new StudyGroupService(studyGroupRepository,  userService);
         }
     }
 
@@ -61,7 +60,8 @@ public class DatabaseManager {
         String SQL_seq_create = "CREATE SEQUENCE IF NOT EXISTS study_group_id_seq START 1";
         String SQL_users_create = "CREATE TABLE IF NOT EXISTS users(" +
                 "login TEXT PRIMARY KEY," +
-                "hash TEXT NOT NULL)";
+                "hash TEXT NOT NULL," +
+                "permissions INTEGER NOT NULL DEFAULT 3)";
         String SQL_groups_create = "CREATE TABLE IF NOT EXISTS study_groups ("
                 + "id INTEGER PRIMARY KEY DEFAULT nextval('study_group_id_seq'),"
                 + "name TEXT NOT NULL,"
@@ -85,7 +85,6 @@ public class DatabaseManager {
         }
     }
 
-
     public UserService getUserService() {
         return userService;
     }
@@ -99,22 +98,9 @@ public class DatabaseManager {
     }
 
     public boolean checkUser(String login, String password) throws SQLException, NoSuchAlgorithmException {
+        if (login == null || password == null) {
+            return false;
+        }
         return userService.login(login, password);
     }
-
-//    public List<StudyGroup> getCollection() throws SQLException {
-//        return studyGroupService.getCollection();
-//    }
-//
-//    public int insertStudyGroup(StudyGroup studyGroup) throws SQLException {
-//        return studyGroupService.insertStudyGroup(studyGroup);
-//    }
-//
-//    public boolean updateStudyGroup(StudyGroup studyGroup) throws SQLException {
-//        return studyGroupService.updateStudyGroup(studyGroup);
-//    }
-//
-//    public boolean removeStudyGroup(int key, String ownerLogin) throws SQLException {
-//        return studyGroupService.removeStudyGroup(key, ownerLogin);
-//    }
 }

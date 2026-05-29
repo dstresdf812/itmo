@@ -62,7 +62,6 @@ public class Client {
             }
 
             if (!isAuthorized) {
-
                 if (commandName.equals("login") || commandName.equals("register")) {
                     Request request = buildRequest(command, argumentType, args);
                     if (request == null) {
@@ -74,10 +73,10 @@ public class Client {
                         login = request.getLogin();
                         password = request.getPassword();
                     }
-                    console.println(response.getMessage());
 
+                    console.println(response.getMessage());
+                    continue;
                 }
-                continue;
             }
 
             if (commandName.equals("execute_script")) {
@@ -130,6 +129,11 @@ public class Client {
             Request request = new Request(requestCounter++, command, null, null);
             request.setLogin(args[0]);
             request.setPassword(enteredPassword);
+            return request;
+        }
+
+        if (command.equals(CommandType.HELP)) {
+            Request request = new Request(requestCounter++, command, null, null);
             return request;
         }
 

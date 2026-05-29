@@ -124,7 +124,10 @@ public class ServerManager {
         if (request == null || request.getCommandType() == null) {
             return new Response(false, "Некорректный запрос.", null);
         }
-        if (!request.getCommandType().equals(CommandType.LOGIN) && !request.getCommandType().equals(CommandType.REGISTER)) {
+        if (!request.getCommandType().equals(CommandType.LOGIN)
+                && !request.getCommandType().equals(CommandType.REGISTER)
+                && !request.getCommandType().equals(CommandType.HELP)
+                && !request.getCommandType().equals(CommandType.History)) {
             if (!databaseManager.checkUser(request.getLogin(), request.getPassword())) {
                 return new Response(false, "Не выполнена авторизация. Авторизуйтесь!", null);
             }

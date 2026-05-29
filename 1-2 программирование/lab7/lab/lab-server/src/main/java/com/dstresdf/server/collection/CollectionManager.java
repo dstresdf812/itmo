@@ -1,8 +1,6 @@
 package com.dstresdf.server.collection;
 
 import com.dstresdf.common.model.StudyGroup;
-import com.dstresdf.server.db.DatabaseManager;
-import com.dstresdf.server.db.StudyGroupService;
 
 import java.sql.SQLException;
 import java.util.*;
@@ -14,7 +12,6 @@ import java.util.concurrent.ConcurrentHashMap;
  */
 public class CollectionManager {
     public Map<Integer, StudyGroup> collection = new ConcurrentHashMap<>();
-    public ArrayList<Integer> used_keys = new ArrayList<>();
     public Date initDate = new Date();
 
     public CollectionManager() {}

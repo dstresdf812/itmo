@@ -2,7 +2,6 @@ package com.dstresdf.common.network;
 
 import com.dstresdf.common.commands.CommandType;
 import com.dstresdf.common.model.StudyGroup;
-import com.dstresdf.common.util.RequestStatus;
 
 import java.io.Serializable;
 
