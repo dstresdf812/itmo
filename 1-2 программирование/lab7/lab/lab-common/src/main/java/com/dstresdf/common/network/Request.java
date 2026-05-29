@@ -8,7 +8,6 @@ import java.io.Serializable;
 
 public class Request implements Serializable {
     private Integer requestId;
-    private RequestStatus requestStatus;
     private final CommandType commandType;
     private final Integer integerArgument;
     private final StudyGroup studyGroup;
@@ -50,13 +49,6 @@ public class Request implements Serializable {
     }
     public void setRequestId(Integer requestId) {
         this.requestId = requestId;
-    }
-
-    public RequestStatus getRequestStatus() {
-        return requestStatus;
-    }
-    public void setRequestStatus(RequestStatus requestStatus) {
-        this.requestStatus = requestStatus;
     }
     public String getLogin() {
         return login;

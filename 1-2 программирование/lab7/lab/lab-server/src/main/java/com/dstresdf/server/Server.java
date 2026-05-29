@@ -4,6 +4,9 @@ import com.dstresdf.server.collection.CollectionManager;
 import com.dstresdf.server.commands.CommandManager;
 import com.dstresdf.server.commands.*;
 import com.dstresdf.server.db.DatabaseManager;
+import com.dstresdf.server.db.StudyGroupService;
+import com.dstresdf.server.db.UserRepository;
+import com.dstresdf.server.db.UserService;
 import com.dstresdf.server.io.FileManager;
 import com.dstresdf.server.network.ServerManager;
 
@@ -15,14 +18,15 @@ public class Server {
     public static void main(String[] args) throws SQLException {
         CommandManager commandManager = new CommandManager();
         DatabaseManager databaseManager = new DatabaseManager();
+        UserService userService = databaseManager.getUserService();
+        StudyGroupService studyGroupService = databaseManager.getStudyGroupService();
+
         CollectionManager collectionManager = new CollectionManager(databaseManager);
         commandManager.add("help", new Help(commandManager));
         commandManager.add("update", new Update(collectionManager));
-        commandManager.add("help", new Help(commandManager));
         commandManager.add("info", new Info(collectionManager));
         commandManager.add("show", new Show(collectionManager));
         commandManager.add("insert", new Insert(collectionManager));
-        commandManager.add("update", new Update(collectionManager));
         commandManager.add("remove_key", new RemoveKey(collectionManager));
         commandManager.add("clear", new Clear(collectionManager));
         commandManager.add("replace_if_greater", new ReplaceIfGreater(collectionManager));
@@ -31,8 +35,8 @@ public class Server {
         commandManager.add("print_unique_students_count", new PrintUniqueStudentsCount(collectionManager));
         commandManager.add("print_field_ascending_expelled_students", new PrintFieldAscendingExpelledStudents(collectionManager));
         commandManager.add("history", new History(commandManager));
-        commandManager.add("register", new Register(databaseManager));
-        commandManager.add("login", new Login(databaseManager));
+        commandManager.add("register", new Register(userService));
+        commandManager.add("login", new Login(userService));
         // collectionManager.SetStudyGroup(fileManager.readFile("input.json"));
         collectionManager.SetStudyGroup(databaseManager.getCollection());
         try {

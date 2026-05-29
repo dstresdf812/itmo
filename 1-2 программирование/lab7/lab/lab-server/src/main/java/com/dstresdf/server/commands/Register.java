@@ -4,6 +4,8 @@ import com.dstresdf.common.model.StudyGroup;
 import com.dstresdf.common.network.Request;
 import com.dstresdf.common.network.Response;
 import com.dstresdf.server.db.DatabaseManager;
+import com.dstresdf.server.db.UserRepository;
+import com.dstresdf.server.db.UserService;
 
 import java.security.NoSuchAlgorithmException;
 import java.sql.SQLException;
@@ -14,10 +16,10 @@ import java.util.List;
  * @author dmitrij
  */
 public class Register extends Command {
-    private final DatabaseManager databaseManager;
-    public Register(DatabaseManager databaseManager) {
+    private final UserService userService;
+    public Register(UserService userService) {
         super("Register (username)", "зарегистрироваться :))");
-        this.databaseManager = databaseManager;
+        this.userService = userService;
 
     }
 
@@ -34,7 +36,7 @@ public class Register extends Command {
         String login = request.getLogin();
         String password = request.getPassword();
         try {
-            isSuccess = databaseManager.registerUser(login, password);
+            isSuccess = userService.register(login, password);
             message = isSuccess ? "Регистрация прошла успешно" : "Анлак";
         } catch (Exception e){
             isSuccess = false;

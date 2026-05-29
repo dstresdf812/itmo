@@ -5,6 +5,7 @@ import com.dstresdf.common.network.Request;
 import com.dstresdf.common.network.Response;
 import com.dstresdf.server.collection.CollectionManager;
 import com.dstresdf.server.db.DatabaseManager;
+import com.dstresdf.server.db.UserService;
 
 import java.security.NoSuchAlgorithmException;
 import java.sql.SQLException;
@@ -15,10 +16,10 @@ import java.util.List;
  * @author dmitrij
  */
 public class Login extends Command {
-    private final DatabaseManager databaseManager;
-    public Login(DatabaseManager databaseManager) {
+    private final UserService userService;
+    public Login(UserService userService) {
         super("Login (username)", "авторизоваться :))");
-        this.databaseManager = databaseManager;
+        this.userService = userService;
 
     }
 
@@ -35,7 +36,7 @@ public class Login extends Command {
         String login = request.getLogin();
         String password = request.getPassword();
         try {
-            isSuccess = databaseManager.checkUser(login, password);
+            isSuccess = userService.login(login, password);
             message = isSuccess ? "Успешный вход" : ":(((";
         } catch (Exception e){
             isSuccess = false;
