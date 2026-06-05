@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <form xmlns="http://www.intellij.com/uidesigner/form/" version="1" bind-to-class="com.dstresdf.client.gui.MainWindow">
-  <grid id="27dc6" binding="panel2" layout-manager="GridLayoutManager" row-count="1" column-count="1" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+  <grid id="27dc6" binding="panel1" layout-manager="GridLayoutManager" row-count="1" column-count="1" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
     <margin top="0" left="0" bottom="0" right="0"/>
     <constraints>
-      <xy x="20" y="20" width="1212" height="666"/>
+      <xy x="20" y="20" width="1643" height="540"/>
     </constraints>
     <properties/>
     <border type="none"/>
@@ -24,8 +24,8 @@
         </properties>
         <border type="none"/>
         <children>
-          <grid id="febfc" layout-manager="GridLayoutManager" row-count="7" column-count="13" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
-            <margin top="16" left="18" bottom="16" right="18"/>
+          <grid id="febfc" layout-manager="GridLayoutManager" row-count="7" column-count="14" same-size-horizontally="false" same-size-vertically="false" hgap="6" vgap="8">
+            <margin top="10" left="12" bottom="10" right="12"/>
             <constraints>
               <tabbedpane title="Main"/>
             </constraints>
@@ -37,36 +37,9 @@
             </properties>
             <border type="none"/>
             <children>
-              <component id="f0149" class="javax.swing.JLabel">
-                <constraints>
-                  <grid row="0" column="11" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
-                </constraints>
-                <properties>
-                  <font name="Dialog" size="13" style="1"/>
-                  <foreground color="-13156015"/>
-                  <text value="Язык"/>
-                </properties>
-              </component>
-              <component id="549c1" class="javax.swing.JComboBox" binding="comboBox2" default-binding="true">
-                <constraints>
-                  <grid row="0" column="12" row-span="1" col-span="1" vsize-policy="0" hsize-policy="2" anchor="8" fill="1" indent="0" use-parent-layout="false"/>
-                </constraints>
-                <properties>
-                  <background color="-591879"/>
-                  <font name="Dialog" size="13" style="0"/>
-                  <foreground color="-14735049"/>
-                  <model>
-                    <item value="Русский"/>
-                    <item value="Исландский"/>
-                    <item value="Итальянский"/>
-                    <item value="Испанский"/>
-                  </model>
-                  <opaque value="true"/>
-                </properties>
-              </component>
               <component id="d3eb1" class="javax.swing.JLabel" binding="usernameField">
                 <constraints>
-                  <grid row="0" column="0" row-span="1" col-span="2" vsize-policy="0" hsize-policy="0" anchor="1" fill="0" indent="0" use-parent-layout="false"/>
+                  <grid row="0" column="0" row-span="1" col-span="3" vsize-policy="0" hsize-policy="0" anchor="1" fill="0" indent="0" use-parent-layout="false"/>
                 </constraints>
                 <properties>
                   <alignmentY value="1.0"/>
@@ -75,172 +48,106 @@
                   <text value="Пользователь: username"/>
                 </properties>
               </component>
-              <component id="2e64d" class="javax.swing.JButton" binding="logoutButton">
+              <component id="eca9f" class="javax.swing.JButton" binding="editButton">
                 <constraints>
-                  <grid row="0" column="5" row-span="1" col-span="2" vsize-policy="0" hsize-policy="3" anchor="9" fill="0" indent="0" use-parent-layout="false"/>
-                </constraints>
-                <properties>
-                  <alignmentY value="0.0"/>
-                  <borderPainted value="true"/>
-                  <contentAreaFilled value="true"/>
-                  <focusPainted value="false"/>
-                  <font name="Dialog" size="13" style="1"/>
-                  <foreground color="-14735049"/>
-                  <margin top="0" left="0" bottom="0" right="0"/>
-                  <opaque value="false"/>
-                  <text value="Выход"/>
-                </properties>
-              </component>
-              <component id="eca9f" class="javax.swing.JButton" default-binding="true">
-                <constraints>
-                  <grid row="1" column="3" row-span="1" col-span="2" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+                  <grid row="1" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false">
+                    <preferred-size width="118" height="30"/>
+                  </grid>
                 </constraints>
                 <properties>
                   <borderPainted value="true"/>
                   <contentAreaFilled value="true"/>
                   <focusPainted value="false"/>
-                  <font name="Dialog" size="13" style="1"/>
+                  <font name="Dialog" size="12" style="1"/>
                   <foreground color="-14735049"/>
-                  <margin top="5" left="12" bottom="5" right="12"/>
+                  <margin top="3" left="8" bottom="3" right="8"/>
                   <opaque value="false"/>
                   <text value="Редактировать"/>
                 </properties>
               </component>
-              <component id="4f0a8" class="javax.swing.JButton" binding="addButton">
-                <constraints>
-                  <grid row="1" column="0" row-span="1" col-span="2" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
-                </constraints>
-                <properties>
-                  <borderPainted value="true"/>
-                  <contentAreaFilled value="true"/>
-                  <focusPainted value="false"/>
-                  <font name="Dialog" size="13" style="1"/>
-                  <foreground color="-14735049"/>
-                  <margin top="5" left="12" bottom="5" right="12"/>
-                  <opaque value="false"/>
-                  <text value="Добавить"/>
-                </properties>
-              </component>
               <component id="cd49a" class="javax.swing.JButton" binding="removeButton">
                 <constraints>
-                  <grid row="1" column="5" row-span="1" col-span="2" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+                  <grid row="1" column="2" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false">
+                    <preferred-size width="118" height="30"/>
+                  </grid>
                 </constraints>
                 <properties>
                   <borderPainted value="true"/>
                   <contentAreaFilled value="true"/>
                   <focusPainted value="false"/>
-                  <font name="Dialog" size="13" style="1"/>
+                  <font name="Dialog" size="12" style="1"/>
                   <foreground color="-14735049"/>
-                  <margin top="5" left="12" bottom="5" right="12"/>
+                  <margin top="3" left="8" bottom="3" right="8"/>
                   <opaque value="false"/>
                   <text value="Удалить"/>
                 </properties>
               </component>
               <component id="c4223" class="javax.swing.JButton" binding="buyButton">
                 <constraints>
-                  <grid row="1" column="8" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+                  <grid row="1" column="3" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false">
+                    <preferred-size width="118" height="30"/>
+                  </grid>
                 </constraints>
                 <properties>
                   <borderPainted value="true"/>
                   <contentAreaFilled value="true"/>
                   <focusPainted value="false"/>
-                  <font name="Dialog" size="13" style="1"/>
+                  <font name="Dialog" size="12" style="1"/>
                   <foreground color="-14735049"/>
-                  <margin top="5" left="12" bottom="5" right="12"/>
+                  <margin top="3" left="8" bottom="3" right="8"/>
                   <opaque value="false"/>
                   <text value="Купить"/>
                 </properties>
               </component>
               <component id="3c5ad" class="javax.swing.JButton" binding="clearButton">
                 <constraints>
-                  <grid row="1" column="9" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+                  <grid row="1" column="4" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false">
+                    <preferred-size width="118" height="30"/>
+                  </grid>
                 </constraints>
                 <properties>
                   <borderPainted value="true"/>
                   <contentAreaFilled value="true"/>
                   <focusPainted value="false"/>
-                  <font name="Dialog" size="13" style="1"/>
+                  <font name="Dialog" size="12" style="1"/>
                   <foreground color="-14735049"/>
-                  <margin top="5" left="12" bottom="5" right="12"/>
+                  <margin top="3" left="8" bottom="3" right="8"/>
                   <opaque value="false"/>
                   <text value="Очистить"/>
                 </properties>
               </component>
               <component id="32a7a" class="javax.swing.JButton" binding="refreshButton">
                 <constraints>
-                  <grid row="1" column="10" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+                  <grid row="1" column="5" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false">
+                    <preferred-size width="118" height="30"/>
+                  </grid>
                 </constraints>
                 <properties>
                   <borderPainted value="true"/>
                   <contentAreaFilled value="true"/>
                   <focusPainted value="false"/>
-                  <font name="Dialog" size="13" style="1"/>
+                  <font name="Dialog" size="12" style="1"/>
                   <foreground color="-14735049"/>
-                  <margin top="5" left="12" bottom="5" right="12"/>
+                  <margin top="3" left="8" bottom="3" right="8"/>
                   <opaque value="false"/>
                   <text value="Обновить"/>
                 </properties>
               </component>
-              <component id="d99bd" class="javax.swing.JLabel">
+              <component id="d99bd" class="javax.swing.JLabel" binding="filterLabel">
                 <constraints>
                   <grid row="2" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
                 </constraints>
                 <properties>
-                  <font name="Dialog" size="13" style="1"/>
+                  <font name="Dialog" size="12" style="1"/>
                   <foreground color="-13156015"/>
                   <text value="Фильтр:"/>
                 </properties>
               </component>
-              <component id="ded20" class="javax.swing.JTextField" binding="textField1" default-binding="true">
-                <constraints>
-                  <grid row="2" column="1" row-span="1" col-span="5" vsize-policy="0" hsize-policy="2" anchor="8" fill="1" indent="0" use-parent-layout="false"/>
-                </constraints>
-                <properties>
-                  <background color="-1"/>
-                  <font name="Dialog" size="13" style="0"/>
-                  <foreground color="-14735049"/>
-                  <margin top="2" left="9" bottom="2" right="6"/>
-                  <opaque value="true"/>
-                  <text value=""/>
-                </properties>
-              </component>
-              <component id="61947" class="javax.swing.JButton" binding="resetButton">
-                <constraints>
-                  <grid row="2" column="8" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
-                </constraints>
-                <properties>
-                  <borderPainted value="true"/>
-                  <contentAreaFilled value="true"/>
-                  <focusPainted value="false"/>
-                  <font name="Dialog" size="13" style="1"/>
-                  <foreground color="-14735049"/>
-                  <margin top="5" left="12" bottom="5" right="12"/>
-                  <opaque value="false"/>
-                  <text value="Сбросить"/>
-                </properties>
-              </component>
-              <component id="d81c9" class="javax.swing.JComboBox" binding="comboBox3" default-binding="true">
-                <constraints>
-                  <grid row="2" column="6" row-span="1" col-span="1" vsize-policy="0" hsize-policy="2" anchor="8" fill="1" indent="0" use-parent-layout="false"/>
-                </constraints>
-                <properties>
-                  <background color="-591879"/>
-                  <font name="Dialog" size="13" style="0"/>
-                  <foreground color="-14735049"/>
-                  <model>
-                    <item value="id"/>
-                    <item value="name"/>
-                    <item value="x"/>
-                    <item value="y"/>
-                  </model>
-                  <opaque value="true"/>
-                </properties>
-              </component>
               <scrollpane id="e2021">
                 <constraints>
-                  <grid row="3" column="0" row-span="1" col-span="13" vsize-policy="7" hsize-policy="7" anchor="0" fill="3" indent="0" use-parent-layout="false">
-                    <minimum-size width="-1" height="255"/>
-                    <preferred-size width="-1" height="255"/>
+                  <grid row="3" column="0" row-span="1" col-span="14" vsize-policy="7" hsize-policy="7" anchor="0" fill="3" indent="0" use-parent-layout="false">
+                    <minimum-size width="-1" height="190"/>
+                    <preferred-size width="-1" height="220"/>
                   </grid>
                 </constraints>
                 <properties/>
@@ -264,19 +171,11 @@
                   </component>
                 </children>
               </scrollpane>
-              <component id="f00dc" class="javax.swing.JLabel">
-                <constraints>
-                  <grid row="4" column="0" row-span="1" col-span="7" vsize-policy="0" hsize-policy="0" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
-                </constraints>
-                <properties>
-                  <font name="Dialog" size="13" style="1"/>
-                  <foreground color="-13156015"/>
-                  <text value="Команда"/>
-                </properties>
-              </component>
               <component id="e68af" class="javax.swing.JComboBox" binding="chosenCommandBox">
                 <constraints>
-                  <grid row="5" column="0" row-span="1" col-span="7" vsize-policy="0" hsize-policy="2" anchor="8" fill="1" indent="0" use-parent-layout="false"/>
+                  <grid row="5" column="0" row-span="1" col-span="6" vsize-policy="0" hsize-policy="2" anchor="8" fill="1" indent="0" use-parent-layout="false">
+                    <preferred-size width="130" height="28"/>
+                  </grid>
                 </constraints>
                 <properties>
                   <background color="-591879"/>
@@ -298,32 +197,34 @@
               </component>
               <component id="769bf" class="javax.swing.JButton" binding="executeButton">
                 <constraints>
-                  <grid row="5" column="8" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+                  <grid row="5" column="7" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false">
+                    <preferred-size width="118" height="30"/>
+                  </grid>
                 </constraints>
                 <properties>
                   <borderPainted value="true"/>
                   <contentAreaFilled value="true"/>
                   <focusPainted value="false"/>
-                  <font name="Dialog" size="13" style="1"/>
+                  <font name="Dialog" size="12" style="1"/>
                   <foreground color="-14735049"/>
-                  <margin top="5" left="12" bottom="5" right="12"/>
+                  <margin top="3" left="8" bottom="3" right="8"/>
                   <opaque value="false"/>
                   <text value="Выполнить"/>
                 </properties>
               </component>
               <component id="121cf" class="javax.swing.JTextField" binding="commandArg">
                 <constraints>
-                  <grid row="5" column="7" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
-                    <preferred-size width="150" height="-1"/>
+                  <grid row="5" column="6" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
+                    <preferred-size width="130" height="28"/>
                   </grid>
                 </constraints>
                 <properties/>
               </component>
               <scrollpane id="c9775" binding="commandResult">
                 <constraints>
-                  <grid row="6" column="0" row-span="1" col-span="13" vsize-policy="7" hsize-policy="7" anchor="0" fill="3" indent="0" use-parent-layout="false">
-                    <minimum-size width="-1" height="100"/>
-                    <preferred-size width="-1" height="100"/>
+                  <grid row="6" column="0" row-span="1" col-span="14" vsize-policy="7" hsize-policy="7" anchor="0" fill="3" indent="0" use-parent-layout="false">
+                    <minimum-size width="-1" height="70"/>
+                    <preferred-size width="-1" height="90"/>
                   </grid>
                 </constraints>
                 <properties>
@@ -334,16 +235,213 @@
                   <component id="ae6b5" class="javax.swing.JTextArea" binding="commandResultTEXT">
                     <constraints/>
                     <properties>
-                      <minimumSize width="1" height="250"/>
-                      <preferredSize width="1" height="250"/>
+                      <minimumSize width="1" height="70"/>
+                      <preferredSize width="1" height="90"/>
                       <visible value="true"/>
                     </properties>
                   </component>
                 </children>
               </scrollpane>
+              <component id="d81c9" class="javax.swing.JComboBox" binding="filterColumnBox">
+                <constraints>
+                  <grid row="2" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="2" anchor="8" fill="1" indent="0" use-parent-layout="false">
+                    <preferred-size width="130" height="28"/>
+                  </grid>
+                </constraints>
+                <properties>
+                  <background color="-591879"/>
+                  <font name="Dialog" size="13" style="0"/>
+                  <foreground color="-14735049"/>
+                  <model>
+                    <item value=""/>
+                    <item value="id"/>
+                    <item value="x"/>
+                    <item value="y"/>
+                    <item value="studentsCount"/>
+                    <item value="expelledStudents"/>
+                    <item value="shouldBeExpelled"/>
+                    <item value="groupAdmin.weight"/>
+                    <item value="price"/>
+                  </model>
+                  <opaque value="true"/>
+                </properties>
+              </component>
+              <component id="a3262" class="javax.swing.JComboBox" binding="operatorBox">
+                <constraints>
+                  <grid row="2" column="2" row-span="1" col-span="1" vsize-policy="0" hsize-policy="2" anchor="8" fill="1" indent="0" use-parent-layout="false">
+                    <preferred-size width="130" height="28"/>
+                  </grid>
+                </constraints>
+                <properties>
+                  <model>
+                    <item value="&gt;"/>
+                    <item value="&lt;"/>
+                    <item value="="/>
+                    <item value="&gt;="/>
+                    <item value="&lt;="/>
+                  </model>
+                </properties>
+              </component>
+              <component id="4f0a8" class="javax.swing.JButton" binding="addButton">
+                <constraints>
+                  <grid row="1" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false">
+                    <preferred-size width="118" height="30"/>
+                  </grid>
+                </constraints>
+                <properties>
+                  <borderPainted value="true"/>
+                  <contentAreaFilled value="true"/>
+                  <focusPainted value="false"/>
+                  <font name="Dialog" size="12" style="1"/>
+                  <foreground color="-14735049"/>
+                  <margin top="3" left="8" bottom="3" right="8"/>
+                  <opaque value="false"/>
+                  <text value="Добавить"/>
+                </properties>
+              </component>
+              <component id="f0149" class="javax.swing.JLabel">
+                <constraints>
+                  <grid row="0" column="8" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
+                </constraints>
+                <properties>
+                  <font name="Dialog" size="12" style="1"/>
+                  <foreground color="-13156015"/>
+                  <text value="Язык"/>
+                </properties>
+              </component>
+              <component id="549c1" class="javax.swing.JComboBox" binding="languageBox">
+                <constraints>
+                  <grid row="0" column="9" row-span="1" col-span="1" vsize-policy="0" hsize-policy="2" anchor="8" fill="1" indent="0" use-parent-layout="false">
+                    <preferred-size width="130" height="28"/>
+                  </grid>
+                </constraints>
+                <properties>
+                  <background color="-591879"/>
+                  <font name="Dialog" size="13" style="0"/>
+                  <foreground color="-14735049"/>
+                  <model>
+                    <item value="Русский"/>
+                    <item value="Íslenska"/>
+                    <item value="Italiano"/>
+                    <item value="Español"/>
+                  </model>
+                  <opaque value="true"/>
+                </properties>
+              </component>
+              <component id="2e64d" class="javax.swing.JButton" binding="logoutButton">
+                <constraints>
+                  <grid row="0" column="3" row-span="1" col-span="2" vsize-policy="0" hsize-policy="0" anchor="9" fill="0" indent="0" use-parent-layout="false">
+                    <preferred-size width="118" height="30"/>
+                  </grid>
+                </constraints>
+                <properties>
+                  <alignmentY value="0.0"/>
+                  <borderPainted value="true"/>
+                  <contentAreaFilled value="true"/>
+                  <focusPainted value="false"/>
+                  <font name="Dialog" size="12" style="1"/>
+                  <foreground color="-14735049"/>
+                  <margin top="0" left="0" bottom="0" right="0"/>
+                  <opaque value="false"/>
+                  <text value="Выход"/>
+                </properties>
+              </component>
+              <component id="ded20" class="javax.swing.JTextField" binding="filterValueField">
+                <constraints>
+                  <grid row="2" column="3" row-span="1" col-span="1" vsize-policy="0" hsize-policy="2" anchor="8" fill="1" indent="0" use-parent-layout="false">
+                    <preferred-size width="130" height="28"/>
+                  </grid>
+                </constraints>
+                <properties>
+                  <background color="-1"/>
+                  <font name="Dialog" size="13" style="0"/>
+                  <foreground color="-14735049"/>
+                  <margin top="2" left="9" bottom="2" right="6"/>
+                  <opaque value="true"/>
+                  <text value=""/>
+                </properties>
+              </component>
+              <component id="b6675" class="javax.swing.JLabel" binding="sortLabel">
+                <constraints>
+                  <grid row="2" column="4" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+                </constraints>
+                <properties>
+                  <text value="Сортировка"/>
+                </properties>
+              </component>
+              <component id="ab870" class="javax.swing.JComboBox" binding="sortColumnBox">
+                <constraints>
+                  <grid row="2" column="5" row-span="1" col-span="1" vsize-policy="0" hsize-policy="2" anchor="8" fill="1" indent="0" use-parent-layout="false">
+                    <preferred-size width="50" height="28"/>
+                  </grid>
+                </constraints>
+                <properties>
+                  <model>
+                    <item value=""/>
+                    <item value="id"/>
+                    <item value="x"/>
+                    <item value="y"/>
+                    <item value="studentsCount"/>
+                    <item value="expelledStudents"/>
+                    <item value="shouldBeExpelled"/>
+                    <item value="groupAdmin.weight"/>
+                    <item value="price"/>
+                  </model>
+                </properties>
+              </component>
+              <component id="7a4e8" class="javax.swing.JComboBox" binding="sortTypeBox">
+                <constraints>
+                  <grid row="2" column="6" row-span="1" col-span="1" vsize-policy="0" hsize-policy="2" anchor="8" fill="1" indent="0" use-parent-layout="false">
+                    <preferred-size width="113" height="28"/>
+                  </grid>
+                </constraints>
+                <properties>
+                  <model>
+                    <item value="asc"/>
+                    <item value="desc"/>
+                  </model>
+                </properties>
+              </component>
+              <component id="204cb" class="javax.swing.JButton" binding="applyFilterButton">
+                <constraints>
+                  <grid row="2" column="7" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="0" fill="0" indent="0" use-parent-layout="false">
+                    <preferred-size width="118" height="30"/>
+                  </grid>
+                </constraints>
+                <properties>
+                  <text value="Применить"/>
+                </properties>
+              </component>
+              <component id="61947" class="javax.swing.JButton" binding="resetButton">
+                <constraints>
+                  <grid row="2" column="8" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="0" fill="0" indent="0" use-parent-layout="false">
+                    <preferred-size width="118" height="30"/>
+                  </grid>
+                </constraints>
+                <properties>
+                  <borderPainted value="true"/>
+                  <contentAreaFilled value="true"/>
+                  <focusPainted value="false"/>
+                  <font name="Dialog" size="12" style="1"/>
+                  <foreground color="-14735049"/>
+                  <margin top="3" left="8" bottom="3" right="8"/>
+                  <opaque value="false"/>
+                  <text value="Сбросить"/>
+                </properties>
+              </component>
+              <component id="f00dc" class="javax.swing.JLabel" binding="commandLabel">
+                <constraints>
+                  <grid row="4" column="0" row-span="1" col-span="8" vsize-policy="0" hsize-policy="0" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
+                </constraints>
+                <properties>
+                  <font name="Dialog" size="12" style="1"/>
+                  <foreground color="-13156015"/>
+                  <text value="Команда"/>
+                </properties>
+              </component>
             </children>
           </grid>
-          <grid id="497b1" layout-manager="GridLayoutManager" row-count="2" column-count="2" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+          <grid id="497b1" layout-manager="GridLayoutManager" row-count="1" column-count="1" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
             <margin top="0" left="0" bottom="0" right="0"/>
             <constraints>
               <tabbedpane title="Visualization"/>
@@ -351,25 +449,25 @@
             <properties/>
             <border type="none"/>
             <children>
-              <component id="2d6a7" class="javax.swing.JLabel">
+              <grid id="63807" binding="visualizationContainer" layout-manager="GridLayoutManager" row-count="1" column-count="1" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+                <margin top="0" left="0" bottom="0" right="0"/>
                 <constraints>
-                  <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+                  <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
                 </constraints>
-                <properties>
-                  <text value="Label"/>
-                </properties>
-              </component>
-              <hspacer id="77a45">
-                <constraints>
-                  <grid row="0" column="1" row-span="1" col-span="1" vsize-policy="1" hsize-policy="6" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
-                </constraints>
-              </hspacer>
-              <vspacer id="94250">
-                <constraints>
-                  <grid row="1" column="0" row-span="1" col-span="1" vsize-policy="6" hsize-policy="1" anchor="0" fill="2" indent="0" use-parent-layout="false"/>
-                </constraints>
-              </vspacer>
+                <properties/>
+                <border type="none"/>
+                <children/>
+              </grid>
             </children>
+          </grid>
+          <grid id="9737c" layout-manager="GridLayoutManager" row-count="1" column-count="1" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+            <margin top="0" left="0" bottom="0" right="0"/>
+            <constraints>
+              <tabbedpane title="Console"/>
+            </constraints>
+            <properties/>
+            <border type="none"/>
+            <children/>
           </grid>
         </children>
       </tabbedpane>

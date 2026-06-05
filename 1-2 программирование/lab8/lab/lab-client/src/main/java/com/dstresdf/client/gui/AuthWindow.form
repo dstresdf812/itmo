@@ -14,7 +14,7 @@
     </properties>
     <border type="line"/>
     <children>
-      <component id="e5805" class="javax.swing.JLabel">
+      <component id="e5805" class="javax.swing.JLabel" binding="authLabel">
         <constraints>
           <grid row="0" column="0" row-span="1" col-span="3" vsize-policy="0" hsize-policy="0" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
         </constraints>
@@ -89,7 +89,7 @@
           <text value="Войти"/>
         </properties>
       </component>
-      <component id="2b955" class="javax.swing.JLabel">
+      <component id="2b955" class="javax.swing.JLabel" binding="passwordLabel">
         <constraints>
           <grid row="3" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
         </constraints>
@@ -99,7 +99,7 @@
           <text value="Пароль"/>
         </properties>
       </component>
-      <component id="be3a4" class="javax.swing.JLabel">
+      <component id="be3a4" class="javax.swing.JLabel" binding="loginLabel">
         <constraints>
           <grid row="1" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
         </constraints>
@@ -109,7 +109,7 @@
           <text value="Логин"/>
         </properties>
       </component>
-      <component id="29915" class="javax.swing.JComboBox" binding="comboBox1" default-binding="true">
+      <component id="29915" class="javax.swing.JComboBox" binding="languageBox">
         <constraints>
           <grid row="2" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="2" anchor="8" fill="1" indent="0" use-parent-layout="false"/>
         </constraints>
@@ -119,14 +119,14 @@
           <foreground color="-14735049"/>
           <model>
             <item value="Русский"/>
-            <item value="Исландский"/>
-            <item value="Итальянский"/>
-            <item value="Испанский"/>
+            <item value="Íslenska"/>
+            <item value="Italiano"/>
+            <item value="Español"/>
           </model>
           <opaque value="true"/>
         </properties>
       </component>
-      <component id="8de22" class="javax.swing.JLabel">
+      <component id="8de22" class="javax.swing.JLabel" binding="languageLabel">
         <constraints>
           <grid row="1" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
         </constraints>

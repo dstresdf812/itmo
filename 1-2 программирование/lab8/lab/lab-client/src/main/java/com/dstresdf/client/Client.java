@@ -1,6 +1,7 @@
 package com.dstresdf.client;
 
 import com.dstresdf.client.gui.AuthWindow;
+import com.dstresdf.client.gui.LocalizationManager;
 import com.dstresdf.client.gui.MainWindow;
 import com.dstresdf.client.network.GuiHelper;
 import com.dstresdf.common.commands.ArgumentType;
@@ -190,7 +191,7 @@ public class Client {
             Client client = new Client("localhost", 1090);;
             GuiHelper guiHelper = new GuiHelper("localhost", 1090);
             SwingUtilities.invokeLater(() -> {
-                new AuthWindow(guiHelper);
+                new AuthWindow(guiHelper, new LocalizationManager());
             });
             // client.start();
         } catch (Exception e) {

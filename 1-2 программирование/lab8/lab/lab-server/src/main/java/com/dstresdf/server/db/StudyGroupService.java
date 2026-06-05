@@ -2,7 +2,9 @@ package com.dstresdf.server.db;
 
 import com.dstresdf.common.model.StudyGroup;
 import com.dstresdf.common.network.Response;
+import com.dstresdf.common.util.StudyGroupCriteria;
 import com.dstresdf.server.collection.CollectionManager;
+import com.dstresdf.server.util.CriteriaService;
 
 import java.sql.SQLException;
 import java.util.*;
@@ -205,9 +207,24 @@ public class StudyGroupService {
         boolean isSuccess;
         String message;
         List<StudyGroup> studyGroups = collectionManager.collection.values().stream()
-                .sorted(Comparator.comparing(StudyGroup::getName))
+                .sorted(Comparator.comparing(StudyGroup::getId))
                 .toList();
 
+        isSuccess = true;
+        message = "Команда выполнена! Элементы коллекции";
+        Response response = new Response(isSuccess, message, studyGroups);
+        return response;
+    }
+
+    public Response show(String login, StudyGroupCriteria studyGroupCriteria) throws SQLException {
+        boolean isAdmin = userService.isAdmin(login);
+
+        if (!userService.canRead(login) && !isAdmin) {
+            return new Response(false, "У вас нет прав на выполнение этой команды!", null);
+        }
+        boolean isSuccess;
+        String message;
+        List<StudyGroup> studyGroups = CriteriaService.applyCriteria(collectionManager.collection.values().stream().toList(), studyGroupCriteria);
         isSuccess = true;
         message = "Команда выполнена! Элементы коллекции";
         Response response = new Response(isSuccess, message, studyGroups);

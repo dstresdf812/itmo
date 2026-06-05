@@ -25,7 +25,10 @@ public class ClientManager {
         this.socket.setSoTimeout(timeout);
     }
 
-    public Response sendRequest(Request request) {
+    public synchronized Response sendRequest(Request request) {
+        if (request == null) {
+            return new Response(false, "Некорректный запрос.", null);
+        }
         try {
             byte[] requestData = serialize(request);
             DatagramPacket sendPacket = new DatagramPacket(requestData, requestData.length, serverAddress, serverPort);

@@ -6,6 +6,7 @@ import com.dstresdf.common.commands.CommandType;
 import com.dstresdf.common.model.StudyGroup;
 import com.dstresdf.common.network.Request;
 import com.dstresdf.common.network.Response;
+import com.dstresdf.common.util.StudyGroupCriteria;
 
 public class GuiHelper {
     private int requestCounter = 0;
@@ -32,6 +33,12 @@ public class GuiHelper {
         return null;
     }
 
+    public Request buildRequest(CommandType command, String login, String password, StudyGroupCriteria studyGroupCriteria) {
+        Request request = new Request(requestCounter++, command, null, null, studyGroupCriteria);
+        request.setLogin(login);
+        request.setPassword(password);
+        return request;
+    }
     public Request buildRequest(CommandType command, String login, String password, Integer arg) {
         if (command.getArg() == ArgumentType.ONE_ARG) {
             Request request = new Request(requestCounter++, command, arg, null);

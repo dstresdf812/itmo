@@ -17,6 +17,9 @@ public class Show extends Command {
     }
 
     public Response execute(Request request) throws SQLException {
+        if (request.getStudyGroupCriteria() != null) {
+            return studyGroupService.show(request.getLogin(),request.getStudyGroupCriteria());
+        }
         return studyGroupService.show(request.getLogin());
     }
 }

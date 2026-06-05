@@ -2,6 +2,7 @@ package com.dstresdf.common.network;
 
 import com.dstresdf.common.commands.CommandType;
 import com.dstresdf.common.model.StudyGroup;
+import com.dstresdf.common.util.StudyGroupCriteria;
 
 import java.io.Serializable;
 
@@ -15,12 +16,22 @@ public class Request implements Serializable {
     private String login;
     private String password;
 
+    private StudyGroupCriteria studyGroupCriteria;
     public Request(Integer requestID,CommandType commandType, Integer integerArgument, StudyGroup studyGroup) {
         this.requestId = requestID;
         this.commandType = commandType;
         this.integerArgument = integerArgument;
         this.studyGroup = studyGroup;
         this.client = null;
+    }
+
+    public Request(Integer requestID,CommandType commandType, Integer integerArgument, StudyGroup studyGroup, StudyGroupCriteria studyGroupCriteria) {
+        this.requestId = requestID;
+        this.commandType = commandType;
+        this.integerArgument = integerArgument;
+        this.studyGroup = studyGroup;
+        this.client = null;
+        this.studyGroupCriteria = studyGroupCriteria;
     }
 
     public CommandType getCommandType() {
@@ -61,6 +72,13 @@ public class Request implements Serializable {
     }
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public StudyGroupCriteria getStudyGroupCriteria() {
+        return studyGroupCriteria;
+    }
+    public void setStudyGroupCriteria(StudyGroupCriteria studyGroupCriteria) {
+        this.studyGroupCriteria = studyGroupCriteria;
     }
 
     @Override
