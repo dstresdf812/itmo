@@ -23,11 +23,17 @@ public class ScriptExecutor {
     private final StudyGroupReader studyGroupReader;
     private Map<String, Integer> stack = new HashMap<>();
     private final int max_stack = 5;
+    private static ScriptExecutor scriptExecutor;
     public ScriptExecutor(Client client, Console console, ClientManager clientManager, StudyGroupReader studyGroupReader) {
         this.client = client;
         this.console = console;
         this.clientManager = clientManager;
         this.studyGroupReader = studyGroupReader;
+        this.scriptExecutor = this;
+    }
+
+    public static ScriptExecutor getScriptExecutor() {
+        return scriptExecutor;
     }
 
     public void executeScript(String fileName) {

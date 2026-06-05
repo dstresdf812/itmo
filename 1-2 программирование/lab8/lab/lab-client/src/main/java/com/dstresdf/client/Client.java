@@ -1,5 +1,8 @@
 package com.dstresdf.client;
 
+import com.dstresdf.client.gui.AuthWindow;
+import com.dstresdf.client.gui.MainWindow;
+import com.dstresdf.client.network.GuiHelper;
 import com.dstresdf.common.commands.ArgumentType;
 import com.dstresdf.common.commands.CommandType;
 import com.dstresdf.client.console.Console;
@@ -10,6 +13,7 @@ import com.dstresdf.common.model.StudyGroup;
 import com.dstresdf.common.network.Request;
 import com.dstresdf.common.network.Response;
 
+import javax.swing.*;
 import java.util.Arrays;
 
 /**
@@ -23,12 +27,13 @@ public class Client {
     private boolean isAuthorized = false;
     private String login;
     private String password;
-
+    ScriptExecutor scriptExecutor;
     private boolean flag = true;
     public Client(String host, int port) throws Exception {
         this.console = new Console();
         this.studyGroupReader = new StudyGroupReader(console);
         this.clientManager = new ClientManager(host, port);
+        this.scriptExecutor = new ScriptExecutor(this, console, clientManager, studyGroupReader);
     }
 
     public void start() {
@@ -177,10 +182,17 @@ public class Client {
         return null;
     }
 
+    private ClientManager getClientManager() {
+        return clientManager;
+    }
     public static void main(String[] args) {
         try {
-            Client client = new Client("localhost", 1090);
-            client.start();
+            Client client = new Client("localhost", 1090);;
+            GuiHelper guiHelper = new GuiHelper("localhost", 1090);
+            SwingUtilities.invokeLater(() -> {
+                new AuthWindow(guiHelper);
+            });
+            // client.start();
         } catch (Exception e) {
             System.out.println("Ошибка клиента");
         }
