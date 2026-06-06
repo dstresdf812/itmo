@@ -7,6 +7,10 @@ import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.geom.Ellipse2D;
+import java.text.NumberFormat;
+import java.time.ZonedDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.FormatStyle;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -38,7 +42,7 @@ public class VisualizationPanel extends JPanel {
                     }
                     JOptionPane.showMessageDialog(
                             VisualizationPanel.this,
-                            clicked.toString(),
+                            buildGroupInfo(clicked),
                             localizationManager.get("window.studyGroup"),
                             JOptionPane.INFORMATION_MESSAGE
                     );
@@ -100,5 +104,46 @@ public class VisualizationPanel extends JPanel {
         return Color.getHSBColor(hue, 0.7f, 0.8f);
     }
 
+    private String buildGroupInfo(StudyGroup group) {
+        StringBuilder sb = new StringBuilder();
+        sb.append(localizationManager.get("table.id")).append(": ").append(group.getId()).append("\n");
+        sb.append(localizationManager.get("table.name")).append(": ").append(group.getName()).append("\n");
+        sb.append(localizationManager.get("table.x")).append(": ")
+                .append(group.getCoordinates() == null ? null : formatNumber(group.getCoordinates().getX())).append("\n");
+        sb.append(localizationManager.get("table.y")).append(": ")
+                .append(group.getCoordinates() == null ? null : formatNumber(group.getCoordinates().getY())).append("\n");
+        sb.append(localizationManager.get("table.creationDate")).append(": ")
+                .append(formatDateTime(group.getCreationDate())).append("\n");
+        sb.append(localizationManager.get("table.studentsCount")).append(": ")
+                .append(formatNumber(group.getStudentsCount())).append("\n");
+        sb.append(localizationManager.get("table.expelledStudents")).append(": ")
+                .append(formatNumber(group.getExpelledStudents())).append("\n");
+        sb.append(localizationManager.get("table.shouldBeExpelled")).append(": ")
+                .append(formatNumber(group.getShouldBeExpelled())).append("\n");
+        sb.append(localizationManager.get("table.formOfEducation")).append(": ").append(group.getFormOfEducation()).append("\n");
+        sb.append(localizationManager.get("table.groupAdmin")).append(": ")
+                .append(group.getGroupAdmin() == null ? null : group.getGroupAdmin().getName()).append("\n");
+        sb.append(localizationManager.get("table.owner")).append(": ").append(group.getOwnerLogin()).append("\n");
+        sb.append(localizationManager.get("table.price")).append(": ").append(formatNumber(group.getPrice()));
+        return sb.toString();
+    }
+
+    private String formatNumber(Number number) {
+        if (number == null) {
+            return null;
+        }
+        NumberFormat numberFormat = NumberFormat.getNumberInstance(localizationManager.getLocale());
+        return numberFormat.format(number);
+    }
+
+    private String formatDateTime(ZonedDateTime dateTime) {
+        if (dateTime == null) {
+            return null;
+        }
+        DateTimeFormatter formatter = DateTimeFormatter
+                .ofLocalizedDateTime(FormatStyle.MEDIUM)
+                .withLocale(localizationManager.getLocale());
+        return formatter.format(dateTime);
+    }
 
 }

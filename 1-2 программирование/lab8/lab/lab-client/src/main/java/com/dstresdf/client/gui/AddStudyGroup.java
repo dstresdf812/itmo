@@ -15,7 +15,7 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
 public class AddStudyGroup extends JDialog {
-    private JPanel contentPane1;
+    private JPanel contentPane;
     private JButton buttonOK;
     private JButton buttonCancel;
     private JTextField nameField;
@@ -64,7 +64,7 @@ public class AddStudyGroup extends JDialog {
         this.login = login;
         this.password = password;
         this.localizationManager = localizationManager;
-        setContentPane(contentPane1);
+        setContentPane(contentPane);
         setModal(true);
         getRootPane().setDefaultButton(buttonOK);
 
@@ -160,7 +160,7 @@ public class AddStudyGroup extends JDialog {
         });
 
         // call onCancel() on ESCAPE
-        contentPane1.registerKeyboardAction(new ActionListener() {
+        contentPane.registerKeyboardAction(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 onCancel();
             }

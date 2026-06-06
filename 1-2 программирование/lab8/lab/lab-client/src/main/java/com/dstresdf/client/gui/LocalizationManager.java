@@ -18,7 +18,7 @@ public class LocalizationManager {
             this.locale = new Locale("it");
         }
         if (language.equals("Español")) {
-            this.locale = new Locale("es");
+            this.locale = new Locale("es", "PR");
         }
         this.resourceBundle = ResourceBundle.getBundle(getBundleName(locale));
     }

@@ -19,7 +19,7 @@ public class AuthWindow {
     private JTextField loginTextField;
     private JButton registerButton;
     private JComboBox languageBox;
-    private JPanel Main1;
+    private JPanel Main;
     private JLabel loginLabel;
     private JLabel passwordLabel;
     private JLabel authLabel;
@@ -30,7 +30,7 @@ public class AuthWindow {
         this.guiHelper = guiHelper;
         this.localizationManager = localizationManager;
         frame = new JFrame("AuthWindow");
-        frame.setContentPane(Main1);
+        frame.setContentPane(Main);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.addWindowListener(new WindowAdapter() {
             @Override

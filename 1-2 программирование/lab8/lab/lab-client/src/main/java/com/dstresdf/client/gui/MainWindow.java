@@ -13,6 +13,10 @@ import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.text.NumberFormat;
+import java.time.ZonedDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.FormatStyle;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ExecutorService;
@@ -20,7 +24,7 @@ import java.util.concurrent.Executors;
 
 public class MainWindow {
     private JTabbedPane tabbedPane1;
-    private JPanel panel1;
+    private JPanel panel;
     private JComboBox languageBox;
     private JComboBox chosenCommandBox;
     private JButton executeButton;
@@ -95,7 +99,7 @@ public class MainWindow {
     private void onAddButton() {
         AddStudyGroup dialog = new AddStudyGroup(guiHelper, login, password, localizationManager);
         dialog.pack();
-        dialog.setLocationRelativeTo(panel1);
+        dialog.setLocationRelativeTo(panel);
         dialog.setVisible(true);
     }
 
@@ -125,7 +129,7 @@ public class MainWindow {
         }
         AddStudyGroup dialog = new AddStudyGroup(guiHelper, login, password, localizationManager, studyGroup.getId(), studyGroup);
         dialog.pack();
-        dialog.setLocationRelativeTo(panel1);
+        dialog.setLocationRelativeTo(panel);
         dialog.setVisible(true);
         onRefreshButton();
     }
@@ -275,7 +279,7 @@ public class MainWindow {
 
     private void show(){
         JFrame frame = new JFrame("Main Window");
-        frame.setContentPane(panel1);
+        frame.setContentPane(panel);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.addWindowListener(new WindowAdapter() {
             @Override
@@ -346,21 +350,39 @@ public class MainWindow {
             model.addRow(new Object[]{
                     group.getId(),
                     group.getName(),
-                    group.getCoordinates() == null ? null : group.getCoordinates().getX(),
-                    group.getCoordinates() == null ? null : group.getCoordinates().getY(),
-                    group.getCreationDate(),
-                    group.getStudentsCount(),
-                    group.getExpelledStudents(),
-                    group.getShouldBeExpelled(),
+                    group.getCoordinates() == null ? null : formatNumber(group.getCoordinates().getX()),
+                    group.getCoordinates() == null ? null : formatNumber(group.getCoordinates().getY()),
+                    formatDateTime(group.getCreationDate()),
+                    formatNumber(group.getStudentsCount()),
+                    formatNumber(group.getExpelledStudents()),
+                    formatNumber(group.getShouldBeExpelled()),
                     group.getFormOfEducation(),
                     group.getGroupAdmin() == null ? null : group.getGroupAdmin().getName(),
                     group.getOwnerLogin(),
-                    group.getPrice()
+                    formatNumber(group.getPrice())
             });
         }
 
         table1.setModel(model);
         visualizationPanel.setGroups(groups);
+    }
+
+    private String formatNumber(Number number) {
+        if (number == null) {
+            return null;
+        }
+        NumberFormat numberFormat = NumberFormat.getNumberInstance(localizationManager.getLocale());
+        return numberFormat.format(number);
+    }
+
+    private String formatDateTime(ZonedDateTime dateTime) {
+        if (dateTime == null) {
+            return null;
+        }
+        DateTimeFormatter formatter = DateTimeFormatter
+                .ofLocalizedDateTime(FormatStyle.MEDIUM)
+                .withLocale(localizationManager.getLocale());
+        return formatter.format(dateTime);
     }
 
     private void applyLocalization() {
