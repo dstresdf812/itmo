@@ -23,7 +23,7 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
 public class MainWindow {
-    private JTabbedPane tabbedPane1;
+    private JTabbedPane tabbedPane;
     private JPanel panel;
     private JComboBox languageBox;
     private JComboBox chosenCommandBox;
@@ -51,18 +51,20 @@ public class MainWindow {
     private JLabel filterLabel;
     private JLabel sortLabel;
     private JLabel commandLabel;
+    private JScrollPane consoleContainer;
 
     private GuiHelper guiHelper;
     private String login;
     private String password;
     private JFrame frame;
     private List<StudyGroup> currentGroups = new ArrayList<>();
-    private final ExecutorService networkExecutor = Executors.newSingleThreadExecutor();
+    private final ExecutorService networkExecutor = Executors.newCachedThreadPool();
     private volatile boolean autoRefreshEnabled = true;
     private Thread autoRefreshThread;
 
     private VisualizationPanel visualizationPanel;
     private LocalizationManager localizationManager;
+    private ConsoleField consoleField;
     public MainWindow(GuiHelper guiHelper, String login, String password, LocalizationManager localizationManager) {
         this.guiHelper = guiHelper;
         this.login = login;
@@ -70,11 +72,19 @@ public class MainWindow {
         this.localizationManager = localizationManager;
         show();
         initActions();
+        frame.setMinimumSize(new Dimension(1444, 532));
         this.visualizationPanel = new VisualizationPanel(localizationManager);
         this.visualizationPanel.setOnEditGroup(this::openEditDialog);
         visualizationContainer.setLayout(new BorderLayout());
         visualizationContainer.add(visualizationPanel, BorderLayout.CENTER);
 
+        this.consoleField = new ConsoleField(guiHelper, login, password, networkExecutor);
+        consoleContainer.setViewportView(this.consoleField);
+        tabbedPane.addChangeListener(e -> {
+            if (tabbedPane.getSelectedComponent() == consoleContainer.getParent()) {
+                SwingUtilities.invokeLater(() -> consoleField.requestFocusInWindow());
+            }
+        });
         applyLocalization();
         autoRefreshThread = new Thread(() -> {
             while (autoRefreshEnabled) {
@@ -84,7 +94,7 @@ public class MainWindow {
                 List<StudyGroup> l = response.getStudyGroups();
                 SwingUtilities.invokeLater(() -> fillTable(l));
                 try {
-                    Thread.sleep(5000);
+                    Thread.sleep(30000);
                 } catch (InterruptedException e) {
                     Thread.currentThread().interrupt();
                     break;
@@ -387,8 +397,8 @@ public class MainWindow {
 
     private void applyLocalization() {
         frame.setTitle(localizationManager.get("window.main"));
-        tabbedPane1.setTitleAt(0, localizationManager.get("tab.main"));
-        tabbedPane1.setTitleAt(1, localizationManager.get("tab.visualization"));
+        tabbedPane.setTitleAt(0, localizationManager.get("tab.main"));
+        tabbedPane.setTitleAt(1, localizationManager.get("tab.visualization"));
 
         usernameField.setText(localizationManager.get("label.user") + " " + login);
 

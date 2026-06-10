@@ -10,12 +10,13 @@ import javax.swing.text.AbstractDocument;
 import javax.swing.text.AttributeSet;
 import javax.swing.text.BadLocationException;
 import javax.swing.text.DocumentFilter;
+import java.awt.*;
 import java.awt.event.*;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
 public class AddStudyGroup extends JDialog {
-    private JPanel contentPane;
+    private JPanel contentPane1;
     private JButton buttonOK;
     private JButton buttonCancel;
     private JTextField nameField;
@@ -64,10 +65,10 @@ public class AddStudyGroup extends JDialog {
         this.login = login;
         this.password = password;
         this.localizationManager = localizationManager;
-        setContentPane(contentPane);
+        setContentPane(contentPane1);
         setModal(true);
         getRootPane().setDefaultButton(buttonOK);
-
+        this.setMinimumSize(new Dimension(342, 600));
         initComponents();
         applyLocalization();
     }
@@ -160,7 +161,7 @@ public class AddStudyGroup extends JDialog {
         });
 
         // call onCancel() on ESCAPE
-        contentPane.registerKeyboardAction(new ActionListener() {
+        contentPane1.registerKeyboardAction(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 onCancel();
             }

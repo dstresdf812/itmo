@@ -20,6 +20,11 @@ public class Update extends Command {
     }
 
     public Response execute(Request request) throws SQLException {
+        try {
+            Thread.sleep(5000);
+        } catch (Exception e) {
+
+        }
         return studyGroupService.updateStudyGroup(request.getLogin(), request.getIntegerArgument(), request.getStudyGroup());
     }
 }

@@ -5,6 +5,7 @@ import com.dstresdf.common.commands.CommandType;
 import com.dstresdf.common.network.Response;
 
 import javax.swing.*;
+import java.awt.*;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.util.concurrent.ExecutorService;
@@ -19,7 +20,7 @@ public class AuthWindow {
     private JTextField loginTextField;
     private JButton registerButton;
     private JComboBox languageBox;
-    private JPanel Main;
+    private JPanel Main1;
     private JLabel loginLabel;
     private JLabel passwordLabel;
     private JLabel authLabel;
@@ -30,7 +31,8 @@ public class AuthWindow {
         this.guiHelper = guiHelper;
         this.localizationManager = localizationManager;
         frame = new JFrame("AuthWindow");
-        frame.setContentPane(Main);
+        frame.setMinimumSize(new Dimension(500,250));
+        frame.setContentPane(Main1);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.addWindowListener(new WindowAdapter() {
             @Override

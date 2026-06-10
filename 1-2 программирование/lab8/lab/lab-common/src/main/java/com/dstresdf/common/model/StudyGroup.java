@@ -66,6 +66,9 @@ public class StudyGroup implements Serializable {
     }
 
     public java.time.ZonedDateTime getCreationDate() {
+        if (this.creationDate == null) {
+            this.creationDate = java.time.ZonedDateTime.now();
+        }
         return creationDate;
     }
 

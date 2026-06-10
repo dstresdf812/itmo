@@ -67,24 +67,6 @@ public class Client {
                 continue;
             }
 
-            if (!isAuthorized) {
-                if (commandName.equals("login") || commandName.equals("register")) {
-                    Request request = buildRequest(command, argumentType, args);
-                    if (request == null) {
-                        continue;
-                    }
-                    Response response = clientManager.sendRequest(request);
-                    if (response.isSuccess()) {
-                        isAuthorized = true;
-                        login = request.getLogin();
-                        password = request.getPassword();
-                    }
-
-                    console.println(response.getMessage());
-                    continue;
-                }
-            }
-
             if (commandName.equals("execute_script")) {
                 if (args.length != 1) {
                     console.println("У команды execute_script должен быть один аргумент");
