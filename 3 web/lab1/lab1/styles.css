@@ -1,0 +1,49 @@
+body {
+    font-family: sans-serif;
+    color: #1bc013;
+}
+.header {
+    font-family: sans-serif;
+    color: #df8bff;
+    font-size: 20px;
+    margin-bottom: 30px;
+}
+
+form > input {
+    color : #2a6aff;
+}
+input {
+    margin: 5px;
+    padding: 4px;
+}
+input:hover {
+    outline: none;
+    color: #df8bff;
+}
+input:focus {
+    border: 1px solid #df8bff;
+}
+input[type="radio"]:checked {
+    transform: scale(1.7);
+}
+input[type="radio"]:checked:hover {
+    accent-color: blueviolet;
+}
+canvas {
+    border: 1px solid black;
+}
+
+.error_message {
+    color : #ff0000;
+    font-size: 22px;
+}
+
+.result-table {
+    border-collapse: collapse;
+}
+.result-table td {
+    text-align: center;
+    border: 1px solid black;
+    padding: 10px;
+    border-collapse: collapse;
+}

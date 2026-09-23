@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="styles.css">
+
+
+</head>
+<body>
+
+<div id="asd">ASD</div>
+<header class="header">
+    Недовба Дмитрий Андреевич P3109 12648
+</header>
+
+<table>
+    <tr>
+        <td>
+            <canvas id="canvas" width="500" height="500">
+                :(
+            </canvas>
+        </td>
+
+        <td>
+            <form id="inputXYZform">
+
+                X:
+                <input id="x_choice1" type="radio" name="x" value="-4"/>
+                <label for="x_choice1">-4</label>
+                <input id="x_choice2" type="radio" name="x" value="-3"/>
+                <label for="x_choice2">-3</label>
+                <input id="x_choice3" type="radio" name="x" value="-2"/>
+                <label for="x_choice3">-2</label>
+                <input id="x_choice4" type="radio" name="x" value="-1"/>
+                <label for="x_choice4">-1</label>
+                <input id="x_choice5" type="radio" name="x" value="0"/>
+                <label for="x_choice5">0</label>
+                <input id="x_choice6" type="radio" name="x" value="1"/>
+                <label for="x_choice6">1</label>
+                <input id="x_choice7" type="radio" name="x" value="2"/>
+                <label for="x_choice7">2</label>
+                <input id="x_choice8" type="radio" name="x" value="3"/>
+                <label for="x_choice8">3</label>
+                <input id="x_choice9" type="radio" name="x" value="4"/>
+                <label for="x_choice9">4</label>
+
+
+                <br>
+                <label for="y">Y:</label>
+                <input id="y" type="text" name="y"/>
+                <br>
+
+                R:
+                <input id="r_choice1" type="radio" name="r" value="1"/>
+                <label for="r_choice1">1</label>
+
+                <input id="r_choice2" type="radio" name="r" value="1.5"/>
+                <label for="r_choice2">1.5</label>
+
+                <input id="r_choice3" type="radio" name="r" value="2"/>
+                <label for="r_choice3">2</label>
+
+                <input id="r_choice4" type="radio" name="r" value="2.5"/>
+                <label for="r_choice4">2.5</label>
+
+                <input id="r_choice5" type="radio" name="r" value="3"/>
+                <label for="r_choice5">3</label>
+                <br>
+                <input type="submit" value="Ввод"/>
+                <div id="error_message" class="error_message"></div>
+            </form>
+
+        </td>
+
+    </tr>
+</table>
+<table id="result-table" class="result-table">
+    <tr>
+        <td>
+            <div id="table_x">X</div>
+        </td>
+        <td>
+            <div id="table_y">Y</div>
+        </td>
+        <td>
+            <div id="table_r">R</div>
+        </td>
+        <td>
+            <div id="table_hit">Результат</div>
+        </td>
+        <td>
+            <div id="table_time">Время :)</div>
+        </td>
+    </tr>
+</table>
+<script src="script.js"></script>
+<script src="canvas.js"></script>
+<script src="buttons1.js"></script>
+</body>
+
+
+</html>
