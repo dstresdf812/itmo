@@ -4,16 +4,16 @@ const R = 200;
 // ctx.fillRect(0, 0, canvas.width, canvas.height);
 ctx.beginPath();
 ctx.fillStyle = "#3588f6";
-ctx.moveTo(canvas.width/2-R/2,canvas.height/2);
+ctx.moveTo(canvas.width/2+R,canvas.height/2);
 ctx.lineTo(canvas.width/2,canvas.height/2+R);
 ctx.lineTo(canvas.width/2,canvas.height/2);
 
 ctx.moveTo(canvas.width/2,canvas.height/2);
-ctx.lineTo(canvas.width/2,canvas.height/2+R/2);
-ctx.lineTo(canvas.width/2+R,canvas.height/2+R/2);
-ctx.lineTo(canvas.width/2+R,canvas.height/2);
+ctx.lineTo(canvas.width/2,canvas.height/2-R/2);
+ctx.lineTo(canvas.width/2-R,canvas.height/2-R/2);
+ctx.lineTo(canvas.width/2-R,canvas.height/2);
 
-ctx.arc(canvas.width/2,canvas.height/2,R,0,-Math.PI/2,1);
+ctx.arc(canvas.width/2,canvas.height/2,R/2,Math.PI,Math.PI/2,1);
 ctx.fill();
 ctx.closePath();
 

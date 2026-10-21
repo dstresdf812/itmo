@@ -47,3 +47,10 @@ canvas {
     padding: 10px;
     border-collapse: collapse;
 }
+.result-table th {
+    font-weight: bold;
+    border: 1px solid black;
+    padding: 10px;
+    border-collapse: collapse;
+}
+
